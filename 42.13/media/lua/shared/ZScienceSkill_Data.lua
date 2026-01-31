@@ -2,23 +2,23 @@ ZScienceSkill = ZScienceSkill or {}
 
 -- Science literature items and their XP rewards
 ZScienceSkill.literature = {
-    ["Base.Book_Science"]         = 25,
-    ["Base.Paperback_Science"]    = 20,
-    ["Base.Magazine_Science"]     = 10,
-    ["Base.Magazine_Science_New"] = 10,
+    ["Base.Book_Science"]         = 35,
+    ["Base.Paperback_Science"]    = 30,
+    ["Base.Magazine_Science"]     = 15,
+    ["Base.Magazine_Science_New"] = 15,
 }
 
 local specimenXP = 30
-local insectXP = 8
-local berryXP = 5
-local mushroomXP = 10
+local insectXP = 10
+local berryXP = 10
+local mushroomXP = 15
 local gemXP = 30
-local crystalXP = 15
-local coinXP = 15
+local crystalXP = 20
+local coinXP = 10
 local herbXP = 10
-local plantXP = 6
+local plantXP = 10
 local seafoodXP = 10
-local smallCorpseXP = 12
+local smallCorpseXP = 15
 
 -- Specimen jars and biological items that can be researched
 ZScienceSkill.specimens = {
@@ -39,6 +39,7 @@ ZScienceSkill.specimens = {
     -- Animal brains & skulls
     ["Base.Animal_Brain"] = specimenXP * 1.5,
     ["Base.Animal_Brain_Small"] = specimenXP,
+    ["Base.AnimalSinew"] = specimenXP * 0.5,
     ["Base.Hominid_Skull"] = specimenXP,
     ["Base.Hominid_Skull_Fragment"] = specimenXP * 0.5,
     ["Base.Hominid_Skull_Partial"] = specimenXP * 0.75,
