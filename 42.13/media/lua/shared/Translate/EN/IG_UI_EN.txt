@@ -1,0 +1,15 @@
+IG_UI_EN = {
+    IGUI_perks_Science = "Science",
+    IGUI_perks_Science_Description = "Knowledge of scientific principles and experimental methods.",
+    IGUI_perks_Science_Description1 = "",
+    IGUI_perks_Science_Description2 = "",
+    IGUI_perks_Science_Description3 = "",
+    IGUI_perks_Science_Description4 = "",
+    IGUI_perks_Science_Description5 = "",
+    IGUI_perks_Science_Description6 = "",
+    IGUI_perks_Science_Description7 = "",
+    IGUI_perks_Science_Description8 = "",
+    IGUI_perks_Science_Description9 = "",
+    IGUI_perks_Science_Description10 = "",
+    Tooltip_BookTitle_Science = "Science",
+}

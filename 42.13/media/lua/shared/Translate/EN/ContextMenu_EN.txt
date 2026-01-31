@@ -1,0 +1,4 @@
+ContextMenu_EN = {
+    ContextMenu_ResearchSpecimen = "Research Specimen",
+    ContextMenu_ResearchAll = "Research All",
+}
