@@ -71,6 +71,42 @@ function ISResearchSpecimen:perform()
     self.character:getModData().researchedSpecimens = self.character:getModData().researchedSpecimens or {}
     self.character:getModData().researchedSpecimens[fullType] = true
     
+    -- Track plants for Herbalist unlock
+    if ZScienceSkill.herbalistPlants and ZScienceSkill.herbalistPlants[fullType] then
+        self.character:getModData().researchedPlants = self.character:getModData().researchedPlants or {}
+        
+        if not self.character:getModData().researchedPlants[fullType] then
+            self.character:getModData().researchedPlants[fullType] = true
+            
+            -- Count unique plants researched
+            local count = 0
+            for _ in pairs(self.character:getModData().researchedPlants) do
+                count = count + 1
+            end
+            
+            local required = ZScienceSkill.herbalistPlantsRequired or 10
+            
+            -- Check if player already has Herbalist
+            if not self.character:isRecipeActuallyKnown("Herbalist") then
+                if count >= required then
+                    -- Grant Herbalist recipe and trait
+                    self.character:learnRecipe("Herbalist")
+                    if not self.character:hasTrait(CharacterTrait.HERBALIST) then
+                        self.character:getCharacterTraits():add(CharacterTrait.HERBALIST)
+                    end
+                    self.character:playSound("GainExperienceLevel")
+                    HaloTextHelper.addTextWithArrow(self.character, getText("IGUI_HerbalistUnlocked"), true, HaloTextHelper.getColorGreen())
+                elseif count <= 3 then
+                    self.character:Say(getText("IGUI_HerbalistHint1"))
+                elseif count <= 5 then
+                    self.character:Say(getText("IGUI_HerbalistHint2"))
+                elseif count <= 9 then
+                    self.character:Say(getText("IGUI_HerbalistHint3"))
+                end
+            end
+        end
+    end
+    
     ISBaseTimedAction.perform(self)
 end
 

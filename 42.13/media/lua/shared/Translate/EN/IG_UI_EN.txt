@@ -12,4 +12,8 @@ IG_UI_EN = {
     IGUI_perks_Science_Description9 = "",
     IGUI_perks_Science_Description10 = "",
     Tooltip_BookTitle_Science = "Science",
+    IGUI_HerbalistUnlocked = "Herbalist knowledge acquired!",
+    IGUI_HerbalistHint1 = "Interesting... I should study more specimens like this.",
+    IGUI_HerbalistHint2 = "I'm starting to notice patterns in these plants...",
+    IGUI_HerbalistHint3 = "I feel like I'm close to understanding something important.",
 }
