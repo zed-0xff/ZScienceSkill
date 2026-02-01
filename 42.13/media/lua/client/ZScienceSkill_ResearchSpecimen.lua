@@ -145,8 +145,7 @@ local function addMenuOption(context, item, playerObj, disableReason, cb)
         option = context:addOption(getText("ContextMenu_ResearchSpecimen"), nil, nil)
         option.notAvailable = true
         local tooltip = ISToolTip:new()
-        tooltip:setName(getText("ContextMenu_ResearchSpecimen"))
-        tooltip.description = getText(disableReason)
+        tooltip:setName(getText(disableReason))
         option.toolTip = tooltip
     else
         option = context:addOption(getText("ContextMenu_ResearchSpecimen"), playerObj, cb, item)
@@ -181,7 +180,7 @@ local function onFillInventoryContextMenu(player, context, items)
             end
             
             local cb = function(pl, itm)
-                ISTimedActionQueue.add(ISResearchSpecimen:new(pl, itm))
+                    ISTimedActionQueue.add(ISResearchSpecimen:new(pl, itm))
             end
             
             addMenuOption(context, item, playerObj, disableReason, cb)
@@ -242,15 +241,13 @@ local function onFillWorldObjectContextMenu(player, context, worldobjects, test)
         option = context:addOption(getText("ContextMenu_ResearchAll"), nil, nil)
         option.notAvailable = true
         local tooltip = ISToolTip:new()
-        tooltip:setName(getText("ContextMenu_ResearchAll"))
-        tooltip.description = getText("Tooltip_NoSpecimens")
+        tooltip:setName(getText("Tooltip_NoSpecimens"))
         option.toolTip = tooltip
     elseif playerObj:tooDarkToRead() then
         option = context:addOption(getText("ContextMenu_ResearchAll"), nil, nil)
         option.notAvailable = true
         local tooltip = ISToolTip:new()
-        tooltip:setName(getText("ContextMenu_ResearchAll"))
-        tooltip.description = getText("ContextMenu_TooDark")
+        tooltip:setName(getText("ContextMenu_TooDark"))
         option.toolTip = tooltip
     else
         option = context:addOption(getText("ContextMenu_ResearchAll") .. " (" .. #specimens .. ")", playerObj, function(pl)
@@ -259,8 +256,7 @@ local function onFillWorldObjectContextMenu(player, context, worldobjects, test)
             end
         end)
         local tooltip = ISToolTip:new()
-        tooltip:setName(getText("ContextMenu_ResearchAll"))
-        tooltip.description = getText("Tooltip_ResearchAllDesc", #specimens)
+        tooltip:setName(getText("Tooltip_ResearchAllDesc", #specimens))
         option.toolTip = tooltip
     end
     

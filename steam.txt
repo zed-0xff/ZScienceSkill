@@ -1,0 +1,54 @@
+Are you tired of finding all these specimens, microscopes, and science magazines but having nothing useful to do with them? Same.
+
+Introducing the Science skill - finally a reason to hoard all that nerdy stuff!
+
+[h1]What does Science do?[/h1]
+
+[b]Research Specimens[/b]
+Found a jar with a brain in it? A dead rat? Some weird mushrooms? Now you can actually study them! Just find a microscope, plop your specimen nearby, and get that sweet, sweet Science XP.
+
+Pro tip: Pay extra attention to plants, berries, and mushrooms. Rumor has it that studying enough of them might unlock something... useful. 👀
+
+Look for the small gray "S" on item icons - that means you haven't read/researched it yet and it can give you Science XP!
+
+[b]Faster Learning[/b]
+Higher Science = faster skill book reading.
+- Up to 50% faster at Science 10
+- Also speeds up recipe research from items
+
+[b]XP Boost[/b]
+Science makes you smarter at everything (except punching zombies):
+- +2% bonus to all non-combat XP per Science level
+- That's +20% at max level.
+
+[b]Electrical Synergy[/b]
+- Gain Science XP when gaining Electrical XP (half amount)
+
+[h1]How to level Science?[/h1]
+- Read Science books and magazines (duh)
+- Read SciFi books (small amount - it's fiction, but it inspires curiosity!)
+- Read ANY skill book (tiny amount)
+- Research specimens at a microscope
+- Research recipes from items
+- Do electrical stuff
+
+[h1]Researchable Items[/h1]
+Pretty much anything that looks sciency:
+- Specimen jars (brain, insects, fetal animals, etc.)
+- Dead critters (rats, mice, birds, squirrels)
+- Insects, berries, mushrooms
+- Medicinal plants
+- Gems, crystals, minerals
+- Medical equipment (first time studying it)
+- And more!
+
+[h1]Requirements[/h1]
+- Game version 42.13+
+- No other mods required
+
+[h1]Compatibility[/h1]
+Should work with most mods. We hook into vanilla functions cleanly and call originals when possible.
+
+---
+
+Now go forth and science the apocalypse! 🔬🧪
