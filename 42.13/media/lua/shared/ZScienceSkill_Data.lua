@@ -23,6 +23,7 @@ local herbXP = 10
 local plantXP = 10
 local seafoodXP = 10
 local smallCorpseXP = 15
+local dungXP = 10
 
 -- Specimen jars and biological items that can be researched
 ZScienceSkill.specimens = {
@@ -150,6 +151,18 @@ ZScienceSkill.specimens = {
     -- Numismatics
     ["Base.GoldCoin"] = coinXP,
     ["Base.SilverCoin"] = coinXP,
+    
+    -- Animal dung (tracking/scat analysis)
+    ["Base.Dung_Turkey"] = dungXP,
+    ["Base.Dung_Chicken"] = dungXP,
+    ["Base.Dung_Cow"] = dungXP,
+    ["Base.Dung_Deer"] = dungXP,
+    ["Base.Dung_Mouse"] = dungXP,
+    ["Base.Dung_Pig"] = dungXP,
+    ["Base.Dung_Rabbit"] = dungXP,
+    ["Base.Dung_Raccoon"] = dungXP,
+    ["Base.Dung_Rat"] = dungXP,
+    ["Base.Dung_Sheep"] = dungXP,
 }
 
 -- Skill book XP by level (any skill book grants small Science XP)
@@ -202,3 +215,6 @@ ZScienceSkill.herbalistPlants = {
     ["Base.Violets"] = true,
 }
 ZScienceSkill.herbalistPlantsRequired = 10
+
+-- Scat analysis grants Tracking XP (items matching "Dung_" pattern)
+ZScienceSkill.trackingXP = 15

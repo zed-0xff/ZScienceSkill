@@ -1,9 +1,10 @@
 -- Draw icon overlays for science-related items:
--- Gray tick: unread science books / unresearched specimens (Science XP available)
--- Green tick: researched specimens
+-- Gray "R": unread science books / unresearched specimens (Science XP available)
+-- Green tick: researched specimens (optional)
 require "ZScienceSkill_Data"
+require "mods.ZScienceSkill.42.13.media.lua.client.ZScienceSkill_ModOptions"
 
-local grayTickTexture = getTexture("media/ui/S_Mark_Gray.png")
+local grayTickTexture = getTexture("media/ui/R_Mark_Gray.png")
 local greenTickTexture = getTexture("media/ui/Tick_Mark-10.png")
 
 local function isSpecimenResearched(player, fullType)
@@ -21,6 +22,11 @@ function ISInventoryPane:renderdetails(doDragged)
     local player = getSpecificPlayer(self.player)
     if not player then return end
 
+    local showOverlay = ZScienceSkillOptions.isOverlayEnabled()
+    local showCheckmark = ZScienceSkillOptions.isResearchedCheckmarkEnabled()
+    
+    if not showOverlay and not showCheckmark then return end
+
     local YSCROLL = self:getYScroll()
     local HEIGHT = self:getHeight()
 
@@ -31,16 +37,18 @@ function ISInventoryPane:renderdetails(doDragged)
             local fullType = item:getFullType()
             local texture = nil
             
-            -- Science literature: gray tick if unread
+            -- Science literature: gray "R" if unread
             if ZScienceSkill.literature[fullType] then
-                if not self:isLiteratureRead(player, item) then
+                if not self:isLiteratureRead(player, item) and showOverlay then
                     texture = grayTickTexture
                 end
-            -- Specimens: gray tick if unresearched, green tick if researched
+            -- Specimens: gray "R" if unresearched, green tick if researched
             elseif ZScienceSkill.specimens[fullType] then
                 if isSpecimenResearched(player, fullType) then
-                    texture = greenTickTexture
-                else
+                    if showCheckmark then
+                        texture = greenTickTexture
+                    end
+                elseif showOverlay then
                     texture = grayTickTexture
                 end
             end

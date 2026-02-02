@@ -9,7 +9,7 @@ Found a jar with a brain in it? A dead rat? Some weird mushrooms? Now you can ac
 
 Pro tip: Pay extra attention to plants, berries, and mushrooms. Rumor has it that studying enough of them might unlock something... useful. 👀
 
-Look for the small gray "S" on item icons - that means you haven't read/researched it yet and it can give you Science XP!
+Look for the small gray "R" on item icons - that means you haven't read/researched it yet and it can give you Science XP!
 
 [b]Faster Learning[/b]
 Higher Science = faster skill book reading.
@@ -23,6 +23,10 @@ Science makes you smarter at everything (except punching zombies):
 
 [b]Electrical Synergy[/b]
 - Gain Science XP when gaining Electrical XP (half amount)
+
+[b]Medical Knowledge[/b]
+- Bandages last longer (+5% per Science level)
+- Faster medical treatments (bandaging, disinfecting, splinting)
 
 [h1]How to level Science?[/h1]
 - Read Science books and magazines (duh)

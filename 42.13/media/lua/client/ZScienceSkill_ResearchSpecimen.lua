@@ -68,6 +68,12 @@ function ISResearchSpecimen:perform()
     self.character:getXp():AddXP(Perks.Science, xp)
     HaloTextHelper.addTextWithArrow(self.character, getText("IGUI_perks_Science") .. " +" .. xp, true, HaloTextHelper.getColorGreen())
     
+    -- Grant Tracking XP for scat analysis (dung items)
+    if fullType:find("Dung_") and ZScienceSkill.trackingXP then
+        self.character:getXp():AddXP(Perks.Tracking, ZScienceSkill.trackingXP)
+        HaloTextHelper.addTextWithArrow(self.character, getText("IGUI_perks_Tracking") .. " +" .. ZScienceSkill.trackingXP, true, HaloTextHelper.getColorGreen())
+    end
+    
     self.character:getModData().researchedSpecimens = self.character:getModData().researchedSpecimens or {}
     self.character:getModData().researchedSpecimens[fullType] = true
     

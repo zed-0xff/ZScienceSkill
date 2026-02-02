@@ -16,4 +16,13 @@ IG_UI_EN = {
     IGUI_HerbalistHint1 = "Interesting... I should study more specimens like this.",
     IGUI_HerbalistHint2 = "I'm starting to notice patterns in these plants...",
     IGUI_HerbalistHint3 = "I feel like I'm close to understanding something important.",
+    IGUI_Researchable = "Researchable",
+    IGUI_AlreadyResearched = "Already Researched",
+    -- Mod Options
+    IGUI_ZScienceSkill_ShowOverlay = "Show 'R' overlay on researchable items",
+    IGUI_ZScienceSkill_ShowOverlay_Tooltip = "Display a small 'R' icon on items that can be researched for Science XP.",
+    IGUI_ZScienceSkill_ShowResearchedCheckmark = "Show checkmark on researched items",
+    IGUI_ZScienceSkill_ShowResearchedCheckmark_Tooltip = "Display a green checkmark on items that have already been researched.",
+    IGUI_ZScienceSkill_ShowTooltip = "Show status in item tooltips",
+    IGUI_ZScienceSkill_ShowTooltip_Tooltip = "Display 'Researchable' or 'Already Researched' text above item tooltips.",
 }
