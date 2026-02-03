@@ -56,3 +56,5 @@ Should work with most mods. We hook into vanilla functions cleanly and call orig
 ---
 
 Now go forth and science the apocalypse! 🔬🧪
+
+[url=https://ko-fi.com/zed_0xff][img]https://i.imgur.com/Utx6OIH.png[/img][/url]

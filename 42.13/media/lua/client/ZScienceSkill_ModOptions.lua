@@ -2,7 +2,7 @@
 require "PZAPI/ModOptions"
 
 local MOD_ID = "ZScienceSkill"
-local MOD_NAME = "Science, Bitches!"
+local MOD_NAME = "Science, Bitch!"
 
 ZScienceSkillOptions = {}
 
