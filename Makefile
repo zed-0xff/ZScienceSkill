@@ -1,26 +1,20 @@
-.PHONY: setup test check clean help all test-ingame test-load
+.PHONY: setup spec check clean help all
 
 .DEFAULT_GOAL := all
-
-test-ingame:
-	@echo "🧪 Running in-game tests (requires game running on :4444)..."
-	./test_ingame_simple.sh
-
-test-load:
-	@echo "🔍 Validating all Lua files (syntax + runtime)..."
-	./test_load_all.sh
 
 help:
 	@echo "ZScienceSkill Development Tasks"
 	@echo "==============================="
 	@echo ""
-	@echo "  make              - Run ALL tests (requires game running)"
+	@echo "  make              - Show this help"
 	@echo "  make setup        - Install all dependencies"
-	@echo "  make test         - Run Busted unit tests"
-	@echo "  make test-ingame  - Run in-game tests (requires game + ZombieBuddy)"
-	@echo "  make test-load    - Validate all .lua files (syntax + runtime)"
+	@echo "  make spec         - Run Busted unit specs"
 	@echo "  make check        - Run static analysis (luacheck)"
-	@echo "  make clean        - Remove test artifacts"
+	@echo "  make clean        - Remove spec artifacts"
+	@echo ""
+	@echo "ZBSpec Framework (requires game running):"
+	@echo "  zbspec            - Run all specs via framework"
+	@echo "  zbspec <file>     - Run specific spec file"
 	@echo ""
 
 setup:
@@ -32,10 +26,10 @@ setup:
 	luarocks install luacheck
 	luarocks install luacov
 	@echo ""
-	@echo "✅ Setup complete! Run 'make test' to run tests."
+	@echo "✅ Setup complete! Run 'make spec' for unit specs or 'zbspec' for integration specs."
 
-test:
-	@echo "🧪 Running tests..."
+spec:
+	@echo "🧪 Running unit specs..."
 	busted --verbose
 
 check:
@@ -43,7 +37,7 @@ check:
 	luacheck 42.13/media/lua/
 
 coverage:
-	@echo "📊 Running tests with coverage..."
+	@echo "📊 Running specs with coverage..."
 	busted --coverage
 	@echo ""
 	@echo "📈 Generating coverage report..."
@@ -51,24 +45,24 @@ coverage:
 	@cat luacov.report.out | head -20
 
 clean:
-	@echo "🧹 Cleaning test artifacts..."
+	@echo "🧹 Cleaning spec artifacts..."
 	rm -f luacov.*.out
 	rm -f luacov.stats.out
 	rm -f luacov.report.out
 	@echo "✅ Clean complete!"
 
-all: check test test-load test-ingame
+all: check spec
 	@echo ""
 	@echo "=================================================="
-	@echo "✅ All tests passed!"
+	@echo "✅ Local specs passed!"
 	@echo "  - Static analysis (luacheck)"
-	@echo "  - Unit tests (busted)"
-	@echo "  - File validation (syntax + runtime)"
-	@echo "  - In-game integration tests"
+	@echo "  - Unit specs (busted)"
+	@echo ""
+	@echo "Run 'zbspec' for integration specs (requires game)"
 	@echo "=================================================="
 
 watch:
 	@echo "👀 Watching for changes..."
 	@echo "Note: Install 'entr' with 'brew install entr' for file watching"
 	@which entr > /dev/null || (echo "❌ 'entr' not found. Install with: brew install entr" && exit 1)
-	@find 42.13/media/lua tests -name '*.lua' | entr -c make test
+	@find 42.13/media/lua spec -name '*.lua' | entr -c make spec

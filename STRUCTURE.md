@@ -8,15 +8,15 @@ ZScienceSkill/
 │   ├── client/               # Client-side code (10 files)
 │   ├── server/               # Server-side code (2 files)
 │   └── shared/               # Shared code (1 file)
-├── common/                   # Game loads from here (currently empty)
-├── spec/                    # Test files (NOT loaded by game)
-│   ├── unit/                 # Busted unit tests
-│   └── ingame/               # In-game integration tests
+├── common/                   # Game loads from here (mod.info, assets)
+├── spec/                     # Spec files (NOT loaded by game)
+│   ├── unit/                 # Busted unit specs
+│   ├── ingame/               # In-game integration specs
+│   └── zbspec.yml            # ZBSpec framework configuration
 ├── tools/                    # Build/dev tools
 ├── .luacheckrc               # Linter configuration
-├── .busted                   # Test runner configuration
-├── Makefile                  # Build automation
-└── spec_*.sh                 # Test scripts
+├── .busted                   # Busted configuration
+└── Makefile                  # Build automation
 ```
 
 ## Production Files (13 files)
@@ -42,30 +42,41 @@ ZScienceSkill/
 ### Shared (1 file)
 - `ZScienceSkill_Data.lua`
 
-## Test Files (NOT loaded by game)
+## Spec Files (NOT loaded by game)
 
 **These are in `spec/` directory:**
 
-### Unit Tests (Busted)
+### Unit Specs (Busted)
 - `spec/unit/ZScienceSkill_Data_spec.lua`
 
-### In-Game Tests (ZombieBuddy API)
-- `spec/ingame/ZScienceSkillTests.lua`
-- `spec/ingame/ZScienceSkill_TestRunner.lua`
-- `spec/ingame/ZScienceSkill_TestLoader.lua`
+### In-Game Specs (ZombieBuddy API)
+- `spec/ingame/ZScienceSkillTests.lua` - F12-triggered in-game specs with timed actions
+- `spec/ingame/ZScienceSkill_BookXP_spec.lua` - Specific book XP testing
+
+### Framework (ZBSpec - Ruby)
+- `spec/zbspec.yml` - Configuration (YAML)
 
 ## Important Rules
 
 ✅ **Production code** goes in `42.13/media/lua/` or `common/`  
-✅ **Test code** goes in `spec/`  
+✅ **Spec code** goes in `spec/`  
 ✅ **Tools/scripts** stay at project root or in `tools/`
 
-❌ **Never put test files in game directories** - game will load them!  
+❌ **Never put spec files in game directories** - game will load them!  
 ❌ **Never put production code in `spec/`** - it won't load!
 
-## Validation
+## Running Specs
 
-Run `make test-load` to verify:
-- Only production files (13) are validated
-- No test files in game directories
-- All files have valid syntax
+```bash
+# Run unit specs with Busted
+make spec
+
+# Run all specs via ZBSpec framework (requires game running)
+zbspec
+
+# Run specific spec file
+zbspec spec/ingame/ZScienceSkill_BookXP_spec.lua
+
+# Static analysis
+make check
+```
