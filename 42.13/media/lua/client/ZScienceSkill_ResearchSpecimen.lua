@@ -284,7 +284,10 @@ local function findUnresearchedSpecimens(playerObj)
 end
 
 -- World object context menu hook (for microscope)
-local function onFillWorldObjectContextMenu(player, context, worldobjects, test)
+local function onFillWorldObjectContextMenu(player, context, worldobjects, _test)
+    -- Note: 'test' parameter is for controller prompts, but PZ automatically handles this
+    -- by checking if menu options were added. No need to check ISWorldObjectContextMenu.Test.
+    
     local playerObj = getSpecificPlayer(player)
     
     -- Find microscope in clicked objects

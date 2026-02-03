@@ -1,7 +1,7 @@
 -- Add "Researchable" / "Already Researched" text to item tooltips
 require "ISUI/ISToolTipInv"
 require "ZScienceSkill_Data"
-require "mods.ZScienceSkill.42.13.media.lua.client.ZScienceSkill_ModOptions"
+require "ZScienceSkill_ModOptions"
 
 local originalRender = ISToolTipInv.render
 

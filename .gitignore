@@ -4,3 +4,8 @@
 *.local
 *.log
 tmp
+
+# Testing
+.luacov
+luacov.*.out
+luacov.stats.out

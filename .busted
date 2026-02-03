@@ -1,0 +1,8 @@
+return {
+    default = {
+        verbose = true,
+        ROOT = {"tests/"},
+        pattern = "_spec%.lua$",
+        lpath = "42.13/media/lua/?.lua;42.13/media/lua/shared/?.lua",
+    }
+}
