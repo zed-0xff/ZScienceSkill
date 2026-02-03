@@ -1,156 +1,150 @@
--- Test for ZScienceSkill_Data.lua
--- Run with: busted tests/unit/ZScienceSkill_Data_spec.lua
+-- zbtest: Test for ZScienceSkill_Data.lua
+-- Validates data tables are correctly defined
 
-describe("ZScienceSkill.literature", function()
-    setup(function()
-        -- Add the mod's lua path to package.path
-        package.path = package.path .. ";42.13/media/lua/shared/?.lua"
-        
-        -- Load the data module (sets global ZScienceSkill)
-        require("ZScienceSkill_Data")
-    end)
-    
-    it("should be a table", function()
-        assert.is_table(ZScienceSkill.literature)
-    end)
-    
-    it("should define XP for science books", function()
-        assert.equals(35, ZScienceSkill.literature["Base.Book_Science"])
-        assert.equals(30, ZScienceSkill.literature["Base.Paperback_Science"])
-        assert.equals(15, ZScienceSkill.literature["Base.Magazine_Science"])
-    end)
-    
-    it("should give more XP for science books than sci-fi books", function()
-        local science_xp = ZScienceSkill.literature["Base.Book_Science"]
-        local scifi_xp = ZScienceSkill.literature["Base.Book_SciFi"]
-        
-        assert.is_true(science_xp > scifi_xp)
-    end)
-    
-    it("should contain only string keys", function()
-        for key, _ in pairs(ZScienceSkill.literature) do
-            assert.is_string(key)
-        end
-    end)
-    
-    it("should contain only positive number values", function()
-        for _, xp in pairs(ZScienceSkill.literature) do
-            assert.is_number(xp)
-            assert.is_true(xp > 0, "XP should be positive")
-        end
-    end)
-end)
+require "ZScienceSkill_Data"
 
-describe("ZScienceSkill.specimens", function()
-    setup(function()
-        package.path = package.path .. ";42.13/media/lua/shared/?.lua"
-        require("ZScienceSkill_Data")
-    end)
+local errors = {}
+
+-- Helper to add error
+local function fail(msg)
+    table.insert(errors, msg)
+end
+
+-- Test: ZScienceSkill.literature
+if type(ZScienceSkill.literature) ~= "table" then
+    fail("ZScienceSkill.literature is not a table")
+else
+    -- Check science book XP values
+    if ZScienceSkill.literature["Base.Book_Science"] ~= 35 then
+        fail("Base.Book_Science XP should be 35")
+    end
+    if ZScienceSkill.literature["Base.Paperback_Science"] ~= 30 then
+        fail("Base.Paperback_Science XP should be 30")
+    end
+    if ZScienceSkill.literature["Base.Magazine_Science"] ~= 15 then
+        fail("Base.Magazine_Science XP should be 15")
+    end
     
-    it("should be a table", function()
-        assert.is_table(ZScienceSkill.specimens)
-    end)
+    -- SciFi should give less XP than science books
+    local scienceXP = ZScienceSkill.literature["Base.Book_Science"] or 0
+    local scifiXP = ZScienceSkill.literature["Base.Book_SciFi"] or 0
+    if scifiXP >= scienceXP then
+        fail(string.format("SciFi XP (%d) should be less than Science XP (%d)", scifiXP, scienceXP))
+    end
     
-    it("should contain items with 'Base.' prefix", function()
-        for itemType, _ in pairs(ZScienceSkill.specimens) do
-            assert.matches("^Base%.", itemType, 
-                "Item '" .. itemType .. "' should start with 'Base.'")
+    -- All values should be positive numbers
+    for key, xp in pairs(ZScienceSkill.literature) do
+        if type(key) ~= "string" then
+            fail("literature key should be string: " .. tostring(key))
         end
-    end)
-    
-    it("should have positive XP values for all specimens", function()
-        for itemType, xp in pairs(ZScienceSkill.specimens) do
-            assert.is_number(xp, "XP for " .. itemType .. " should be a number")
-            assert.is_true(xp > 0, "XP for " .. itemType .. " should be positive")
+        if type(xp) ~= "number" or xp <= 0 then
+            fail(string.format("literature[%s] should be positive number, got %s", key, tostring(xp)))
         end
-    end)
-    
-    it("should grant double XP for brain specimens", function()
-        assert.equals(60, ZScienceSkill.specimens["Base.Specimen_Brain"])
-    end)
-    
-    it("should grant special XP for rare items", function()
-        assert.equals(200, ZScienceSkill.specimens["Base.LargeMeteorite"])
-    end)
-    
-    it("should have at least 50 researchable specimens", function()
-        local count = 0
-        for _ in pairs(ZScienceSkill.specimens) do
-            count = count + 1
+    end
+end
+
+-- Test: ZScienceSkill.specimens
+if type(ZScienceSkill.specimens) ~= "table" then
+    fail("ZScienceSkill.specimens is not a table")
+else
+    local count = 0
+    for itemType, xp in pairs(ZScienceSkill.specimens) do
+        count = count + 1
+        
+        -- Should start with "Base."
+        if not string.match(itemType, "^Base%.") then
+            fail("Specimen item should start with 'Base.': " .. itemType)
         end
         
-        assert.is_true(count >= 50, 
-            "Expected at least 50 specimens, found " .. count)
-    end)
-end)
-
-describe("ZScienceSkill.skillBookXP", function()
-    setup(function()
-        package.path = package.path .. ";42.13/media/lua/shared/?.lua"
-        require("ZScienceSkill_Data")
-    end)
-    
-    it("should define XP for each skill book level", function()
-        assert.equals(10, ZScienceSkill.skillBookXP[1])
-        assert.equals(20, ZScienceSkill.skillBookXP[3])
-        assert.equals(30, ZScienceSkill.skillBookXP[5])
-        assert.equals(40, ZScienceSkill.skillBookXP[7])
-        assert.equals(50, ZScienceSkill.skillBookXP[9])
-    end)
-    
-    it("should increase XP for higher level books", function()
-        assert.is_true(ZScienceSkill.skillBookXP[1] < ZScienceSkill.skillBookXP[3])
-        assert.is_true(ZScienceSkill.skillBookXP[3] < ZScienceSkill.skillBookXP[5])
-        assert.is_true(ZScienceSkill.skillBookXP[5] < ZScienceSkill.skillBookXP[7])
-        assert.is_true(ZScienceSkill.skillBookXP[7] < ZScienceSkill.skillBookXP[9])
-    end)
-end)
-
-describe("ZScienceSkill.herbalistPlants", function()
-    setup(function()
-        package.path = package.path .. ";42.13/media/lua/shared/?.lua"
-        require("ZScienceSkill_Data")
-    end)
-    
-    it("should contain at least 10 plants for herbalist unlock", function()
-        local count = 0
-        for _ in pairs(ZScienceSkill.herbalistPlants) do
-            count = count + 1
+        -- XP should be positive
+        if type(xp) ~= "number" or xp <= 0 then
+            fail(string.format("specimens[%s] should be positive number", itemType))
         end
-        
-        assert.is_true(count >= ZScienceSkill.herbalistPlantsRequired,
-            string.format("Expected at least %d plants, found %d", 
-                ZScienceSkill.herbalistPlantsRequired, count))
-    end)
+    end
     
-    it("should have true value for all herbalist plants", function()
-        for plant, value in pairs(ZScienceSkill.herbalistPlants) do
-            assert.is_true(value, plant .. " should be marked as true")
-        end
-    end)
-end)
+    -- Brain specimen should be 60 XP (double base)
+    if ZScienceSkill.specimens["Base.Specimen_Brain"] ~= 60 then
+        fail("Base.Specimen_Brain should be 60 XP")
+    end
+    
+    -- Meteorite should be 200 XP (rare)
+    if ZScienceSkill.specimens["Base.LargeMeteorite"] ~= 200 then
+        fail("Base.LargeMeteorite should be 200 XP")
+    end
+    
+    -- Should have at least 50 specimens
+    if count < 50 then
+        fail(string.format("Expected at least 50 specimens, found %d", count))
+    end
+end
 
-describe("ZScienceSkill.fluids", function()
-    setup(function()
-        package.path = package.path .. ";42.13/media/lua/shared/?.lua"
-        require("ZScienceSkill_Data")
-    end)
-    
-    it("should define researchable fluids", function()
-        assert.is_table(ZScienceSkill.fluids)
-        assert.is_table(ZScienceSkill.fluids["Acid"])
-        assert.is_table(ZScienceSkill.fluids["Blood"])
-    end)
-    
-    it("should grant Science XP for all fluids", function()
-        for fluidName, perks in pairs(ZScienceSkill.fluids) do
-            assert.is_number(perks.Science, 
-                "Fluid '" .. fluidName .. "' should grant Science XP")
-            assert.is_true(perks.Science > 0)
+-- Test: ZScienceSkill.skillBookXP
+if type(ZScienceSkill.skillBookXP) ~= "table" then
+    fail("ZScienceSkill.skillBookXP is not a table")
+else
+    local expected = { [1] = 10, [3] = 20, [5] = 30, [7] = 40, [9] = 50 }
+    for level, xp in pairs(expected) do
+        if ZScienceSkill.skillBookXP[level] ~= xp then
+            fail(string.format("skillBookXP[%d] should be %d", level, xp))
         end
-    end)
+    end
     
-    it("should grant bonus XP for special fluids", function()
-        assert.equals(200, ZScienceSkill.fluids["SecretFlavoring"].Science)
-    end)
-end)
+    -- Should increase with level
+    if not (ZScienceSkill.skillBookXP[1] < ZScienceSkill.skillBookXP[3] and
+            ZScienceSkill.skillBookXP[3] < ZScienceSkill.skillBookXP[5] and
+            ZScienceSkill.skillBookXP[5] < ZScienceSkill.skillBookXP[7] and
+            ZScienceSkill.skillBookXP[7] < ZScienceSkill.skillBookXP[9]) then
+        fail("skillBookXP should increase with level")
+    end
+end
+
+-- Test: ZScienceSkill.herbalistPlants
+if type(ZScienceSkill.herbalistPlants) ~= "table" then
+    fail("ZScienceSkill.herbalistPlants is not a table")
+else
+    local count = 0
+    for plant, value in pairs(ZScienceSkill.herbalistPlants) do
+        count = count + 1
+        if value ~= true then
+            fail(string.format("herbalistPlants[%s] should be true", plant))
+        end
+    end
+    
+    local required = ZScienceSkill.herbalistPlantsRequired or 10
+    if count < required then
+        fail(string.format("Expected at least %d herbalist plants, found %d", required, count))
+    end
+end
+
+-- Test: ZScienceSkill.fluids
+if type(ZScienceSkill.fluids) ~= "table" then
+    fail("ZScienceSkill.fluids is not a table")
+else
+    -- Should have Acid and Blood
+    if type(ZScienceSkill.fluids["Acid"]) ~= "table" then
+        fail("fluids['Acid'] should be a table")
+    end
+    if type(ZScienceSkill.fluids["Blood"]) ~= "table" then
+        fail("fluids['Blood'] should be a table")
+    end
+    
+    -- All fluids should grant Science XP
+    for fluidName, perks in pairs(ZScienceSkill.fluids) do
+        if type(perks.Science) ~= "number" or perks.Science <= 0 then
+            fail(string.format("fluids[%s].Science should be positive number", fluidName))
+        end
+    end
+    
+    -- SecretFlavoring should be 200 XP
+    if ZScienceSkill.fluids["SecretFlavoring"] and 
+       ZScienceSkill.fluids["SecretFlavoring"].Science ~= 200 then
+        fail("SecretFlavoring Science XP should be 200")
+    end
+end
+
+-- Return result
+if #errors > 0 then
+    return table.concat(errors, "\n")
+end
+
+return true
