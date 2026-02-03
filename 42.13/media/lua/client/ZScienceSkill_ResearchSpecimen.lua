@@ -28,14 +28,6 @@ local function findNearbyMicroscope(character)
     return nil
 end
 
--- Get fluid type string from item if it has a fluid container
-local function getFluidType(item)
-    local fc = item:getFluidContainer()
-    if fc and fc:getPrimaryFluid() then
-        return fc:getPrimaryFluid():getFluidTypeString()
-    end
-    return nil
-end
 
 function ISResearchSpecimen:isValid()
     if not self.character:getInventory():contains(self.item) then
@@ -72,7 +64,7 @@ function ISResearchSpecimen:perform()
     self.item:setJobDelta(0.0)
     
     local fullType = self.item:getFullType()
-    local fluidType = getFluidType(self.item)
+    local fluidType = ZScienceSkill.getFluidType(self.item)
     local researchKey = fullType
     local isFluid = false
     
@@ -176,7 +168,7 @@ function ISResearchSpecimen.isResearched(character, item)
     if modData[item:getFullType()] then return true end
     
     -- Check fluid type
-    local fluidType = getFluidType(item)
+    local fluidType = ZScienceSkill.getFluidType(item)
     if fluidType and modData["Fluid:" .. fluidType] then return true end
     
     return false
@@ -187,7 +179,7 @@ function ISResearchSpecimen.isSpecimen(item)
     if ZScienceSkill.specimens[item:getFullType()] then return true end
     
     -- Check fluid type
-    local fluidType = getFluidType(item)
+    local fluidType = ZScienceSkill.getFluidType(item)
     if fluidType and ZScienceSkill.fluids and ZScienceSkill.fluids[fluidType] then return true end
     
     return false
@@ -271,7 +263,7 @@ local function findUnresearchedSpecimens(playerObj)
             end
         else
             -- Check fluid specimens
-            local fluidType = getFluidType(item)
+            local fluidType = ZScienceSkill.getFluidType(item)
             if fluidType and ZScienceSkill.fluids and ZScienceSkill.fluids[fluidType] then
                 if not (modData and modData["Fluid:" .. fluidType]) then
                     table.insert(specimens, item)

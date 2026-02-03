@@ -12,13 +12,6 @@ local function isSpecimenResearched(player, fullType)
     return modData and modData[fullType]
 end
 
-local function getFluidType(item)
-    local fc = item:getFluidContainer()
-    if fc and fc:getPrimaryFluid() then
-        return fc:getPrimaryFluid():getFluidTypeString()
-    end
-    return nil
-end
 
 local function isFluidResearched(player, fluidType)
     local modData = player:getModData().researchedSpecimens
@@ -66,7 +59,7 @@ function ISInventoryPane:renderdetails(doDragged)
                 end
             else
                 -- Fluids: check if container has researchable fluid
-                local fluidType = getFluidType(item)
+                local fluidType = ZScienceSkill.getFluidType(item)
                 if fluidType and ZScienceSkill.fluids and ZScienceSkill.fluids[fluidType] then
                     if isFluidResearched(player, fluidType) then
                         if showCheckmark then
