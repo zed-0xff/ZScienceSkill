@@ -24,6 +24,7 @@ local plantXP = 10
 local seafoodXP = 10
 local smallCorpseXP = 15
 local dungXP = 10
+local pillXP = 15
 
 -- Specimen jars and biological items that can be researched
 ZScienceSkill.specimens = {
@@ -163,6 +164,13 @@ ZScienceSkill.specimens = {
     ["Base.Dung_Raccoon"] = dungXP,
     ["Base.Dung_Rat"] = dungXP,
     ["Base.Dung_Sheep"] = dungXP,
+    
+    -- Pills (pharmacology)
+    ["Base.Pills"] = pillXP,
+    ["Base.PillsAntiDep"] = pillXP,
+    ["Base.PillsBeta"] = pillXP,
+    ["Base.PillsSleepingTablets"] = pillXP,
+    ["Base.PillsVitamins"] = pillXP,
 }
 
 -- Skill book XP by level (any skill book grants small Science XP)
@@ -218,3 +226,6 @@ ZScienceSkill.herbalistPlantsRequired = 10
 
 -- Scat analysis grants Tracking XP (items matching "Dung_" pattern)
 ZScienceSkill.trackingXP = 15
+
+-- Pharmacology grants Doctor XP (items matching "Pills" pattern)
+ZScienceSkill.medicalXP = 20

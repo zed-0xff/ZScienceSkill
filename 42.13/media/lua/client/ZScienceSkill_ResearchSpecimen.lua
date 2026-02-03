@@ -74,6 +74,12 @@ function ISResearchSpecimen:perform()
         HaloTextHelper.addTextWithArrow(self.character, getText("IGUI_perks_Tracking") .. " +" .. ZScienceSkill.trackingXP, true, HaloTextHelper.getColorGreen())
     end
     
+    -- Grant Doctor XP for pharmacology (pills)
+    if fullType:find("Pills") and ZScienceSkill.medicalXP then
+        self.character:getXp():AddXP(Perks.Doctor, ZScienceSkill.medicalXP)
+        HaloTextHelper.addTextWithArrow(self.character, getText("IGUI_perks_Doctor") .. " +" .. ZScienceSkill.medicalXP, true, HaloTextHelper.getColorGreen())
+    end
+    
     self.character:getModData().researchedSpecimens = self.character:getModData().researchedSpecimens or {}
     self.character:getModData().researchedSpecimens[fullType] = true
     
