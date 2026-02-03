@@ -1,5 +1,5 @@
 #!/bin/bash
-# Test runner for ZScienceSkill via game API server
+# Spec runner for ZScienceSkill via game API server
 # Requires:
 #   - ZombieBuddy mod installed
 #   - lua_server_port option enabled
@@ -22,8 +22,8 @@ exec_lua() {
     curl -s -X POST "$API_URL" -d "$1"
 }
 
-# Test 1: Verify mod is loaded
-echo -n "Test 1: Mod data loaded... "
+# Spec 1: Verify mod is loaded
+echo -n "Spec 1: Mod data loaded... "
 result=$(exec_lua "return ZScienceSkill and ZScienceSkill.literature ~= nil")
 if [[ "$result" == "true" ]]; then
     echo -e "${GREEN}✓ PASS${NC}"
@@ -32,8 +32,8 @@ else
     echo "  Expected: true, Got: $result"
 fi
 
-# Test 2: Science book XP value
-echo -n "Test 2: Science book XP = 35... "
+# Spec 2: Science book XP value
+echo -n "Spec 2: Science book XP = 35... "
 result=$(exec_lua "return ZScienceSkill.literature['Base.Book_Science']")
 if [[ "$result" == "35" ]]; then
     echo -e "${GREEN}✓ PASS${NC}"
@@ -42,8 +42,8 @@ else
     echo "  Expected: 35, Got: $result"
 fi
 
-# Test 3: Brain specimen XP = 60 (double base)
-echo -n "Test 3: Brain specimen XP = 60... "
+# Spec 3: Brain specimen XP = 60 (double base)
+echo -n "Spec 3: Brain specimen XP = 60... "
 result=$(exec_lua "return ZScienceSkill.specimens['Base.Specimen_Brain']")
 if [[ "$result" == "60" ]]; then
     echo -e "${GREEN}✓ PASS${NC}"
@@ -52,8 +52,8 @@ else
     echo "  Expected: 60, Got: $result"
 fi
 
-# Test 4: Count herbalist plants
-echo -n "Test 4: Herbalist plants >= 10... "
+# Spec 4: Count herbalist plants
+echo -n "Spec 4: Herbalist plants >= 10... "
 result=$(exec_lua "local count = 0; for _ in pairs(ZScienceSkill.herbalistPlants) do count = count + 1 end; return count")
 if [[ "$result" -ge 10 ]]; then
     echo -e "${GREEN}✓ PASS${NC} ($result plants)"
@@ -62,8 +62,8 @@ else
     echo "  Expected: >= 10, Got: $result"
 fi
 
-# Test 5: Verify all specimens have positive XP
-echo -n "Test 5: All specimens have XP > 0... "
+# Spec 5: Verify all specimens have positive XP
+echo -n "Spec 5: All specimens have XP > 0... "
 result=$(exec_lua "
     for item, xp in pairs(ZScienceSkill.specimens) do
         if type(xp) ~= 'number' or xp <= 0 then
@@ -78,8 +78,8 @@ else
     echo -e "${RED}✗ FAIL${NC}"
 fi
 
-# Test 6: Check player can access mod data
-echo -n "Test 6: Player can access mod... "
+# Spec 6: Check player can access mod data
+echo -n "Spec 6: Player can access mod... "
 result=$(exec_lua "
     local player = getPlayer()
     if not player then return 'no_player' end
@@ -93,8 +93,8 @@ else
     echo -e "${RED}✗ FAIL${NC}"
 fi
 
-# Test 7: ISResearchSpecimen class exists
-echo -n "Test 7: Research action class loaded... "
+# Spec 7: ISResearchSpecimen class exists
+echo -n "Spec 7: Research action class loaded... "
 result=$(exec_lua "return ISResearchSpecimen ~= nil")
 if [[ "$result" == "true" ]]; then
     echo -e "${GREEN}✓ PASS${NC}"
@@ -102,8 +102,8 @@ else
     echo -e "${RED}✗ FAIL${NC}"
 fi
 
-# Test 8: Fluid research data
-echo -n "Test 8: SecretFlavoring XP = 200... "
+# Spec 8: Fluid research data
+echo -n "Spec 8: SecretFlavoring XP = 200... "
 result=$(exec_lua "return ZScienceSkill.fluids['SecretFlavoring'] and ZScienceSkill.fluids['SecretFlavoring'].Science")
 if [[ "$result" == "200" ]]; then
     echo -e "${GREEN}✓ PASS${NC}"
@@ -114,4 +114,4 @@ fi
 
 echo
 echo "======================================"
-echo "Tests completed!"
+echo "Specs completed!"

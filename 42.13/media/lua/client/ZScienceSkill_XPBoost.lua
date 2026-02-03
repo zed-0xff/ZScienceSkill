@@ -10,6 +10,9 @@ local function isCombatPerk(perk)
 end
 
 local function onAddXP(character, perk, amount)
+    -- Only process for local player in MP
+    if not character:isLocalPlayer() then return end
+    
     -- Skip combat perks, Science itself, and negative XP
     if isCombatPerk(perk) or perk == Perks.Science or amount <= 0 then
         return

@@ -1,6 +1,6 @@
-# In-Game Testing for ZScienceSkill
+# In-Game Specs for ZScienceSkill
 
-Tests that run inside the actual game with real PZ API.
+Specs that run inside the actual game with real PZ API.
 
 ## Quick Start
 
@@ -8,25 +8,25 @@ Tests that run inside the actual game with real PZ API.
 
 1. Launch PZ in debug mode
 2. Load your save
-3. Press **F12** to run all tests
+3. Press **F12** to run all specs
 4. Check console output for results
 
 ### Option 2: Console Command
 
 ```lua
 -- In debug console
-require "tests/ingame/ZScienceSkillTests"
+require "spec/ingame/ZScienceSkillTests"
 ZScienceSkillTests.runAll()
 
--- Or run individual test
+-- Or run individual spec
 ZScienceSkillTests.runOne("research_brain_specimen")
 ```
 
 ### Option 3: Integrate with PZ Debug Menu
 
-The tests follow PZ's test framework pattern and can be integrated into the official debug menu (F11 -> Unit Tests) by creating a UI panel.
+The specs follow PZ's test framework pattern and can be integrated into the official debug menu (F11 -> Unit Tests) by creating a UI panel.
 
-## Available Tests
+## Available Specs
 
 ### `research_brain_specimen`
 - Creates a brain specimen and microscope
@@ -52,8 +52,8 @@ The tests follow PZ's test framework pattern and can be integrated into the offi
 ## How It Works
 
 ```lua
--- Test structure (based on PZ's pattern)
-Tests.my_test = {
+-- Spec structure (based on PZ's pattern)
+Specs.my_spec = {
     run = function(self)
         -- Setup: Create items, set state
         local item = newInventoryItem("Base.Item")
@@ -77,22 +77,22 @@ Tests.my_test = {
 ## Console Output Example
 
 ```
-[ZScienceSkill Tests] Loaded! Press F12 to run tests in-game.
-[ZScienceSkill Tests] Running all tests...
-[ZScienceSkill Tests] Running: research_brain_specimen
-[ZScienceSkill Tests] ✓ research_brain_specimen: Gained 60 Science XP
-[ZScienceSkill Tests] Running: research_science_book
-[ZScienceSkill Tests] ✓ research_science_book: Science book XP value correct: 35
-[ZScienceSkill Tests] All tests completed!
+[ZScienceSkill Specs] Loaded! Press F12 to run specs in-game.
+[ZScienceSkill Specs] Running all specs...
+[ZScienceSkill Specs] Running: research_brain_specimen
+[ZScienceSkill Specs] ✓ research_brain_specimen: Gained 60 Science XP
+[ZScienceSkill Specs] Running: research_science_book
+[ZScienceSkill Specs] ✓ research_science_book: Science book XP value correct: 35
+[ZScienceSkill Specs] All specs completed!
 ```
 
-## Adding New Tests
+## Adding New Specs
 
 ```lua
--- In ZScienceSkillTests.lua, add to Tests table:
-Tests.my_new_test = {
+-- In ZScienceSkillTests.lua, add to Specs table:
+Specs.my_new_spec = {
     run = function(self)
-        -- Your test setup
+        -- Your spec setup
         local player = getPlayer()
         local item = newInventoryItem("Base.YourItem")
         
@@ -104,9 +104,9 @@ Tests.my_new_test = {
     verify = function(self)
         -- Check results
         if self.item:getModData().something then
-            return true, "Test passed!"
+            return true, "Spec passed!"
         end
-        return false, "Test failed!"
+        return false, "Spec failed!"
     end
 }
 ```
@@ -128,7 +128,7 @@ Tests.my_new_test = {
 - ❌ Must mock PZ API
 - ❌ Can't test actual gameplay
 
-**In-Game Tests**
+**In-Game Specs**
 - ✅ Real PZ API (no mocks!)
 - ✅ Test actual gameplay flow
 - ✅ Visual verification
@@ -139,7 +139,7 @@ Tests.my_new_test = {
 ## Best Practice
 
 Use **both**:
-1. **Busted** for unit tests (data structures, pure logic)
-2. **In-game** for integration tests (timed actions, gameplay)
+1. **Busted** for unit specs (data structures, pure logic)
+2. **In-game** for integration specs (timed actions, gameplay)
 
-Run Busted tests before committing, run in-game tests for manual QA.
+Run Busted specs before committing, run in-game specs for manual QA.

@@ -23,8 +23,8 @@ declare -a failed_files
 while IFS= read -r -d '' file; do
     rel_path="${file#./}"
     
-    # Skip test files
-    if [[ "$rel_path" == tests/* ]] || \
+    # Skip spec files
+    if [[ "$rel_path" == spec/* ]] || \
        [[ "$rel_path" == *Test*.lua ]] || \
        [[ "$rel_path" == *_spec.lua ]]; then
         continue

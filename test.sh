@@ -1,9 +1,9 @@
 #!/bin/bash
-# Simple test runner for ZScienceSkill mod
+# Simple spec runner for ZScienceSkill mod
 
 set -e
 
-echo "🧪 Running ZScienceSkill Tests..."
+echo "🧪 Running ZScienceSkill Specs..."
 echo "================================="
 
 # Check if busted is installed
@@ -15,13 +15,13 @@ if ! command -v busted &> /dev/null; then
     echo ""
     echo "Or install manually:"
     echo "  brew bundle              # Install Lua/LuaRocks"
-    echo "  luarocks install busted  # Install testing framework"
+    echo "  luarocks install busted  # Install spec framework"
     echo ""
     exit 1
 fi
 
-# Run tests
+# Run specs
 busted --verbose
 
 echo ""
-echo "✅ All tests passed!"
+echo "✅ All specs passed!"

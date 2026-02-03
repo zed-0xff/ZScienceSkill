@@ -1,6 +1,6 @@
 #!/bin/bash
-# Run in-game tests via ZombieBuddy API (Simplified version)
-# Tests execute AFTER all game code is loaded
+# Run in-game specs via ZombieBuddy API (Simplified version)
+# Specs execute AFTER all game code is loaded
 
 API_URL="http://127.0.0.1:4444/lua?depth=5"
 
@@ -10,11 +10,11 @@ RED='\033[0;31m'
 CYAN='\033[0;36m'
 NC='\033[0m'
 
-echo -e "${CYAN}🧪 Running In-Game Tests${NC}"
+echo -e "${CYAN}🧪 Running In-Game Specs${NC}"
 echo "======================================"
 echo
 
-# Test 1: Mod namespace
+# Spec 1: Mod namespace
 result=$(curl -s -X POST "$API_URL" -d 'return ZScienceSkill ~= nil and type(ZScienceSkill) == "table"')
 if [ "$result" = "true" ]; then
     echo -e "${GREEN}✓${NC} Mod namespace exists"
@@ -22,7 +22,7 @@ else
     echo -e "${RED}✗${NC} Mod namespace exists"
 fi
 
-# Test 2: Literature data
+# Spec 2: Literature data
 result=$(curl -s -X POST "$API_URL" -d 'return ZScienceSkill.literature ~= nil and ZScienceSkill.literature["Base.Book_Science"] == 35')
 if [ "$result" = "true" ]; then
     echo -e "${GREEN}✓${NC} Literature data correct"
