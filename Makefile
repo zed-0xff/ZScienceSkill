@@ -2,15 +2,20 @@
 
 .DEFAULT_GOAL := all
 
+test-api:
+	@echo "🧪 Running API tests (requires game running on :4444)..."
+	./test_api.sh
+
 help:
 	@echo "ZScienceSkill Development Tasks"
 	@echo "==============================="
 	@echo ""
-	@echo "  make setup    - Install all dependencies"
-	@echo "  make test     - Run all tests"
-	@echo "  make check    - Run static analysis (luacheck)"
-	@echo "  make clean    - Remove test artifacts"
-	@echo "  make all      - Run check + test"
+	@echo "  make setup      - Install all dependencies"
+	@echo "  make test       - Run Busted unit tests"
+	@echo "  make test-api   - Run API tests (game must be running)"
+	@echo "  make check      - Run static analysis (luacheck)"
+	@echo "  make clean      - Remove test artifacts"
+	@echo "  make all        - Run check + test"
 	@echo ""
 
 setup:

@@ -11,7 +11,16 @@ make test
 
 # 3. Run static analysis
 make check
+
+# 4. Run API tests (requires ZombieBuddy mod + game running)
+make test-api
 ```
+
+## Test Layers
+
+1. **Static Analysis** (`luacheck`) - Instant feedback, catches typos/undefined vars
+2. **Unit Tests** (Busted) - Fast, tests data structures and logic
+3. **API Tests** (ZombieBuddy) - Live game testing, validates runtime behavior
 
 ## Manual Setup
 
@@ -57,12 +66,44 @@ make check
 # Run both
 make all
 
+# Run API tests (requires ZombieBuddy mod)
+make test-api
+
 # Generate coverage report
 make coverage
 
 # Watch files and auto-run tests on changes
 make watch  # requires 'entr'
 ```
+
+### API Tests (ZombieBuddy)
+
+Test against a live running game:
+
+```bash
+# Prerequisites:
+# 1. Install ZombieBuddy mod from Steam Workshop
+#    https://steamcommunity.com/sharedfiles/filedetails/?id=2927077591
+# 2. Enable "lua_server_port" in ZombieBuddy settings
+# 3. Start the game (API server runs on port 4444)
+
+# Run API tests
+make test-api
+
+# Or run the script directly
+./test_api.sh
+
+# Test manually with curl
+curl -s -X POST 'http://127.0.0.1:4444/lua?depth=5' -d 'return ZScienceSkill'
+```
+
+**What API tests validate:**
+- ✅ Mod loads correctly in game
+- ✅ Data structures have correct runtime values
+- ✅ Classes are properly instantiated
+- ✅ Player can access mod functionality
+- ✅ All specimens have valid XP values
+- ✅ Integration with PZ API works
 
 ## Static Analysis
 
