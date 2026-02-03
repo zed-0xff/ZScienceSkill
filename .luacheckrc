@@ -68,11 +68,7 @@ files["tests/"] = {
 exclude_files = {
     ".luarocks/",
     "lua_modules/",
-    "tests/",  -- Unit test files (Busted)
-    "**/ZScienceSkillTests.lua",  -- In-game test files
-    "**/*_spec.lua",  -- Busted test specs
-    "**/ZScienceSkill_TestRunner.lua",  -- Test runner
-    "**/ZScienceSkill_TestLoader.lua",  -- Test loader
+    "tests/",  -- All test files are outside game directories
 }
 
 -- Note: To use actual PZ source files for type checking:
