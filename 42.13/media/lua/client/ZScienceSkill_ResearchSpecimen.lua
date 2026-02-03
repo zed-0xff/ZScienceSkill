@@ -28,6 +28,15 @@ local function findNearbyMicroscope(character)
     return nil
 end
 
+-- Get fluid type string from item if it has a fluid container
+local function getFluidType(item)
+    local fc = item:getFluidContainer()
+    if fc and fc:getPrimaryFluid() then
+        return fc:getPrimaryFluid():getFluidTypeString()
+    end
+    return nil
+end
+
 function ISResearchSpecimen:isValid()
     if not self.character:getInventory():contains(self.item) then
         return false
@@ -63,7 +72,15 @@ function ISResearchSpecimen:perform()
     self.item:setJobDelta(0.0)
     
     local fullType = self.item:getFullType()
+    local fluidType = getFluidType(self.item)
     local xp = ZScienceSkill.specimens[fullType]
+    local researchKey = fullType
+    
+    -- Check if this is a fluid research
+    if not xp and fluidType and ZScienceSkill.fluids and ZScienceSkill.fluids[fluidType] then
+        xp = ZScienceSkill.fluids[fluidType].scienceXP
+        researchKey = "Fluid:" .. fluidType
+    end
     
     self.character:getXp():AddXP(Perks.Science, xp)
     HaloTextHelper.addTextWithArrow(self.character, getText("IGUI_perks_Science") .. " +" .. xp, true, HaloTextHelper.getColorGreen())
@@ -81,7 +98,7 @@ function ISResearchSpecimen:perform()
     end
     
     self.character:getModData().researchedSpecimens = self.character:getModData().researchedSpecimens or {}
-    self.character:getModData().researchedSpecimens[fullType] = true
+    self.character:getModData().researchedSpecimens[researchKey] = true
     
     -- Track plants for Herbalist unlock
     if ZScienceSkill.herbalistPlants and ZScienceSkill.herbalistPlants[fullType] then
@@ -141,11 +158,27 @@ end
 
 function ISResearchSpecimen.isResearched(character, item)
     local modData = character:getModData().researchedSpecimens
-    return modData and modData[item:getFullType()]
+    if not modData then return false end
+    
+    -- Check item type
+    if modData[item:getFullType()] then return true end
+    
+    -- Check fluid type
+    local fluidType = getFluidType(item)
+    if fluidType and modData["Fluid:" .. fluidType] then return true end
+    
+    return false
 end
 
 function ISResearchSpecimen.isSpecimen(item)
-    return ZScienceSkill.specimens[item:getFullType()]
+    -- Check item type
+    if ZScienceSkill.specimens[item:getFullType()] then return true end
+    
+    -- Check fluid type
+    local fluidType = getFluidType(item)
+    if fluidType and ZScienceSkill.fluids and ZScienceSkill.fluids[fluidType] then return true end
+    
+    return false
 end
 
 -- Helper function to add menu option (enabled or disabled)
@@ -213,14 +246,24 @@ local function findUnresearchedSpecimens(playerObj)
     local specimens = {}
     local inventory = playerObj:getInventory()
     local items = inventory:getItems()
+    local modData = playerObj:getModData().researchedSpecimens
     
     for i = 0, items:size() - 1 do
         local item = items:get(i)
         local fullType = item:getFullType()
+        
+        -- Check regular specimens
         if ZScienceSkill.specimens[fullType] then
-            local modData = playerObj:getModData().researchedSpecimens
             if not (modData and modData[fullType]) then
                 table.insert(specimens, item)
+            end
+        else
+            -- Check fluid specimens
+            local fluidType = getFluidType(item)
+            if fluidType and ZScienceSkill.fluids and ZScienceSkill.fluids[fluidType] then
+                if not (modData and modData["Fluid:" .. fluidType]) then
+                    table.insert(specimens, item)
+                end
             end
         end
     end

@@ -147,7 +147,7 @@ ZScienceSkill.specimens = {
     ["Base.Amethyst"] = gemXP,
     ["Base.Crystal"] = crystalXP,
     ["Base.Crystal_Large"] = crystalXP * 2,
-    ["Base.LargeMeteorite"] = 200,  -- Rare space rock
+    ["Base.LargeMeteorite"] = 400,  -- Rare space rock
     
     -- Numismatics
     ["Base.GoldCoin"] = coinXP,
@@ -229,3 +229,9 @@ ZScienceSkill.trackingXP = 15
 
 -- Pharmacology grants Doctor XP (items matching "Pills" pattern)
 ZScienceSkill.medicalXP = 20
+
+-- Fluids that can be researched (in any container)
+ZScienceSkill.fluids = {
+    ["Acid"] = { scienceXP = 50 },
+    ["SecretFlavoring"] = { scienceXP = 400 },  -- Mystery chemical compound
+}
