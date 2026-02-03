@@ -46,8 +46,8 @@ end
 -- Helper: Get square relative to player
 local function getSquareDelta(dx, dy, dz)
     local square = getCell():getGridSquare(
-        PLAYER_SQR:getX() + dx, 
-        PLAYER_SQR:getY() + dy, 
+        PLAYER_SQR:getX() + dx,
+        PLAYER_SQR:getY() + dy,
         PLAYER_SQR:getZ() + (dz or 0)
     )
     return square
@@ -58,50 +58,50 @@ Tests.research_brain_specimen = {
     run = function(self)
         -- Setup: Give player a brain specimen
         local specimen = newInventoryItem("Base.Specimen_Brain")
-        
+
         -- Create microscope nearby
         local microscopeSquare = getSquareDelta(1, 0, 0)
         removeAllButFloor(microscopeSquare)
         local microscope = newObject(
-            microscopeSquare:getX(), 
-            microscopeSquare:getY(), 
+            microscopeSquare:getX(),
+            microscopeSquare:getY(),
             microscopeSquare:getZ(),
             "fixtures_bathroom_01_14",  -- Microscope sprite
             "Microscope"
         )
-        
+
         -- Get XP before research
         local xpBefore = PLAYER_OBJ:getXp():getXP(Perks.Science)
-        
+
         -- Execute research action
         luautils.walkAdj(PLAYER_OBJ, microscopeSquare)
         ISTimedActionQueue.add(ISResearchSpecimen:new(
-            PLAYER_OBJ, 
-            specimen, 
-            microscope, 
+            PLAYER_OBJ,
+            specimen,
+            microscope,
             DURATION
         ))
-        
+
         -- Note: Verification happens after action completes
         -- Expected: +60 XP (brain = 30 base * 2)
         self.xpBefore = xpBefore
         self.specimen = specimen
     end,
-    
+
     verify = function(self)
         local xpAfter = PLAYER_OBJ:getXp():getXP(Perks.Science)
         local xpGained = xpAfter - self.xpBefore
-        
+
         -- Check XP was granted
         if xpGained <= 0 then
             return false, "No Science XP gained"
         end
-        
+
         -- Check item is marked as researched
         if not self.specimen:getModData().researched then
             return false, "Specimen not marked as researched"
         end
-        
+
         return true, string.format("Gained %d Science XP", xpGained)
     end
 }
@@ -111,15 +111,15 @@ Tests.research_science_book = {
     run = function(self)
         local book = newInventoryItem("Base.Book_Science")
         local xpBefore = PLAYER_OBJ:getXp():getXP(Perks.Science)
-        
+
         -- Note: Book reading is handled by ISReadABook (vanilla)
         -- We just verify our data is correct
         local expectedXP = ZScienceSkill.literature[book:getFullType()]
-        
+
         self.expectedXP = expectedXP
         self.book = book
     end,
-    
+
     verify = function(self)
         if self.expectedXP ~= 35 then
             return false, "Expected 35 XP for science book, got " .. self.expectedXP
@@ -133,11 +133,11 @@ Tests.verify_insect_xp = {
     run = function(self)
         local cricket = newInventoryItem("Base.Cricket")
         local xp = ZScienceSkill.specimens[cricket:getFullType()]
-        
+
         self.cricket = cricket
         self.xp = xp
     end,
-    
+
     verify = function(self)
         if not self.xp then
             return false, "Cricket not in specimens table"
@@ -159,7 +159,7 @@ Tests.herbalist_plants_count = {
         self.count = count
         self.required = ZScienceSkill.herbalistPlantsRequired
     end,
-    
+
     verify = function(self)
         if self.count < self.required then
             return false, string.format(
@@ -178,34 +178,34 @@ Tests.herbalist_plants_count = {
 Tests.no_duplicate_research = {
     run = function(self)
         local specimen = newInventoryItem("Base.Specimen_Insects")
-        
+
         -- Mark as already researched
         specimen:getModData().researched = true
-        
+
         -- Create microscope nearby
         local microscopeSquare = getSquareDelta(1, 0, 0)
         removeAllButFloor(microscopeSquare)
         local microscope = newObject(
-            microscopeSquare:getX(), 
-            microscopeSquare:getY(), 
+            microscopeSquare:getX(),
+            microscopeSquare:getY(),
             microscopeSquare:getZ(),
             "fixtures_bathroom_01_14",
             "Microscope"
         )
-        
+
         local xpBefore = PLAYER_OBJ:getXp():getXP(Perks.Science)
-        
+
         luautils.walkAdj(PLAYER_OBJ, microscopeSquare)
         ISTimedActionQueue.add(ISResearchSpecimen:new(
-            PLAYER_OBJ, 
-            specimen, 
-            microscope, 
+            PLAYER_OBJ,
+            specimen,
+            microscope,
             DURATION
         ))
-        
+
         self.xpBefore = xpBefore
     end,
-    
+
     verify = function(self)
         local xpAfter = PLAYER_OBJ:getXp():getXP(Perks.Science)
         if xpAfter > self.xpBefore then
@@ -223,46 +223,46 @@ local function OnTick()
         PLAYER_SQR = PLAYER_OBJ:getCurrentSquare()
         PLAYER_SQR_ORIG = PLAYER_SQR
     end
-    
+
     if not ISTimedActionQueue.hasAction(PLAYER_OBJ) then
         -- Clean up and reset player position
         PLAYER_INV:RemoveAll()
         if PLAYER_OBJ:getCurrentSquare() ~= PLAYER_SQR_ORIG then
             if isClient() then
-                SendCommandToServer("/teleportto " .. 
-                    tostring(PLAYER_SQR_ORIG:getX() + 0.5) .. "," .. 
+                SendCommandToServer("/teleportto " ..
+                    tostring(PLAYER_SQR_ORIG:getX() + 0.5) .. "," ..
                     tostring(PLAYER_SQR_ORIG:getY() + 0.5) .. ",0")
             else
                 PLAYER_OBJ:teleportTo(
-                    PLAYER_SQR_ORIG:getX() + 0.5, 
-                    PLAYER_SQR_ORIG:getY() + 0.5, 
+                    PLAYER_SQR_ORIG:getX() + 0.5,
+                    PLAYER_SQR_ORIG:getY() + 0.5,
                     0.0
                 )
             end
             PLAYER_OBJ:setCurrent(PLAYER_SQR_ORIG)
         end
-        
+
         -- Run next test
         if #testsToRun == 0 then
             PLAYER_OBJ = nil
             print("[ZScienceSkill Tests] All tests completed!")
             return
         end
-        
+
         local testName = testsToRun[1]
         table.remove(testsToRun, 1)
-        
+
         local test = Tests[testName]
         if test then
             print("[ZScienceSkill Tests] Running: " .. testName)
             local success, err = pcall(function()
                 test:run()
             end)
-            
+
             if not success then
                 print("[ZScienceSkill Tests] ERROR: " .. err)
             end
-            
+
             -- If test has verify function, call it
             if test.verify then
                 local ok, result = test:verify()

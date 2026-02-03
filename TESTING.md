@@ -13,14 +13,14 @@ make test
 make check
 
 # 4. Run API tests (requires ZombieBuddy mod + game running)
-make test-api
+make test-ingame
 ```
 
 ## Test Layers
 
 1. **Static Analysis** (`luacheck`) - Instant feedback, catches typos/undefined vars
-2. **Unit Tests** (Busted) - Fast, tests data structures and logic
-3. **API Tests** (ZombieBuddy) - Live game testing, validates runtime behavior
+2. **Unit Tests** (Busted) - Fast, tests data structures and logic  
+3. **In-Game Tests** (ZombieBuddy API) - Live game testing **AFTER all code is loaded**
 
 ## Manual Setup
 
@@ -67,7 +67,7 @@ make check
 make all
 
 # Run API tests (requires ZombieBuddy mod)
-make test-api
+make test-ingame
 
 # Generate coverage report
 make coverage
@@ -76,9 +76,9 @@ make coverage
 make watch  # requires 'entr'
 ```
 
-### API Tests (ZombieBuddy)
+### In-Game Tests (ZombieBuddy API)
 
-Test against a live running game:
+Test against a live running game **AFTER all game code is loaded**:
 
 ```bash
 # Prerequisites:
@@ -87,23 +87,23 @@ Test against a live running game:
 # 2. Enable "lua_server_port" in ZombieBuddy settings
 # 3. Start the game (API server runs on port 4444)
 
-# Run API tests
-make test-api
+# Run in-game tests
+make test-ingame
 
 # Or run the script directly
-./test_api.sh
+./test_ingame_simple.sh
 
 # Test manually with curl
 curl -s -X POST 'http://127.0.0.1:4444/lua?depth=5' -d 'return ZScienceSkill'
 ```
 
-**What API tests validate:**
-- ✅ Mod loads correctly in game
-- ✅ Data structures have correct runtime values
-- ✅ Classes are properly instantiated
-- ✅ Player can access mod functionality
-- ✅ All specimens have valid XP values
-- ✅ Integration with PZ API works
+**What in-game tests validate:**
+- ✅ Mod loads correctly **in real game environment**
+- ✅ Data structures exist at runtime (not just unit test mocks)
+- ✅ PZ API is properly integrated (Perks, Events, etc.)
+- ✅ All specimens have valid XP values **after game initialization**
+- ✅ Java-Lua bridge works correctly
+- ✅ No conflicts with other mods or game code
 
 ## Static Analysis
 

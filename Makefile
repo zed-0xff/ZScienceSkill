@@ -1,21 +1,21 @@
-.PHONY: setup test check clean help all
+.PHONY: setup test check clean help all test-ingame
 
 .DEFAULT_GOAL := all
 
-test-api:
-	@echo "🧪 Running API tests (requires game running on :4444)..."
-	./test_api.sh
+test-ingame:
+	@echo "🧪 Running in-game tests (requires game running on :4444)..."
+	./test_ingame_simple.sh
 
 help:
 	@echo "ZScienceSkill Development Tasks"
 	@echo "==============================="
 	@echo ""
-	@echo "  make setup      - Install all dependencies"
-	@echo "  make test       - Run Busted unit tests"
-	@echo "  make test-api   - Run API tests (game must be running)"
-	@echo "  make check      - Run static analysis (luacheck)"
-	@echo "  make clean      - Remove test artifacts"
-	@echo "  make all        - Run check + test"
+	@echo "  make setup        - Install all dependencies"
+	@echo "  make test         - Run Busted unit tests"
+	@echo "  make test-ingame  - Run in-game tests (requires game + ZombieBuddy)"
+	@echo "  make check        - Run static analysis (luacheck)"
+	@echo "  make clean        - Remove test artifacts"
+	@echo "  make all          - Run check + test"
 	@echo ""
 
 setup:

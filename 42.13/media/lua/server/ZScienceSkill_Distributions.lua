@@ -1,6 +1,9 @@
 -- Add Science skill books to loot distributions
 
 local function updateDistributions()
+    -- luacheck: ignore 113/ProceduralDistributions
+    -- ProceduralDistributions is available during OnPreDistributionMerge event
+    -- It's not loaded in all contexts, so we guard against nil
     if not ProceduralDistributions then return end
 
     -- Distribution tables and base spawn weights for BookScience1
@@ -37,6 +40,7 @@ local function updateDistributions()
     }
 
     for tableName, baseWeight in pairs(loot) do
+        -- luacheck: ignore 113/ProceduralDistributions
         local dist = ProceduralDistributions.list[tableName]
         if dist and dist.items then
             for _, book in ipairs(books) do

@@ -1,3 +1,8 @@
 # see https://github.com/zed-0xff/ZBetterWorkshopUpload
 
+*.md
+*.rb
+*.sh
 *.xcf
+
+Brewfile
