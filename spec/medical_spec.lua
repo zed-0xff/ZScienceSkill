@@ -76,11 +76,12 @@ describe("Bandage effectiveness bonus", function()
         -- Apply bonus calculation manually (what our hook does)
         local scienceLevel = player:getPerkLevel(Perks.Science)
         local bonusMultiplier = 1 + (scienceLevel * 0.05)
-        local boostedLife = 100 * bonusMultiplier
+        local boostedLife = math.floor(100 * bonusMultiplier)
         bodyPart:setBandageLife(boostedLife)
         
-        -- Verify it was set
-        assert.is_equal(boostedLife, bodyPart:getBandageLife())
+        -- Verify it was set (use floor to avoid floating point issues)
+        local actual = math.floor(bodyPart:getBandageLife())
+        assert.is_equal(boostedLife, actual)
         
         -- Restore
         bodyPart:setBandageLife(originalLife)
