@@ -1,0 +1,18 @@
+---
+# ZBTest configuration for ZScienceSkill
+
+# ZombieBuddy API port (default: 4445)
+api_port: 4445
+
+# Seconds to wait for game startup
+startup_timeout: 30
+
+# Stop game after tests complete
+auto_shutdown: false
+
+# Use already-running game instead of launching
+use_running_game: false
+
+# Your mod(s) to test (ZombieBuddy is automatically included)
+mods:
+  - ZScienceSkill
