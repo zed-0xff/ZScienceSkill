@@ -1,24 +1,6 @@
 -- Test for ZScienceSkill_BookXP.lua
 
--- Inline mini test framework
-local tests, errors, currentDescribe = {}, {}, ""
-local function describe(name, fn) currentDescribe = name; fn(); currentDescribe = "" end
-local function it(name, fn) table.insert(tests, { name = currentDescribe .. " " .. name, fn = fn }) end
-local assert = {
-    is_equal = function(exp, act) if exp ~= act then error(string.format("expected %s, got %s", tostring(exp), tostring(act))) end end,
-    is_not_nil = function(v) if v == nil then error("expected non-nil") end end,
-    is_table = function(v) if type(v) ~= "table" then error("expected table") end end,
-    greater_than = function(exp, act) if not (act > exp) then error(string.format("expected %s > %s", tostring(act), tostring(exp))) end end,
-}
-local function run_specs()
-    for _, t in ipairs(tests) do
-        local ok, err = pcall(t.fn)
-        if not ok then table.insert(errors, t.name .. ": " .. tostring(err)) end
-    end
-    if #errors > 0 then return table.concat(errors, "\n") end
-    return true
-end
-
+require "ZBSpec"
 require "ZScienceSkill_Data"
 
 local player = getPlayer()
@@ -105,4 +87,4 @@ end)
 -- Restore setting
 player:setTimedActionInstantCheat(wasInstant)
 
-return run_specs()
+return ZBSpec.run()
