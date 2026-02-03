@@ -6,46 +6,32 @@ help:
 	@echo "ZScienceSkill Development Tasks"
 	@echo "==============================="
 	@echo ""
-	@echo "  make              - Show this help"
-	@echo "  make setup        - Install all dependencies"
-	@echo "  make spec         - Run Busted unit specs"
+	@echo "  make              - Run check + spec"
+	@echo "  make setup        - Install dependencies"
 	@echo "  make check        - Run static analysis (luacheck)"
-	@echo "  make clean        - Remove spec artifacts"
-	@echo ""
-	@echo "ZBSpec Framework (requires game running):"
-	@echo "  zbspec            - Run all specs via framework"
-	@echo "  zbspec <file>     - Run specific spec file"
+	@echo "  make spec         - Run ZBSpec tests (requires game running)"
+	@echo "  make clean        - Remove artifacts"
 	@echo ""
 
 setup:
 	@echo "📦 Installing Homebrew dependencies..."
 	brew bundle
 	@echo ""
-	@echo "📦 Installing Lua testing tools..."
-	luarocks install busted
+	@echo "📦 Installing Lua tools..."
 	luarocks install luacheck
-	luarocks install luacov
 	@echo ""
-	@echo "✅ Setup complete! Run 'make spec' for unit specs or 'zbspec' for integration specs."
-
-spec:
-	@echo "🧪 Running unit specs..."
-	busted --verbose
+	@echo "✅ Setup complete!"
 
 check:
 	@echo "🔍 Running static analysis..."
 	luacheck 42.13/media/lua/
 
-coverage:
-	@echo "📊 Running specs with coverage..."
-	busted --coverage
-	@echo ""
-	@echo "📈 Generating coverage report..."
-	luacov
-	@cat luacov.report.out | head -20
+spec:
+	@echo "🧪 Running ZBSpec tests (game must be running)..."
+	zbspec
 
 clean:
-	@echo "🧹 Cleaning spec artifacts..."
+	@echo "🧹 Cleaning artifacts..."
 	rm -f luacov.*.out
 	rm -f luacov.stats.out
 	rm -f luacov.report.out
@@ -54,15 +40,10 @@ clean:
 all: check spec
 	@echo ""
 	@echo "=================================================="
-	@echo "✅ Local specs passed!"
-	@echo "  - Static analysis (luacheck)"
-	@echo "  - Unit specs (busted)"
-	@echo ""
-	@echo "Run 'zbspec' for integration specs (requires game)"
+	@echo "✅ All checks passed!"
 	@echo "=================================================="
 
 watch:
 	@echo "👀 Watching for changes..."
-	@echo "Note: Install 'entr' with 'brew install entr' for file watching"
 	@which entr > /dev/null || (echo "❌ 'entr' not found. Install with: brew install entr" && exit 1)
-	@find 42.13/media/lua spec -name '*.lua' | entr -c make spec
+	@find 42.13/media/lua spec -name '*.lua' | entr -c make check
