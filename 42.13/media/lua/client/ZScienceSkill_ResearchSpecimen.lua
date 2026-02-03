@@ -73,28 +73,40 @@ function ISResearchSpecimen:perform()
     
     local fullType = self.item:getFullType()
     local fluidType = getFluidType(self.item)
-    local xp = ZScienceSkill.specimens[fullType]
     local researchKey = fullType
+    local isFluid = false
     
     -- Check if this is a fluid research
-    if not xp and fluidType and ZScienceSkill.fluids and ZScienceSkill.fluids[fluidType] then
-        xp = ZScienceSkill.fluids[fluidType].scienceXP
+    if fluidType and ZScienceSkill.fluids and ZScienceSkill.fluids[fluidType] then
+        isFluid = true
         researchKey = "Fluid:" .. fluidType
+        -- Grant XP for each perk defined for this fluid
+        for perkName, xp in pairs(ZScienceSkill.fluids[fluidType]) do
+            local perk = Perks[perkName]
+            if perk then
+                self.character:getXp():AddXP(perk, xp)
+                HaloTextHelper.addTextWithArrow(self.character, getText("IGUI_perks_" .. perkName) .. " +" .. xp, true, HaloTextHelper.getColorGreen())
+            end
+        end
     end
     
-    self.character:getXp():AddXP(Perks.Science, xp)
-    HaloTextHelper.addTextWithArrow(self.character, getText("IGUI_perks_Science") .. " +" .. xp, true, HaloTextHelper.getColorGreen())
-    
-    -- Grant Tracking XP for scat analysis (dung items)
-    if fullType:find("Dung_") and ZScienceSkill.trackingXP then
-        self.character:getXp():AddXP(Perks.Tracking, ZScienceSkill.trackingXP)
-        HaloTextHelper.addTextWithArrow(self.character, getText("IGUI_perks_Tracking") .. " +" .. ZScienceSkill.trackingXP, true, HaloTextHelper.getColorGreen())
-    end
-    
-    -- Grant Doctor XP for pharmacology (pills)
-    if fullType:find("Pills") and ZScienceSkill.medicalXP then
-        self.character:getXp():AddXP(Perks.Doctor, ZScienceSkill.medicalXP)
-        HaloTextHelper.addTextWithArrow(self.character, getText("IGUI_perks_Doctor") .. " +" .. ZScienceSkill.medicalXP, true, HaloTextHelper.getColorGreen())
+    -- Regular specimen
+    if not isFluid then
+        local xp = ZScienceSkill.specimens[fullType]
+        self.character:getXp():AddXP(Perks.Science, xp)
+        HaloTextHelper.addTextWithArrow(self.character, getText("IGUI_perks_Science") .. " +" .. xp, true, HaloTextHelper.getColorGreen())
+        
+        -- Grant Tracking XP for scat analysis (dung items)
+        if fullType:find("Dung_") and ZScienceSkill.trackingXP then
+            self.character:getXp():AddXP(Perks.Tracking, ZScienceSkill.trackingXP)
+            HaloTextHelper.addTextWithArrow(self.character, getText("IGUI_perks_Tracking") .. " +" .. ZScienceSkill.trackingXP, true, HaloTextHelper.getColorGreen())
+        end
+        
+        -- Grant Doctor XP for pharmacology (pills)
+        if fullType:find("Pills") and ZScienceSkill.medicalXP then
+            self.character:getXp():AddXP(Perks.Doctor, ZScienceSkill.medicalXP)
+            HaloTextHelper.addTextWithArrow(self.character, getText("IGUI_perks_Doctor") .. " +" .. ZScienceSkill.medicalXP, true, HaloTextHelper.getColorGreen())
+        end
     end
     
     self.character:getModData().researchedSpecimens = self.character:getModData().researchedSpecimens or {}

@@ -147,7 +147,7 @@ ZScienceSkill.specimens = {
     ["Base.Amethyst"] = gemXP,
     ["Base.Crystal"] = crystalXP,
     ["Base.Crystal_Large"] = crystalXP * 2,
-    ["Base.LargeMeteorite"] = 400,  -- Rare space rock
+    ["Base.LargeMeteorite"] = 200,  -- Rare space rock
     
     -- Numismatics
     ["Base.GoldCoin"] = coinXP,
@@ -231,7 +231,17 @@ ZScienceSkill.trackingXP = 15
 ZScienceSkill.medicalXP = 20
 
 -- Fluids that can be researched (in any container)
+-- Fluids: fluid_name => { perk_name => xp, ... }
 ZScienceSkill.fluids = {
-    ["Acid"] = { scienceXP = 50 },
-    ["SecretFlavoring"] = { scienceXP = 400 },  -- Mystery chemical compound
+    -- vanilla
+    ["Acid"]            = { Science = 50 },
+    ["Blood"]           = { Science = 50, Doctor = 50 },
+    ["SecretFlavoring"] = { Science = 200, Cooking = 50 },
+    -- Project Summer Car
+    ["Antifreeze"]      = { Science = 30, Mechanics = 30 },
+    ["ATF"]             = { Science = 30, Mechanics = 30 },
+    ["MotorOil"]        = { Science = 30, Mechanics = 30 },
+    ["UsedMotorOil"]    = { Science = 30, Maintenance = 30 },
+    -- Sewing Workbranch
+    ["MachineOil"]      = { Science = 30, Maintenance = 30 },
 }
