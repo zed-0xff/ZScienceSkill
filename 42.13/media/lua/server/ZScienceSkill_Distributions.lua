@@ -40,7 +40,6 @@ local function updateDistributions()
     }
 
     for tableName, baseWeight in pairs(loot) do
-        -- luacheck: ignore 113/ProceduralDistributions
         local dist = ProceduralDistributions.list[tableName]
         if dist and dist.items then
             for _, book in ipairs(books) do

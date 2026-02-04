@@ -2,7 +2,7 @@
 -- Gray "R": unread science books / unresearched specimens (Science XP available)
 -- Green tick: researched specimens (optional)
 require "ZScienceSkill_Data"
-require "mods.ZScienceSkill.42.13.media.lua.client.ZScienceSkill_ModOptions"
+require "ZScienceSkill_ModOptions"
 
 local grayTickTexture = getTexture("media/ui/R_Mark_Gray.png")
 local greenTickTexture = getTexture("media/ui/Tick_Mark-10.png")

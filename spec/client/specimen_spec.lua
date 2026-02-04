@@ -47,14 +47,9 @@ ZBSpec.player.describe("ISResearchSpecimen.isResearched", function()
 end)
 
 ZBSpec.player.describe("Fluid detection", function()
-    it("does not identify water bottle as specimen", function()
-        local bottle = instanceItem("Base.WaterBottleFull")
-        if bottle and bottle.getFluidContainer then
-            local fc = bottle:getFluidContainer()
-            if fc then
-                assert.is_false(ISResearchSpecimen.isSpecimen(bottle))
-            end
-        end
+    it("Axe is not a specimen", function()
+        local axe = instanceItem("Base.Axe")
+        assert.is_false(ISResearchSpecimen.isSpecimen(axe))
     end)
 end)
 
