@@ -3,7 +3,7 @@
 
 require "ZBSpec"
 require "ZScienceSkill_Data"
-require "ZScienceSkill_ResearchSpecimen"
+require "ZScienceSkill_ISResearchSpecimen"
 
 ZBSpec.player.describe("ISResearchSpecimen.isSpecimen", function()
     it("identifies Cricket as specimen", function()

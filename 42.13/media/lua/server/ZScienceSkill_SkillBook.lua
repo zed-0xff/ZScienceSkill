@@ -1,5 +1,8 @@
--- Register Science skill books with the game's SkillBook system
--- This allows the books to provide XP multipliers when read
+-- HAS to be in server/ because shared/ is loaded BEFORE server/
+-- and vanilla server/XpSystem/XPSystem_SkillBook.lua that is loaded AFTER shared/
+-- sets SkillBook = {}
+
+-- client still gets SkillBook["Science"] defined
 
 SkillBook["Science"] = {}
 SkillBook["Science"].perk = Perks.Science

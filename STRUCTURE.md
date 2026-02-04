@@ -31,7 +31,7 @@ ZScienceSkill/
 - `ZScienceSkill_OverlayIcon.lua`
 - `ZScienceSkill_ReadingSpeed.lua`
 - `ZScienceSkill_ResearchRecipe.lua`
-- `ZScienceSkill_ResearchSpecimen.lua`
+- `ZScienceSkill_ISResearchSpecimen.lua`
 - `ZScienceSkill_Tooltip.lua`
 - `ZScienceSkill_XPBoost.lua`
 

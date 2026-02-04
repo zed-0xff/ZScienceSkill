@@ -30,8 +30,14 @@ end
 
 
 function ISResearchSpecimen:isValid()
-    if not self.character:getInventory():contains(self.item) then
-        return false
+    if isClient() and self.item then
+        if not self.character:getInventory():containsID(self.item:getID()) then
+            return false
+        end
+    else
+        if not self.character:getInventory():contains(self.item) then
+            return false
+        end
     end
     if not findNearbyMicroscope(self.character) then
         HaloTextHelper.addBadText(self.character, getText("Tooltip_NeedMicroscope"))
@@ -44,11 +50,21 @@ function ISResearchSpecimen:isValid()
     return true
 end
 
+function ISResearchSpecimen:isUsingTimeout()
+    return false
+end
+
 function ISResearchSpecimen:start()
+    if isClient() and self.item then
+        self.item = self.character:getInventory():getItemById(self.item:getID())
+    end
+    
     self.item:setJobType(getText("ContextMenu_ResearchSpecimen"))
     self.item:setJobDelta(0.0)
     self:setActionAnim(CharacterActionAnims.Craft)
     self:setOverrideHandModels(nil, self.item)
+    self.character:setReading(true)
+    self.character:reportEvent("EventRead")
 end
 
 function ISResearchSpecimen:update()
@@ -56,11 +72,13 @@ function ISResearchSpecimen:update()
 end
 
 function ISResearchSpecimen:stop()
+    self.character:setReading(false)
     self.item:setJobDelta(0.0)
     ISBaseTimedAction.stop(self)
 end
 
 function ISResearchSpecimen:perform()
+    self.character:setReading(false)
     self.item:setJobDelta(0.0)
     
     local fullType = self.item:getFullType()
@@ -140,6 +158,9 @@ function ISResearchSpecimen:perform()
         end
     end
     
+    -- Sync with server
+    syncItemFields(self.character, self.item)
+    
     ISBaseTimedAction.perform(self)
 end
 
@@ -154,8 +175,12 @@ end
 
 function ISResearchSpecimen:new(character, item)
     local o = ISBaseTimedAction.new(self, character)
+    o.character = character
+    o.playerNum = character:getPlayerNum()
     o.item = item
+    o.ignoreHandsWounds = true
     o.maxTime = o:getDuration()
+    o.caloriesModifier = 0.5
     o.forceProgressBar = true
     return o
 end
