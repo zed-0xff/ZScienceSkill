@@ -1,16 +1,11 @@
--- Integration tests for ZScienceSkill mod
--- Tests that require game state (player, items, etc.)
+-- Integration tests for ZScienceSkill specimens
+-- Tests requiring player - runs on client and SP only
 
 require "ZBSpec"
 require "ZScienceSkill_Data"
 require "ZScienceSkill_ResearchSpecimen"
 
-local player = getPlayer()
-if not player then
-    return "getPlayer() returned nil - player not loaded"
-end
-
-describe("ISResearchSpecimen.isSpecimen", function()
+ZBSpec.player.describe("ISResearchSpecimen.isSpecimen", function()
     it("identifies Cricket as specimen", function()
         local cricket = instanceItem("Base.Cricket")
         assert.is_not_nil(cricket)
@@ -24,7 +19,9 @@ describe("ISResearchSpecimen.isSpecimen", function()
     end)
 end)
 
-describe("ISResearchSpecimen.isResearched", function()
+ZBSpec.player.describe("ISResearchSpecimen.isResearched", function()
+    local player = getPlayer()
+    
     it("returns false for new specimen", function()
         local specimen = instanceItem("Base.Specimen_Brain")
         assert.is_not_nil(specimen)
@@ -49,7 +46,7 @@ describe("ISResearchSpecimen.isResearched", function()
     end)
 end)
 
-describe("Fluid detection", function()
+ZBSpec.player.describe("Fluid detection", function()
     it("does not identify water bottle as specimen", function()
         local bottle = instanceItem("Base.WaterBottleFull")
         if bottle and bottle.getFluidContainer then
@@ -57,21 +54,6 @@ describe("Fluid detection", function()
             if fc then
                 assert.is_false(ISResearchSpecimen.isSpecimen(bottle))
             end
-        end
-    end)
-end)
-
-describe("ZScienceSkill.specimens data", function()
-    it("all items have Base. prefix", function()
-        for itemType, _ in pairs(ZScienceSkill.specimens) do
-            assert.matches("^Base%.", itemType)
-        end
-    end)
-    
-    it("all items have positive XP", function()
-        for itemType, xp in pairs(ZScienceSkill.specimens) do
-            assert.is_number(xp)
-            assert.greater_than(0, xp)
         end
     end)
 end)

@@ -1,18 +1,11 @@
 -- Test for ZScienceSkill_BookXP.lua
+-- Tests requiring player - runs on client and SP only
 
 require "ZBSpec"
 require "ZScienceSkill_Data"
 
-local player = getPlayer()
-if not player then
-    return "getPlayer() returned nil - player not loaded"
-end
-
--- Set timed actions to instant for testing
-local wasInstant = player:isTimedActionInstantCheat()
-player:setTimedActionInstantCheat(true)
-
-describe("ZScienceSkill.literature", function()
+-- Data tests (can run without player)
+ZBSpec.describe("ZScienceSkill.literature", function()
     it("has science book with 35 XP", function()
         assert.is_table(ZScienceSkill.literature)
         assert.is_equal(35, ZScienceSkill.literature["Base.Book_Science"])
@@ -25,7 +18,7 @@ describe("ZScienceSkill.literature", function()
     end)
 end)
 
-describe("ZScienceSkill.skillBookXP", function()
+ZBSpec.describe("ZScienceSkill.skillBookXP", function()
     it("has correct XP progression", function()
         assert.is_equal(10, ZScienceSkill.skillBookXP[1])
         assert.is_equal(20, ZScienceSkill.skillBookXP[3])
@@ -35,7 +28,14 @@ describe("ZScienceSkill.skillBookXP", function()
     end)
 end)
 
-describe("ISReadABook hook", function()
+-- Integration tests require player
+ZBSpec.player.describe("ISReadABook hook", function()
+    local player = getPlayer()
+    
+    -- Set timed actions to instant for testing
+    local wasInstant = player:isTimedActionInstantCheat()
+    player:setTimedActionInstantCheat(true)
+    
     it("grants Science XP when reading science book", function()
         local xpBefore = player:getXp():getXP(Perks.Science)
         local book = instanceItem("Base.Book_Science")
@@ -82,9 +82,9 @@ describe("ISReadABook hook", function()
         
         assert.greater_than(scifiXP, scienceXP)
     end)
+    
+    -- Restore setting
+    player:setTimedActionInstantCheat(wasInstant)
 end)
-
--- Restore setting
-player:setTimedActionInstantCheat(wasInstant)
 
 return ZBSpec.run()

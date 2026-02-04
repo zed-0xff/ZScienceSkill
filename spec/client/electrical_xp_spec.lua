@@ -4,12 +4,10 @@
 require "ZBSpec"
 require "ZScienceSkill_ElectricalXP"
 
-local player = getPlayer()
-if not player then
-    return "getPlayer() returned nil - player not loaded"
-end
-
-describe("Electrical XP synergy", function()
+-- All tests require player (skipped on server)
+ZBSpec.player.describe("Electrical XP synergy", function()
+    local player = getPlayer()
+    
     it("grants Science XP when gaining Electrical XP", function()
         local scienceBefore = player:getXp():getXP(Perks.Science)
         

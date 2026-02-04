@@ -1,19 +1,34 @@
 -- Test for ZScienceSkill_Medical.lua
--- Tests medical treatment bonuses based on Science skill
+-- Tests requiring player - runs on client and SP only
 
 require "ZBSpec"
 require "ZScienceSkill_Medical"
 
-local player = getPlayer()
-if not player then
-    return "getPlayer() returned nil - player not loaded"
-end
+-- Math tests (no player needed)
+ZBSpec.describe("Medical multiplier calculations", function()
+    it("speed reduction is 3% per Science level", function()
+        -- Test the math: at Science 10, multiplier should be 0.7
+        local scienceLevel = 10
+        local expectedMultiplier = 1 - (scienceLevel * 0.03)
+        assert.is_equal(0.7, expectedMultiplier)
+    end)
+    
+    it("bandage life bonus is 5% per Science level", function()
+        -- Test the math: at Science 10, multiplier should be 1.5
+        local scienceLevel = 10
+        local expectedMultiplier = 1 + (scienceLevel * 0.05)
+        assert.is_equal(1.5, expectedMultiplier)
+    end)
+end)
 
--- Set timed actions to instant for testing
-local wasInstant = player:isTimedActionInstantCheat()
-player:setTimedActionInstantCheat(true)
-
-describe("Medical speed bonuses", function()
+-- Integration tests require player
+ZBSpec.player.describe("Medical speed bonuses", function()
+    local player = getPlayer()
+    
+    -- Set timed actions to instant for testing
+    local wasInstant = player:isTimedActionInstantCheat()
+    player:setTimedActionInstantCheat(true)
+    
     it("ISApplyBandage.getDuration returns positive number", function()
         local bandage = instanceItem("Base.Bandage")
         assert.is_not_nil(bandage)
@@ -52,13 +67,16 @@ describe("Medical speed bonuses", function()
         assert.is_number(duration)
         assert.greater_than(0, duration)
     end)
+    
+    -- Restore setting
+    player:setTimedActionInstantCheat(wasInstant)
 end)
 
-describe("Bandage effectiveness bonus", function()
+ZBSpec.player.describe("Bandage effectiveness bonus", function()
+    local player = getPlayer()
+    
     it("hook is installed on ISApplyBandage.complete", function()
-        -- Verify the hook exists by checking the function was replaced
         assert.is_function(ISApplyBandage.complete)
-        -- The original is stored, our hook wraps it
         assert.is_not_nil(ISApplyBandage.complete)
     end)
     
@@ -87,24 +105,5 @@ describe("Bandage effectiveness bonus", function()
         bodyPart:setBandageLife(originalLife)
     end)
 end)
-
-describe("Medical multiplier calculations", function()
-    it("speed reduction is 3% per Science level", function()
-        -- Test the math: at Science 10, multiplier should be 0.7
-        local scienceLevel = 10
-        local expectedMultiplier = 1 - (scienceLevel * 0.03)
-        assert.is_equal(0.7, expectedMultiplier)
-    end)
-    
-    it("bandage life bonus is 5% per Science level", function()
-        -- Test the math: at Science 10, multiplier should be 1.5
-        local scienceLevel = 10
-        local expectedMultiplier = 1 + (scienceLevel * 0.05)
-        assert.is_equal(1.5, expectedMultiplier)
-    end)
-end)
-
--- Restore setting
-player:setTimedActionInstantCheat(wasInstant)
 
 return ZBSpec.run()
