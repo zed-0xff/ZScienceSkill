@@ -8,9 +8,13 @@ require "ZScienceSkill_Data"
 -- SP: both are called, perform() -> complete()
 
 -- supposed to run on server only
-local function is_literature_read(playerObj, item)
+function ISReadABook:is_literature_read()
+    local playerObj = self.character
+    local item = self.item
+
     if not item then return true end
     if not item:IsLiterature() then return true end
+
     -- next is a copy of ISInventoryPane:isLiteratureRead(playerObj, item)
     local modData = item:hasModData() and item:getModData() or nil
     if modData ~= nil then
@@ -20,20 +24,24 @@ local function is_literature_read(playerObj, item)
     end
     local skillBook = SkillBook[item:getSkillTrained()]
     if (skillBook ~= nil) and (item:getMaxLevelTrained() < playerObj:getPerkLevel(skillBook.perk) + 1) then return true end
-    if (item:getNumberOfPages() > 0) and (playerObj:getAlreadyReadPages(item:getFullType()) == item:getNumberOfPages()) then return true end
+    if item:getNumberOfPages() > 0 then
+        local startPage = self.startPage or playerObj:getAlreadyReadPages(item:getFullType()) or 0
+        if startPage == item:getNumberOfPages() then return true end
+    end
     if (item:getLearnedRecipes() ~= nil) and playerObj:getKnownRecipes():containsAll(item:getLearnedRecipes()) then return true end
     return false
 end
 
 local orig_complete = ISReadABook.complete
 function ISReadABook:complete()
-    if self.isLiteratureRead == nil then
-        self.isLiteratureRead = is_literature_read(self.character, self.item)
+    local isAlreadyRead = self.isLiteratureRead
+    if isAlreadyRead == nil then
+        isAlreadyRead = self:is_literature_read()
     end
 
     local result = orig_complete(self) -- saves literature read flags
 
-    if not self.isLiteratureRead then
+    if not isAlreadyRead then
         local itemType = self.item:getFullType()
 
         -- Check if this is science literature

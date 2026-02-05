@@ -2,7 +2,12 @@ require "ZBSpec"
 
 -- assumes sandbox vars:
 --   DayNightCycle = 2       -- Endless Day
---   MinutesPerPage = 0.01   -- very fast reading
+
+if isClient() then
+    SendCommandToServer("/lua getSandboxOptions():getOptionByName(\"MinutesPerPage\"):setValue(0.001)")
+else
+    getSandboxOptions():getOptionByName("MinutesPerPage"):setValue(0.001)
+end
 
 local function add_inventory_item(player, itemFullType)
     local item = nil
@@ -30,6 +35,7 @@ local function init_player(player)
     -- both for SP and MP client
     player:getInventory():clear()
     player:getReadLiterature():clear()
+    player:setTimedActionInstantCheat(false) -- true breaks skillbooks reading in SP
 end
 
 local function read_book(player, book)
@@ -37,18 +43,25 @@ local function read_book(player, book)
     wait_for_not(ISTimedActionQueue.isPlayerDoingAction, player)
 end
 
+-- for skillbooks
+local function reset_pages(player, book)
+    if isClient() then
+        SendCommandToServer("/lua getOnlinePlayers():get(0):setAlreadyReadPages(\"" .. book:getFullType() .. "\", 0)")
+    end
+    player:setAlreadyReadPages(book:getFullType(), 0)
+end
+
 -- Integration tests require player
-ZBSpec.player.describe("ISReadABook hook", function()
+ZBSpec.player.describe("Science book", function()
     local player = getPlayer()
-    local ITEMTYPE_BOOK_SCIENCE = "Base.Book_Science"
+    local ITEMTYPE = "Base.Book_Science"
 
     before_each(function()
-        player:setTimedActionInstantCheat(true)
         init_player(player)
     end)
     
-    it("grants Science XP when reading science book", function()
-        local book = add_inventory_item(player, ITEMTYPE_BOOK_SCIENCE)
+    it("grants Science XP", function()
+        local book = add_inventory_item(player, ITEMTYPE)
         local xpBefore = player:getXp():getXP(Perks.Science)
 
         read_book(player, book)
@@ -57,9 +70,9 @@ ZBSpec.player.describe("ISReadABook hook", function()
         end)
     end)
     
-    it("grants more XP for science book than scifi book", function()
+    it("grants more XP than scifi book", function()
         -- Read science book
-        local sciBook = add_inventory_item(player, ITEMTYPE_BOOK_SCIENCE)
+        local sciBook = add_inventory_item(player, ITEMTYPE)
         local xpBefore1 = player:getXp():getXP(Perks.Science)
 
         read_book(player, sciBook)
@@ -83,9 +96,46 @@ ZBSpec.player.describe("ISReadABook hook", function()
     end)
     
     it("does not grant infinite XP", function()
-        local book = add_inventory_item(player, ITEMTYPE_BOOK_SCIENCE)
+        local book = add_inventory_item(player, ITEMTYPE)
         local xpBefore = player:getXp():getXP(Perks.Science)
 
+        read_book(player, book) -- first time, grants XP
+        wait_for(function()
+            return player:getXp():getXP(Perks.Science) > xpBefore
+        end)
+
+        xpBefore = player:getXp():getXP(Perks.Science)
+        for i = 1, 5 do
+            read_book(player, book) -- same book again
+            assert.equals(xpBefore, player:getXp():getXP(Perks.Science)) -- no xp
+        end
+    end)
+end)
+
+ZBSpec.player.describe("Another SkillBook", function()
+    local player = getPlayer()
+    local ITEMTYPE = "Base.BookMechanic1"
+
+    before_each(function()
+        init_player(player)
+    end)
+    
+    it("grants Science XP", function()
+        local book = add_inventory_item(player, ITEMTYPE)
+        local xpBefore = player:getXp():getXP(Perks.Science)
+
+        reset_pages(player, book)
+        read_book(player, book)
+        wait_for(function()
+            return player:getXp():getXP(Perks.Science) > xpBefore
+        end)
+    end)
+    
+    it("does not grant infinite XP", function()
+        local book = add_inventory_item(player, ITEMTYPE)
+        local xpBefore = player:getXp():getXP(Perks.Science)
+
+        reset_pages(player, book)
         read_book(player, book) -- first time, grants XP
         wait_for(function()
             return player:getXp():getXP(Perks.Science) > xpBefore
