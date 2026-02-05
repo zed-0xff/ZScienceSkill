@@ -35,11 +35,9 @@ function ISReadABook:complete()
 
     if not self.isLiteratureRead then
         local itemType = self.item:getFullType()
-        print("ISReadABook:complete", "itemType", itemType)
 
         -- Check if this is science literature
         if ZScienceSkill.literature[itemType] then
-            print("ISReadABook:complete", "science literature", ZScienceSkill.literature[itemType])
             addXp(self.character, Perks.Science, ZScienceSkill.literature[itemType])
         -- Check if this was a skill book
         elseif SkillBook and SkillBook[self.item:getSkillTrained()] and self.item:getSkillTrained() ~= "Science" then
