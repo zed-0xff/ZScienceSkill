@@ -1,15 +1,24 @@
 require "ZBSpec"
 
--- assumes sandbox vars:
---   DayNightCycle = 2       -- Endless Day
-
-if isClient() then
-    SendCommandToServer("/lua getSandboxOptions():getOptionByName(\"MinutesPerPage\"):setValue(0.001)")
-else
-    getSandboxOptions():getOptionByName("MinutesPerPage"):setValue(0.001)
+local function set_sandbox_option(option, value)
+    if isClient() then
+        SendCommandToServer("/lua getSandboxOptions():getOptionByName(\"" .. option .. "\"):setValue(" .. tostring(value) .. ")")
+    else
+        getSandboxOptions():getOptionByName(option):setValue(value)
+    end
 end
 
-local function add_inventory_item(player, itemFullType)
+set_sandbox_option("DayNightCycle", 2) -- Endless Day
+
+local function set_timed_action_instant_cheat(value)
+    if isClient() then
+        SendCommandToServer("/lua getOnlinePlayers():get(0):setTimedActionInstantCheat(" .. tostring(value) .. ")")
+    else
+        getPlayer():setTimedActionInstantCheat(value)
+    end
+end
+
+local function add_item(player, itemFullType)
     local item = nil
     if isClient() then
         -- MP
@@ -35,7 +44,6 @@ local function init_player(player)
     -- both for SP and MP client
     player:getInventory():clear()
     player:getReadLiterature():clear()
-    player:setTimedActionInstantCheat(false) -- true breaks skillbooks reading in SP
 end
 
 local function read_book(player, book)
