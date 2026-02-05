@@ -10,7 +10,7 @@ local function add_inventory_item(player, itemFullType)
         -- MP
         SendCommandToServer("/additem \"" .. player:getDisplayName() .. "\" \"" .. itemFullType .. "\"")
         local inv = player:getInventory()
-        wait_until(inv.contains, inv, itemFullType)
+        wait_for(inv.contains, inv, itemFullType)
         item = inv:getItemFromType(itemFullType, false, false)
     else
         -- SP
@@ -32,6 +32,11 @@ local function init_player(player)
     player:getReadLiterature():clear()
 end
 
+local function read_book(player, book)
+    ISTimedActionQueue.add(ISReadABook:new(player, book, 1))
+    wait_for_not(ISTimedActionQueue.isPlayerDoingAction, player)
+end
+
 -- Integration tests require player
 ZBSpec.player.describe("ISReadABook hook", function()
     local player = getPlayer()
@@ -44,10 +49,9 @@ ZBSpec.player.describe("ISReadABook hook", function()
     
     it("grants Science XP when reading science book", function()
         local book = add_inventory_item(player, ITEMTYPE_BOOK_SCIENCE)
-
         local xpBefore = player:getXp():getXP(Perks.Science)
-        ISTimedActionQueue.add(ISReadABook:new(player, book, 1))
 
+        read_book(player, book)
         wait_for(function()
             return player:getXp():getXP(Perks.Science) > xpBefore
         end)
@@ -58,8 +62,7 @@ ZBSpec.player.describe("ISReadABook hook", function()
         local sciBook = add_inventory_item(player, ITEMTYPE_BOOK_SCIENCE)
         local xpBefore1 = player:getXp():getXP(Perks.Science)
 
-        ISTimedActionQueue.add(ISReadABook:new(player, sciBook, 1))
-
+        read_book(player, sciBook)
         wait_for(function()
             return player:getXp():getXP(Perks.Science) > xpBefore1
         end)
@@ -68,8 +71,7 @@ ZBSpec.player.describe("ISReadABook hook", function()
         local sciFiBook = add_inventory_item(player, "Base.Book_SciFi")
         local xpBefore2 = player:getXp():getXP(Perks.Science)
 
-        ISTimedActionQueue.add(ISReadABook:new(player, sciFiBook, 1))
-
+        read_book(player, sciFiBook)
         wait_for(function()
             return player:getXp():getXP(Perks.Science) > xpBefore2
         end)
@@ -80,6 +82,21 @@ ZBSpec.player.describe("ISReadABook hook", function()
         assert.greater_than(scifiXP, scienceXP)
     end)
     
+    it("does not grant infinite XP", function()
+        local book = add_inventory_item(player, ITEMTYPE_BOOK_SCIENCE)
+        local xpBefore = player:getXp():getXP(Perks.Science)
+
+        read_book(player, book) -- first time, grants XP
+        wait_for(function()
+            return player:getXp():getXP(Perks.Science) > xpBefore
+        end)
+
+        xpBefore = player:getXp():getXP(Perks.Science)
+        for i = 1, 5 do
+            read_book(player, book) -- same book again
+            assert.equals(xpBefore, player:getXp():getXP(Perks.Science)) -- no xp
+        end
+    end)
 end)
 
 return ZBSpec.runAsync()
