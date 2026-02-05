@@ -2,7 +2,7 @@ local player   = get_player()
 local bodyPart = player:getBodyDamage():getBodyPart(BodyPartType.Hand_L)
 
 ZBSpec.describe(ISApplyBandage, function()
-    local bandage  = instanceItem("Base.Bandage")
+    local bandage = instanceItem("Base.Bandage")
 
     it("has shorter duration with higher Science skill", function()
         player:setPerkLevelDebug(Perks.Science, 10)
