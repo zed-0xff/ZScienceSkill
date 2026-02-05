@@ -1,5 +1,6 @@
 -- Medical treatment bonuses based on Science skill
 -- Improves bandage effectiveness and treatment speed
+-- in /shared because vanilla timed actions are in /shared
 
 require "TimedActions/ISApplyBandage"
 require "TimedActions/ISDisinfect"
@@ -7,7 +8,6 @@ require "TimedActions/ISSplint"
 
 -- Bandage effectiveness bonus: +5% per Science level
 local originalBandageComplete = ISApplyBandage.complete
-
 function ISApplyBandage:complete()
     local result = originalBandageComplete(self)
     
@@ -27,7 +27,6 @@ end
 
 -- Bandage speed bonus: 3% faster per Science level
 local originalBandageGetDuration = ISApplyBandage.getDuration
-
 function ISApplyBandage:getDuration()
     local baseTime = originalBandageGetDuration(self)
     local scienceLevel = self.character:getPerkLevel(Perks.Science)
@@ -35,9 +34,9 @@ function ISApplyBandage:getDuration()
     return baseTime * scienceMultiplier
 end
 
+
 -- Disinfect speed bonus: 3% faster per Science level
 local originalDisinfectGetDuration = ISDisinfect.getDuration
-
 function ISDisinfect:getDuration()
     local baseTime = originalDisinfectGetDuration(self)
     local scienceLevel = self.character:getPerkLevel(Perks.Science)
@@ -45,9 +44,9 @@ function ISDisinfect:getDuration()
     return baseTime * scienceMultiplier
 end
 
+
 -- Splint speed bonus: 3% faster per Science level
 local originalSplintGetDuration = ISSplint.getDuration
-
 function ISSplint:getDuration()
     local baseTime = originalSplintGetDuration(self)
     local scienceLevel = self.character:getPerkLevel(Perks.Science)

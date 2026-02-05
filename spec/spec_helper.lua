@@ -8,6 +8,14 @@ local function set_sandbox_option(option, value)
     end
 end
 
+local function get_player()
+    if isServer() then
+        return getOnlinePlayers():get(0) -- XXX assumes only one player online
+    else
+        return getPlayer()
+    end
+end
+
 set_sandbox_option("DayNightCycle", 2) -- Endless Day
 
 local function set_timed_action_instant_cheat(value)
