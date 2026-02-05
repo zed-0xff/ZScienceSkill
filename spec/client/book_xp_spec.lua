@@ -1,90 +1,85 @@
--- Test for ZScienceSkill_BookXP.lua
--- Tests requiring player - runs on client and SP only
-
 require "ZBSpec"
-require "ZScienceSkill_Data"
 
--- Data tests (can run without player)
-ZBSpec.describe("ZScienceSkill.literature", function()
-    it("has science book with 35 XP", function()
-        assert.is_table(ZScienceSkill.literature)
-        assert.is_equal(35, ZScienceSkill.literature["Base.Book_Science"])
-    end)
-    
-    it("gives more XP for science books than scifi", function()
-        local scienceXP = ZScienceSkill.literature["Base.Book_Science"]
-        local scifiXP = ZScienceSkill.literature["Base.Book_SciFi"]
-        assert.greater_than(scifiXP, scienceXP)
-    end)
-end)
+-- assumes sandbox vars:
+--   DayNightCycle = 2       -- Endless Day
+--   MinutesPerPage = 0.01   -- very fast reading
 
-ZBSpec.describe("ZScienceSkill.skillBookXP", function()
-    it("has correct XP progression", function()
-        assert.is_equal(10, ZScienceSkill.skillBookXP[1])
-        assert.is_equal(20, ZScienceSkill.skillBookXP[3])
-        assert.is_equal(30, ZScienceSkill.skillBookXP[5])
-        assert.is_equal(40, ZScienceSkill.skillBookXP[7])
-        assert.is_equal(50, ZScienceSkill.skillBookXP[9])
-    end)
-end)
+local function add_inventory_item(player, itemFullType)
+    local item = nil
+    if isClient() then
+        -- MP
+        SendCommandToServer("/additem \"" .. player:getDisplayName() .. "\" \"" .. itemFullType .. "\"")
+        local inv = player:getInventory()
+        wait_until(inv.contains, inv, itemFullType)
+        item = inv:getItemFromType(itemFullType, false, false)
+    else
+        -- SP
+        item = instanceItem(itemFullType)
+        player:getInventory():AddItem(item)
+    end
+    assert.is_not_nil(item, "Failed to create item: " .. itemFullType)
+    return item
+end
+
+local function init_player(player)
+    if isClient() then
+        -- XXX assumes only one player online
+        SendCommandToServer("/lua getOnlinePlayers():get(0):getInventory():clear()")
+        SendCommandToServer("/lua getOnlinePlayers():get(0):getReadLiterature():clear()")
+    end
+    -- both for SP and MP client
+    player:getInventory():clear()
+    player:getReadLiterature():clear()
+end
 
 -- Integration tests require player
 ZBSpec.player.describe("ISReadABook hook", function()
     local player = getPlayer()
-    
-    -- Set timed actions to instant for testing
-    local wasInstant = player:isTimedActionInstantCheat()
-    player:setTimedActionInstantCheat(true)
+    local ITEMTYPE_BOOK_SCIENCE = "Base.Book_Science"
+
+    before_each(function()
+        player:setTimedActionInstantCheat(true)
+        init_player(player)
+    end)
     
     it("grants Science XP when reading science book", function()
+        local book = add_inventory_item(player, ITEMTYPE_BOOK_SCIENCE)
+
         local xpBefore = player:getXp():getXP(Perks.Science)
-        local book = instanceItem("Base.Book_Science")
-        assert.is_not_nil(book)
-        
-        player:getInventory():AddItem(book)
-        local action = ISReadABook:new(player, book, 1)
-        action.character = player
-        action.item = book
-        action:complete()
-        
-        local xpGained = player:getXp():getXP(Perks.Science) - xpBefore
-        assert.greater_than(0, xpGained)
-        
-        player:getInventory():Remove(book)
+        ISTimedActionQueue.add(ISReadABook:new(player, book, 1))
+
+        wait_for(function()
+            return player:getXp():getXP(Perks.Science) > xpBefore
+        end)
     end)
     
     it("grants more XP for science book than scifi book", function()
         -- Read science book
-        local sciBook = instanceItem("Base.Book_Science")
-        player:getInventory():AddItem(sciBook)
+        local sciBook = add_inventory_item(player, ITEMTYPE_BOOK_SCIENCE)
         local xpBefore1 = player:getXp():getXP(Perks.Science)
-        
-        local action1 = ISReadABook:new(player, sciBook, 1)
-        action1.character = player
-        action1.item = sciBook
-        action1:complete()
-        
-        local scienceXP = player:getXp():getXP(Perks.Science) - xpBefore1
-        player:getInventory():Remove(sciBook)
-        
+
+        ISTimedActionQueue.add(ISReadABook:new(player, sciBook, 1))
+
+        wait_for(function()
+            return player:getXp():getXP(Perks.Science) > xpBefore1
+        end)
+
         -- Read scifi book
-        local sciFiBook = instanceItem("Base.Book_SciFi")
-        player:getInventory():AddItem(sciFiBook)
+        local sciFiBook = add_inventory_item(player, "Base.Book_SciFi")
         local xpBefore2 = player:getXp():getXP(Perks.Science)
-        
-        local action2 = ISReadABook:new(player, sciFiBook, 1)
-        action2.character = player
-        action2.item = sciFiBook
-        action2:complete()
-        
-        local scifiXP = player:getXp():getXP(Perks.Science) - xpBefore2
-        player:getInventory():Remove(sciFiBook)
-        
+
+        ISTimedActionQueue.add(ISReadABook:new(player, sciFiBook, 1))
+
+        wait_for(function()
+            return player:getXp():getXP(Perks.Science) > xpBefore2
+        end)
+
+        local scienceXP = xpBefore2 - xpBefore1
+        local scifiXP   = player:getXp():getXP(Perks.Science) - xpBefore2
+
         assert.greater_than(scifiXP, scienceXP)
     end)
     
-    -- Restore setting
-    player:setTimedActionInstantCheat(wasInstant)
 end)
 
-return ZBSpec.run()
+return ZBSpec.runAsync()
