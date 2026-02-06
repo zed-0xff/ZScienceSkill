@@ -38,6 +38,10 @@ if ISTimedActionQueue and ISTimedActionQueue.clear then
     ISTimedActionQueue.clear(get_player())
 end
 
+if not isServer() then
+    wait_for_not(ISTimedActionQueue.isPlayerDoingAction, get_player())
+end
+
 ---------------------------------------------
 
 function set_sandbox_option(option, value)
