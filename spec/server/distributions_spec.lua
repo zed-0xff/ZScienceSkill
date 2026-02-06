@@ -1,8 +1,6 @@
 -- Test for ZScienceSkill_Distributions.lua
 -- Verifies Science skill books are added to loot distributions
 
-require "ZBSpec"
-
 ZBSpec.describe("Science book items", function()
     it("BookScience1 is registered with ScriptManager", function()
         local item = ScriptManager.instance:getItem("ZScienceSkill.BookScience1")

@@ -1,9 +1,6 @@
 -- Test for ZScienceSkill_Data.lua
 -- Validates data tables are correctly defined
 
-require "ZBSpec"
-require "ZScienceSkill_Data"
-
 ZBSpec.describe("ZScienceSkill.literature", function()
     it("is a table", function()
         assert.is_table(ZScienceSkill.literature)

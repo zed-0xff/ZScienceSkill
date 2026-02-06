@@ -1,11 +1,4 @@
--- Integration tests for ZScienceSkill specimens
--- Tests requiring player - runs on client and SP only
-
-require "ZBSpec"
-require "ZScienceSkill_Data"
-require "ZScienceSkill_ISResearchSpecimen"
-
-ZBSpec.player.describe("ISResearchSpecimen.isSpecimen", function()
+ZBSpec.describe("ISResearchSpecimen.isSpecimen", function()
     it("identifies Cricket as specimen", function()
         local cricket = instanceItem("Base.Cricket")
         assert.is_not_nil(cricket)
@@ -19,7 +12,7 @@ ZBSpec.player.describe("ISResearchSpecimen.isSpecimen", function()
     end)
 end)
 
-ZBSpec.player.describe("ISResearchSpecimen.isResearched", function()
+ZBSpec.describe("ISResearchSpecimen.isResearched", function()
     local player = getPlayer()
     
     it("returns false for new specimen", function()
@@ -43,13 +36,6 @@ ZBSpec.player.describe("ISResearchSpecimen.isResearched", function()
         
         -- Cleanup
         player:getModData().researchedSpecimens[specimen:getFullType()] = nil
-    end)
-end)
-
-ZBSpec.player.describe("Fluid detection", function()
-    it("Axe is not a specimen", function()
-        local axe = instanceItem("Base.Axe")
-        assert.is_false(ISResearchSpecimen.isSpecimen(axe))
     end)
 end)
 

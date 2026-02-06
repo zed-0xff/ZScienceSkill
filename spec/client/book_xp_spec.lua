@@ -1,6 +1,5 @@
--- Integration tests require player
-ZBSpec.player.describe("Science book", function()
-    local player = getPlayer()
+ZBSpec.describe("Science book", function()
+    local player = get_player()
     local ITEMTYPE = "Base.Book_Science"
 
     before_all(function()
@@ -64,8 +63,8 @@ ZBSpec.player.describe("Science book", function()
     end)
 end)
 
-ZBSpec.player.describe("Another SkillBook", function()
-    local player = getPlayer()
+ZBSpec.describe("Another SkillBook", function()
+    local player = get_player()
     local ITEMTYPE = "Base.BookMechanic1"
 
     before_each(function()

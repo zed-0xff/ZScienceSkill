@@ -1,5 +1,3 @@
-require "ZBSpec"
-
 ZBSpec.describe("SkillBook['Science']", function()
 
     local sci = SkillBook["Science"]

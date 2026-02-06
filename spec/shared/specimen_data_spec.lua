@@ -1,9 +1,3 @@
--- Data tests for ZScienceSkill specimens
--- Pure data validation - runs everywhere (SP, MP client, MP server)
-
-require "ZBSpec"
-require "ZScienceSkill_Data"
-
 ZBSpec.describe("ZScienceSkill.specimens data", function()
     it("is a table", function()
         assert.is_table(ZScienceSkill.specimens)
