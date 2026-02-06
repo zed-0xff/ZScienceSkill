@@ -23,8 +23,8 @@ local originalComplete = ISResearchRecipe.complete
 function ISResearchRecipe:complete()
     local result = originalComplete(self)
     
-    -- Base XP scales with recipe complexity
-    local baseXP = 15
+    -- XP scales with recipe complexity
+    local maxSkillReq = 0
     if self.scriptItem then
         local researchList = self.scriptItem:getResearchableRecipes(self.character, true)
         if researchList and researchList:size() > 0 then
@@ -32,14 +32,19 @@ function ISResearchRecipe:complete()
                 local recipe = researchList:get(i)
                 if ScriptManager.instance:getCraftRecipe(recipe) then
                     local craftRecipe = ScriptManager.instance:getCraftRecipe(recipe)
-                    local skillReq = craftRecipe:getHighestSkillRequirement() or 0
-                    baseXP = baseXP + (skillReq * 5)  -- More XP for complex recipes
+                    if craftRecipe then
+                        local skillReq = craftRecipe:getHighestSkillRequirement() or 0
+                        if skillReq > maxSkillReq then
+                            maxSkillReq = skillReq
+                        end
+                    end
                 end
             end
         end
     end
     
-    self.character:getXp():AddXP(Perks.Science, baseXP)
+    local xp = 15 + (maxSkillReq * 5)
+    addXp(self.character, Perks.Science, xp)
     
     return result
 end
