@@ -33,7 +33,11 @@ end
 set_sandbox_option("DayNightCycle", 2) -- Endless Day
 
 local function set_timed_action_instant(value)
-    all_exec("(getPlayer() or getOnlinePlayers():get(0)):setTimedActionInstantCheat(" .. tostring(value) .. ")")
+    if isClient() then
+        server_exec("getOnlinePlayers():get(0):setTimedActionInstantCheat(" .. tostring(value) .. ")")
+    else
+        getPlayer():setTimedActionInstantCheat(value)
+    end
 end
 
 local function add_item(player, itemFullType)
@@ -118,11 +122,11 @@ end
 
 -- Clear player's research data
 local function clear_research_data(player)
-    player:getModData().researchedSpecimens = {}
-    player:getModData().researchedPlants = {}
+    player:getModData().researchedSpecimens = nil
+    player:getModData().researchedPlants = nil
     if isClient() then
-        server_exec("getOnlinePlayers():get(0):getModData().researchedSpecimens = {}")
-        server_exec("getOnlinePlayers():get(0):getModData().researchedPlants = {}")
+        server_exec("getOnlinePlayers():get(0):getModData().researchedSpecimens = nil")
+        server_exec("getOnlinePlayers():get(0):getModData().researchedPlants = nil")
     end
 end
 

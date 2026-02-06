@@ -65,7 +65,6 @@ ZBSpec.describe("ISResearchSpecimen action", function()
             local specimen = add_item(player, "Base.Cricket")
             local xpBefore = player:getXp():getXP(Perks.Science)
             
-            print("XP before research: " .. xpBefore)
             research_specimen(player, specimen)
             
             wait_for(function()

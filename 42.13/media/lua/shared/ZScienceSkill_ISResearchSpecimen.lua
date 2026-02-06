@@ -145,13 +145,19 @@ function ISResearchSpecimen:complete()
             end
             
             local required = ZScienceSkill.herbalistPlantsRequired or 10
+            local hasHerbalist = self.character:isRecipeActuallyKnown("Herbalist")
             
             -- Grant Herbalist recipe and trait if threshold reached
-            if count >= required and not self.character:isRecipeActuallyKnown("Herbalist") then
+            if count >= required and not hasHerbalist then
                 self.character:learnRecipe("Herbalist")
                 if not self.character:hasTrait(CharacterTrait.HERBALIST) then
                     self.character:getCharacterTraits():add(CharacterTrait.HERBALIST)
                 end
+                -- Notify client to show unlock UI
+                sendServerCommand(self.character, "ZScienceSkill", "herbalistUnlocked", {})
+            elseif not hasHerbalist then
+                -- Notify client to show progress hint
+                sendServerCommand(self.character, "ZScienceSkill", "herbalistProgress", { count = count })
             end
         end
     end
@@ -185,38 +191,6 @@ function ISResearchSpecimen:perform()
         
         if fullType:find("Pills") and ZScienceSkill.medicalXP then
             HaloTextHelper.addTextWithArrow(self.character, getText("IGUI_perks_Doctor") .. " +" .. ZScienceSkill.medicalXP, true, HaloTextHelper.getColorGreen())
-        end
-    end
-    
-    -- Herbalist unlock UI feedback
-    local plantType = nil
-    if ZScienceSkill.herbalistPlants and ZScienceSkill.herbalistPlants[fullType] then
-        plantType = fullType
-    end
-    
-    if plantType then
-        local plants = self.character:getModData().researchedPlants or {}
-        if not plants[plantType] then
-            -- Count after adding this one
-            local count = 1
-            for _ in pairs(plants) do
-                count = count + 1
-            end
-            
-            local required = ZScienceSkill.herbalistPlantsRequired or 10
-            
-            if not self.character:isRecipeActuallyKnown("Herbalist") then
-                if count >= required then
-                    self.character:playSound("GainExperienceLevel")
-                    HaloTextHelper.addTextWithArrow(self.character, getText("IGUI_HerbalistUnlocked"), true, HaloTextHelper.getColorGreen())
-                elseif count <= 3 then
-                    self.character:Say(getText("IGUI_HerbalistHint1"))
-                elseif count <= 5 then
-                    self.character:Say(getText("IGUI_HerbalistHint2"))
-                elseif count <= 9 then
-                    self.character:Say(getText("IGUI_HerbalistHint3"))
-                end
-            end
         end
     end
     
