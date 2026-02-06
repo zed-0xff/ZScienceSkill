@@ -67,3 +67,11 @@ local function reset_pages(player, book)
     player:setAlreadyReadPages(book:getFullType(), 0)
 end
 
+local function set_perk_level(player, perk, level)
+    if isClient() then
+        SendCommandToServer("/lua getOnlinePlayers():get(0):setPerkLevelDebug(Perks." .. tostring(perk) .. ", " .. level .. ")")
+    else
+        player:setPerkLevelDebug(perk, level)
+    end
+end
+

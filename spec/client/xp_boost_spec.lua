@@ -1,53 +1,47 @@
--- Integration tests for ZScienceSkill XP boost
--- Tests requiring player and game state - runs on client and SP only
+-- Test for ZScienceSkill_XPBoost.lua
+-- Verifies skill XP boost is applied correctly
 
-require "ZBSpec"
-require "ZScienceSkill_XPBoost"
+local function carve_spear(player, item)
+    local recipe = getScriptManager():getCraftRecipe("CarveSpear")
+    local playerNum = player:getPlayerNum()
 
-ZBSpec.describe("Combat perk detection", function()
-    it("Perks.Combat exists", function()
-        assert.is_not_nil(Perks.Combat)
-    end)
-    
-    it("Perks.Firearm exists", function()
-        assert.is_not_nil(Perks.Firearm)
-    end)
-    
-    it("PerkFactory.getPerk returns perk object", function()
-        local perkObj = PerkFactory.getPerk(Perks.Woodwork)
-        assert.is_not_nil(perkObj)
-    end)
-    
-    it("Woodwork parent is not Combat", function()
-        local perkObj = PerkFactory.getPerk(Perks.Woodwork)
-        assert.is_not_nil(perkObj)
-        local parent = perkObj:getParent()
-        assert.is_true(parent ~= Perks.Combat and parent ~= Perks.Firearm)
-    end)
-end)
+    ISInventoryPaneContextMenu.OnNewCraft(item, recipe, playerNum, false)
+    wait_for_not(ISTimedActionQueue.isPlayerDoingAction, player)
+end
 
-ZBSpec.player.describe("XP boost integration", function()
-    local player = getPlayer()
-    
-    it("gaining Woodwork XP works (if Science > 0)", function()
-        local scienceLevel = player:getPerkLevel(Perks.Science)
-        
-        -- Skip if no Science skill
-        if scienceLevel == 0 then
-            return
+ZBSpec.describe("XP boost", function()
+    local player = get_player()
+
+    before_all(function()
+        set_timed_action_instant_cheat(true)
+        add_item(player, "Base.HuntingKnife")
+        if isClient() then
+            SendCommandToServer("/lua ZScienceSkill.minGain=0")
+        else
+            ZScienceSkill.minGain = 0
         end
-        
-        local woodworkBefore = player:getXp():getXP(Perks.Woodwork)
-        
-        -- Add some Woodwork XP
-        player:getXp():AddXP(Perks.Woodwork, 100)
-        
-        local woodworkAfter = player:getXp():getXP(Perks.Woodwork)
-        local gained = woodworkAfter - woodworkBefore
-        
-        -- Should gain XP (exact amount depends on game multipliers)
-        assert.greater_than(0, gained)
+    end)
+    
+    it("increases skill XP gain with higher Science level", function()
+        local function make(level)
+            set_perk_level(player, Perks.Science, level)
+
+            local xpBefore = player:getXp():getXP(Perks.Carving)
+            local stick = add_item(player, "Base.LongStick")
+            carve_spear(player, stick)
+            wait_for(function()
+                return player:getXp():getXP(Perks.Carving) > xpBefore
+            end)
+            return player:getXp():getXP(Perks.Carving) - xpBefore
+        end
+
+        local xp10 = make(10)
+        local xp05 = make(5)
+        local xp00 = make(0)
+
+        assert(xp05 > xp00)
+        assert(xp10 > xp05)
     end)
 end)
 
-return ZBSpec.run()
+return ZBSpec.runAsync()

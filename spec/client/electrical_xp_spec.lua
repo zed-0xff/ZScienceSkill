@@ -10,7 +10,7 @@ local function dismantle_radio(player, item)
 end
 
 ZBSpec.describe("Electrical XP synergy", function()
-    local player = getPlayer()
+    local player = get_player()
 
     before_all(function()
         set_timed_action_instant_cheat(true)

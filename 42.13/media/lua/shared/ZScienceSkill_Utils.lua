@@ -8,3 +8,12 @@ function ZScienceSkill.getFluidType(item)
     end
     return nil
 end
+
+function ZScienceSkill.isCombatPerk(perk)
+    local perkObj = PerkFactory.getPerk(perk)
+    if not perkObj then return false end
+    
+    local parent = perkObj:getParent()
+    return parent == Perks.Combat or parent == Perks.Firearm
+           or perk == Perks.Combat or perk == Perks.Firearm
+end
