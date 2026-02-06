@@ -8,6 +8,7 @@ ignore = {
     "142", -- Setting undefined field (we build our mod table)
     "211", -- Unused local variable
     "212/_.*", -- Unused argument starting with _
+    "212/self", -- Unused self in method (common in PZ overrides)
     "213", -- Unused loop variable
     "611", -- Line contains only whitespace
     "631", -- Line is too long
@@ -24,9 +25,20 @@ local mod_globals = {
     "ISResearchSpecimen",  -- Timed action class defined by the mod
 }
 
--- Combine PZ globals + mod globals
+-- PZ globals missing from auto-generated file
+local extra_pz_globals = {
+    "sendClientCommand",
+    "sendServerCommand",
+    "sendSyncPlayerFields",
+    "syncItemFields",
+}
+
+-- Combine PZ globals + extra PZ globals + mod globals
 globals = {}
 for _, g in ipairs(pz_globals) do
+    table.insert(globals, g)
+end
+for _, g in ipairs(extra_pz_globals) do
     table.insert(globals, g)
 end
 for _, g in ipairs(mod_globals) do
