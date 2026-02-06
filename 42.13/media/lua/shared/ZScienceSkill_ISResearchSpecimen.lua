@@ -119,15 +119,30 @@ function ISResearchSpecimen:perform()
         end
     end
     
+    -- Determine if this is a plant for Herbalist tracking
+    local plantType = nil
+    if ZScienceSkill.herbalistPlants and ZScienceSkill.herbalistPlants[fullType] then
+        plantType = fullType
+    end
+    
+    -- Sync ModData with server in MP, or set locally in SP
+    if isClient() then
+        sendClientCommand("ZScienceSkill", "researchSpecimen", {
+            researchKey = researchKey,
+            plantType = plantType
+        })
+    end
+    
+    -- Always update local ModData (client-side for immediate UI feedback, server handles persistence)
     self.character:getModData().researchedSpecimens = self.character:getModData().researchedSpecimens or {}
     self.character:getModData().researchedSpecimens[researchKey] = true
     
     -- Track plants for Herbalist unlock
-    if ZScienceSkill.herbalistPlants and ZScienceSkill.herbalistPlants[fullType] then
+    if plantType then
         self.character:getModData().researchedPlants = self.character:getModData().researchedPlants or {}
         
-        if not self.character:getModData().researchedPlants[fullType] then
-            self.character:getModData().researchedPlants[fullType] = true
+        if not self.character:getModData().researchedPlants[plantType] then
+            self.character:getModData().researchedPlants[plantType] = true
             
             -- Count unique plants researched
             local count = 0
@@ -140,7 +155,10 @@ function ISResearchSpecimen:perform()
             -- Check if player already has Herbalist
             if not self.character:isRecipeActuallyKnown("Herbalist") then
                 if count >= required then
-                    -- Grant Herbalist recipe and trait
+                    -- Grant Herbalist recipe and trait (also sync to server in MP)
+                    if isClient() then
+                        sendClientCommand("ZScienceSkill", "grantHerbalist", {})
+                    end
                     self.character:learnRecipe("Herbalist")
                     if not self.character:hasTrait(CharacterTrait.HERBALIST) then
                         self.character:getCharacterTraits():add(CharacterTrait.HERBALIST)
