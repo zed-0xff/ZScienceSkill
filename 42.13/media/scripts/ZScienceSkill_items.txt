@@ -2,8 +2,8 @@ module ZScienceSkill
 {
     item BookScience1
     {
-        DisplayCategory = Literature,
-        ItemType = Literature,
+        DisplayCategory = SkillBook,
+        ItemType = base:literature,
         DisplayName = Science Vol. 1,
         Icon = Book5,
         StaticModel = BookPurple,
@@ -22,8 +22,8 @@ module ZScienceSkill
 
     item BookScience2
     {
-        DisplayCategory = Literature,
-        ItemType = Literature,
+        DisplayCategory = SkillBook,
+        ItemType = base:literature,
         DisplayName = Science Vol. 2,
         Icon = Book5,
         StaticModel = BookPurple,
@@ -42,8 +42,8 @@ module ZScienceSkill
 
     item BookScience3
     {
-        DisplayCategory = Literature,
-        ItemType = Literature,
+        DisplayCategory = SkillBook,
+        ItemType = base:literature,
         DisplayName = Science Vol. 3,
         Icon = Book5,
         StaticModel = BookPurple,
@@ -62,8 +62,8 @@ module ZScienceSkill
 
     item BookScience4
     {
-        DisplayCategory = Literature,
-        ItemType = Literature,
+        DisplayCategory = SkillBook,
+        ItemType = base:literature,
         DisplayName = Science Vol. 4,
         Icon = Book5,
         StaticModel = BookPurple,
@@ -82,8 +82,8 @@ module ZScienceSkill
 
     item BookScience5
     {
-        DisplayCategory = Literature,
-        ItemType = Literature,
+        DisplayCategory = SkillBook,
+        ItemType = base:literature,
         DisplayName = Science Vol. 5,
         Icon = Book5,
         StaticModel = BookPurple,
