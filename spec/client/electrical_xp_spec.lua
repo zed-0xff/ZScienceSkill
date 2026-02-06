@@ -16,11 +16,7 @@ ZBSpec.describe("Electrical XP synergy", function()
         set_timed_action_instant(true)
         add_item(player, "Base.Screwdriver")
         -- TODO: find reliable way to get more Electircal XP in test and remove ZScienceSkill.minGain
-        if isClient() then
-            SendCommandToServer("/lua ZScienceSkill.minGain=0")
-        else
-            ZScienceSkill.minGain = 0
-        end
+        all_exec("ZScienceSkill.minGain=0")
     end)
     
     it("grants Science XP when gaining Electrical XP", function()

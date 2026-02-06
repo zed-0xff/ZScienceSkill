@@ -32,6 +32,8 @@ end
 Events.OnClientCommand.Add(function(module, command, player, args)
     if module ~= MODULE then return end
     
+    print("[server] received command " .. module .. " " .. tostring(command) .. " args: " .. tostring(args))
+
     if command == "researchSpecimen" then
         handleResearchSpecimen(player, args)
     elseif command == "grantHerbalist" then

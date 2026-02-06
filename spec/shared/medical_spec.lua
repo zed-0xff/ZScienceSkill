@@ -20,7 +20,7 @@ ZBSpec.describe(ISApplyBandage, function()
 end)
 
 ZBSpec.describe(ISDisinfect, function()
-    local alcohol = instanceItem("Base.Alcohol")
+    local alcohol = instanceItem("Base.AlcoholWipes")
 
     it("has shorter duration with higher Science skill", function()
         player:setPerkLevelDebug(Perks.Science, 10)

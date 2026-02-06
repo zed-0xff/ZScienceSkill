@@ -8,7 +8,7 @@ ZBSpec.describe("Science book", function()
     end)
 
     before_each(function()
-        init_player(player)
+        init_player()
     end)
     
     it("grants Science XP", function()
@@ -58,7 +58,7 @@ ZBSpec.describe("Science book", function()
         xpBefore = player:getXp():getXP(Perks.Science)
         for i = 1, 5 do
             read_book(player, book) -- same book again
-            assert.equals(xpBefore, player:getXp():getXP(Perks.Science)) -- no xp
+            assert.is_equal(xpBefore, player:getXp():getXP(Perks.Science)) -- no xp
         end
     end)
 end)
@@ -95,7 +95,7 @@ ZBSpec.describe("Another SkillBook", function()
         xpBefore = player:getXp():getXP(Perks.Science)
         for i = 1, 5 do
             read_book(player, book) -- same book again
-            assert.equals(xpBefore, player:getXp():getXP(Perks.Science)) -- no xp
+            assert.is_equal(xpBefore, player:getXp():getXP(Perks.Science)) -- no xp
         end
     end)
 end)

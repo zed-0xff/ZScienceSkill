@@ -15,11 +15,7 @@ ZBSpec.describe("XP boost", function()
     before_all(function()
         set_timed_action_instant(true)
         add_item(player, "Base.HuntingKnife")
-        if isClient() then
-            SendCommandToServer("/lua ZScienceSkill.minGain=0")
-        else
-            ZScienceSkill.minGain = 0
-        end
+        all_exec("ZScienceSkill.minGain=0")
     end)
     
     it("increases skill XP gain with higher Science level", function()

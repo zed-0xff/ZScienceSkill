@@ -5,6 +5,11 @@ ISResearchSpecimen = ISBaseTimedAction:derive("ISResearchSpecimen")
 
 local SEARCH_RADIUS = 1
 
+-- Check if object is a microscope
+local function isMicroscope(obj)
+    return obj and obj.getProperties and obj:getProperties():get("CustomName") == "Microscope"
+end
+
 -- Find a microscope within radius of player
 local function findNearbyMicroscope(character)
     local sq = character:getSquare()
@@ -18,7 +23,7 @@ local function findNearbyMicroscope(character)
             if checkSq then
                 for i = 0, checkSq:getObjects():size() - 1 do
                     local obj = checkSq:getObjects():get(i)
-                    if obj and obj.getProperties and obj:getProperties():get("CustomName") == "Microscope" then
+                    if isMicroscope(obj) then
                         return obj
                     end
                 end
@@ -28,8 +33,8 @@ local function findNearbyMicroscope(character)
     return nil
 end
 
-
 function ISResearchSpecimen:isValid()
+    -- see ISEatFoodAction:isValid()
     if isClient() and self.item then
         if not self.character:getInventory():containsID(self.item:getID()) then
             return false
@@ -38,6 +43,9 @@ function ISResearchSpecimen:isValid()
         if not self.character:getInventory():contains(self.item) then
             return false
         end
+    end
+    if ISResearchSpecimen.isResearched(self.character, self.item) then
+        return false
     end
     if not findNearbyMicroscope(self.character) then
         HaloTextHelper.addBadText(self.character, getText("Tooltip_NeedMicroscope"))
@@ -77,10 +85,9 @@ function ISResearchSpecimen:stop()
     ISBaseTimedAction.stop(self)
 end
 
-function ISResearchSpecimen:perform()
-    self.character:setReading(false)
-    self.item:setJobDelta(0.0)
-    
+-- Called by Java networking on server in MP to apply action effects
+-- This is where XP and ModData changes should happen for proper MP sync
+function ISResearchSpecimen:complete()
     local fullType = self.item:getFullType()
     local fluidType = ZScienceSkill.getFluidType(self.item)
     local researchKey = fullType
@@ -94,8 +101,7 @@ function ISResearchSpecimen:perform()
         for perkName, xp in pairs(ZScienceSkill.fluids[fluidType]) do
             local perk = Perks[perkName]
             if perk then
-                self.character:getXp():AddXP(perk, xp)
-                HaloTextHelper.addTextWithArrow(self.character, getText("IGUI_perks_" .. perkName) .. " +" .. xp, true, HaloTextHelper.getColorGreen())
+                addXp(self.character, perk, xp)
             end
         end
     end
@@ -103,41 +109,29 @@ function ISResearchSpecimen:perform()
     -- Regular specimen
     if not isFluid then
         local xp = ZScienceSkill.specimens[fullType]
-        self.character:getXp():AddXP(Perks.Science, xp)
-        HaloTextHelper.addTextWithArrow(self.character, getText("IGUI_perks_Science") .. " +" .. xp, true, HaloTextHelper.getColorGreen())
+        addXp(self.character, Perks.Science, xp)
         
         -- Grant Tracking XP for scat analysis (dung items)
         if fullType:find("Dung_") and ZScienceSkill.trackingXP then
-            self.character:getXp():AddXP(Perks.Tracking, ZScienceSkill.trackingXP)
-            HaloTextHelper.addTextWithArrow(self.character, getText("IGUI_perks_Tracking") .. " +" .. ZScienceSkill.trackingXP, true, HaloTextHelper.getColorGreen())
+            addXp(self.character, Perks.Tracking, ZScienceSkill.trackingXP)
         end
         
         -- Grant Doctor XP for pharmacology (pills)
         if fullType:find("Pills") and ZScienceSkill.medicalXP then
-            self.character:getXp():AddXP(Perks.Doctor, ZScienceSkill.medicalXP)
-            HaloTextHelper.addTextWithArrow(self.character, getText("IGUI_perks_Doctor") .. " +" .. ZScienceSkill.medicalXP, true, HaloTextHelper.getColorGreen())
+            addXp(self.character, Perks.Doctor, ZScienceSkill.medicalXP)
         end
     end
     
-    -- Determine if this is a plant for Herbalist tracking
+    -- Update ModData
+    self.character:getModData().researchedSpecimens = self.character:getModData().researchedSpecimens or {}
+    self.character:getModData().researchedSpecimens[researchKey] = true
+    
+    -- Track plants for Herbalist unlock
     local plantType = nil
     if ZScienceSkill.herbalistPlants and ZScienceSkill.herbalistPlants[fullType] then
         plantType = fullType
     end
     
-    -- Sync ModData with server in MP, or set locally in SP
-    if isClient() then
-        sendClientCommand("ZScienceSkill", "researchSpecimen", {
-            researchKey = researchKey,
-            plantType = plantType
-        })
-    end
-    
-    -- Always update local ModData (client-side for immediate UI feedback, server handles persistence)
-    self.character:getModData().researchedSpecimens = self.character:getModData().researchedSpecimens or {}
-    self.character:getModData().researchedSpecimens[researchKey] = true
-    
-    -- Track plants for Herbalist unlock
     if plantType then
         self.character:getModData().researchedPlants = self.character:getModData().researchedPlants or {}
         
@@ -152,17 +146,67 @@ function ISResearchSpecimen:perform()
             
             local required = ZScienceSkill.herbalistPlantsRequired or 10
             
-            -- Check if player already has Herbalist
+            -- Grant Herbalist recipe and trait if threshold reached
+            if count >= required and not self.character:isRecipeActuallyKnown("Herbalist") then
+                self.character:learnRecipe("Herbalist")
+                if not self.character:hasTrait(CharacterTrait.HERBALIST) then
+                    self.character:getCharacterTraits():add(CharacterTrait.HERBALIST)
+                end
+            end
+        end
+    end
+    
+    -- Sync ModData from server to client
+    self.character:transmitModData()
+    
+    return true
+end
+
+function ISResearchSpecimen:perform()
+    self.character:setReading(false)
+    self.item:setJobDelta(0.0)
+    
+    local fullType = self.item:getFullType()
+    local fluidType = ZScienceSkill.getFluidType(self.item)
+    local isFluid = fluidType and ZScienceSkill.fluids and ZScienceSkill.fluids[fluidType]
+    
+    -- Show UI feedback (HaloText) - this runs on client
+    if isFluid then
+        for perkName, xp in pairs(ZScienceSkill.fluids[fluidType]) do
+            HaloTextHelper.addTextWithArrow(self.character, getText("IGUI_perks_" .. perkName) .. " +" .. xp, true, HaloTextHelper.getColorGreen())
+        end
+    else
+        local xp = ZScienceSkill.specimens[fullType]
+        HaloTextHelper.addTextWithArrow(self.character, getText("IGUI_perks_Science") .. " +" .. xp, true, HaloTextHelper.getColorGreen())
+        
+        if fullType:find("Dung_") and ZScienceSkill.trackingXP then
+            HaloTextHelper.addTextWithArrow(self.character, getText("IGUI_perks_Tracking") .. " +" .. ZScienceSkill.trackingXP, true, HaloTextHelper.getColorGreen())
+        end
+        
+        if fullType:find("Pills") and ZScienceSkill.medicalXP then
+            HaloTextHelper.addTextWithArrow(self.character, getText("IGUI_perks_Doctor") .. " +" .. ZScienceSkill.medicalXP, true, HaloTextHelper.getColorGreen())
+        end
+    end
+    
+    -- Herbalist unlock UI feedback
+    local plantType = nil
+    if ZScienceSkill.herbalistPlants and ZScienceSkill.herbalistPlants[fullType] then
+        plantType = fullType
+    end
+    
+    if plantType then
+        local plants = self.character:getModData().researchedPlants or {}
+        if not plants[plantType] then
+            -- Count after adding this one
+            local count = 1
+            for _ in pairs(plants) do
+                count = count + 1
+            end
+            
+            local required = ZScienceSkill.herbalistPlantsRequired or 10
+            
             if not self.character:isRecipeActuallyKnown("Herbalist") then
                 if count >= required then
-                    -- Grant Herbalist recipe and trait (also sync to server in MP)
-                    if isClient() then
-                        sendClientCommand("ZScienceSkill", "grantHerbalist", {})
-                    end
-                    self.character:learnRecipe("Herbalist")
-                    if not self.character:hasTrait(CharacterTrait.HERBALIST) then
-                        self.character:getCharacterTraits():add(CharacterTrait.HERBALIST)
-                    end
                     self.character:playSound("GainExperienceLevel")
                     HaloTextHelper.addTextWithArrow(self.character, getText("IGUI_HerbalistUnlocked"), true, HaloTextHelper.getColorGreen())
                 elseif count <= 3 then
@@ -176,7 +220,7 @@ function ISResearchSpecimen:perform()
         end
     end
     
-    -- Sync with server
+    -- Sync item with server
     syncItemFields(self.character, self.item)
     
     ISBaseTimedAction.perform(self)
@@ -282,11 +326,6 @@ local function onFillInventoryContextMenu(player, context, items)
 end
 
 Events.OnFillInventoryObjectContextMenu.Add(onFillInventoryContextMenu)
-
--- Check if object is a microscope
-local function isMicroscope(obj)
-    return obj and obj.getProperties and obj:getProperties():get("CustomName") == "Microscope"
-end
 
 -- Find all unresearched specimens in player inventory
 local function findUnresearchedSpecimens(playerObj)
