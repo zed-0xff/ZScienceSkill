@@ -1,3 +1,6 @@
+-- Integration tests for ZScienceSkill specimens
+-- Tests requiring player - runs on client and SP only
+
 ZBSpec.describe("ISResearchSpecimen.isSpecimen", function()
     it("identifies Cricket as specimen", function()
         local cricket = instanceItem("Base.Cricket")

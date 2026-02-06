@@ -8,7 +8,7 @@ ZBSpec.describe("Science book", function()
     end)
 
     before_each(function()
-        init_player()
+        init_player(player)
     end)
     
     it("grants Science XP", function()

@@ -1,3 +1,8 @@
+-- Spec helper functions for ZScienceSkill tests
+-- Functions declared without 'local' so they're written to the request-scoped
+-- shared environment (not _G). This allows spec files to access them without
+-- polluting the global namespace.
+
 require "ZBSpec"
 
 function get_player()
@@ -26,21 +31,19 @@ end
 
 ---------------------------------------------
 
-local function set_sandbox_option(option, value)
+function set_sandbox_option(option, value)
     all_exec("getSandboxOptions():getOptionByName(\"" .. option .. "\"):setValue(" .. tostring(value) .. ")")
 end
 
 set_sandbox_option("DayNightCycle", 2) -- Endless Day
 
-local function set_timed_action_instant(value)
-    if isClient() then
-        server_exec("getOnlinePlayers():get(0):setTimedActionInstantCheat(" .. tostring(value) .. ")")
-    else
-        getPlayer():setTimedActionInstantCheat(value)
-    end
+function set_timed_action_instant(value)
+    -- Can't use get_player() here - all_exec sends code as string to server
+    -- where spec_helper functions aren't available
+    all_exec("(getPlayer() or getOnlinePlayers():get(0)):setTimedActionInstantCheat(" .. tostring(value) .. ")")
 end
 
-local function add_item(player, itemFullType)
+function add_item(player, itemFullType)
     local item = nil
     if isClient() then
         -- MP
@@ -57,29 +60,22 @@ local function add_item(player, itemFullType)
     return item
 end
 
-local function read_book(player, book)
+function read_book(player, book)
     ISTimedActionQueue.add(ISReadABook:new(player, book, 1))
     wait_for_not(ISTimedActionQueue.isPlayerDoingAction, player)
 end
 
 -- for skillbooks
-local function reset_pages(player, book)
-    if isClient() then
-        server_exec("getOnlinePlayers():get(0):setAlreadyReadPages(\"" .. book:getFullType() .. "\", 0)")
-    end
-    player:setAlreadyReadPages(book:getFullType(), 0)
+function reset_pages(player, book)
+    all_exec("(getPlayer() or getOnlinePlayers():get(0)):setAlreadyReadPages(\"" .. book:getFullType() .. "\", 0)")
 end
 
-local function set_perk_level(player, perk, level)
-    if isClient() then
-        server_exec("getOnlinePlayers():get(0):setPerkLevelDebug(Perks." .. tostring(perk) .. ", " .. level .. ")")
-    else
-        player:setPerkLevelDebug(perk, level)
-    end
+function set_perk_level(player, perk, level)
+    all_exec("(getPlayer() or getOnlinePlayers():get(0)):setPerkLevelDebug(Perks." .. tostring(perk) .. ", " .. level .. ")")
 end
 
 -- Place a microscope on the player's square (for testing research)
-local function place_microscope(player)
+function place_microscope(player)
     local sq = player:getSquare()
     if not sq then return nil end
     
@@ -87,21 +83,15 @@ local function place_microscope(player)
     for i = 0, sq:getObjects():size() - 1 do
         local obj = sq:getObjects():get(i)
         if obj and obj.getProperties and obj:getProperties():get("CustomName") == "Microscope" then
-            return obj -- Already have one
+            return obj
         end
     end
     
-    -- Create and add microscope
-    local sprite = IsoSprite.new()
-    sprite:LoadFramesNoDirPageSimple("location_community_medical_01_139")
-    local obj = IsoObject.new(getCell(), sq, sprite)
-    obj:getProperties():Set("CustomName", "Microscope")
-    sq:AddTileObject(obj)
-    return obj
+    return sq:addTileObject("location_community_medical_01_139")
 end
 
 -- Remove microscope from player's square
-local function remove_microscope(player)
+function remove_microscope(player)
     local sq = player:getSquare()
     if not sq then return end
     
@@ -115,32 +105,13 @@ local function remove_microscope(player)
 end
 
 -- Perform research on a specimen
-local function research_specimen(player, item)
+function research_specimen(player, item)
     ISTimedActionQueue.add(ISResearchSpecimen:new(player, item, 100))
     wait_for_not(ISTimedActionQueue.isPlayerDoingAction, player)
 end
 
 -- Clear player's research data
-local function clear_research_data(player)
-    player:getModData().researchedSpecimens = nil
-    player:getModData().researchedPlants = nil
-    if isClient() then
-        server_exec("getOnlinePlayers():get(0):getModData().researchedSpecimens = nil")
-        server_exec("getOnlinePlayers():get(0):getModData().researchedPlants = nil")
-    end
+function clear_research_data(player)
+    all_exec("(getPlayer() or getOnlinePlayers():get(0)):getModData().researchedSpecimens = nil")
+    all_exec("(getPlayer() or getOnlinePlayers():get(0)):getModData().researchedPlants = nil")
 end
-
----------------------------------------------
--- Export globals for use in specs
----------------------------------------------
-_G.set_sandbox_option = set_sandbox_option
-_G.set_timed_action_instant = set_timed_action_instant
-_G.add_item = add_item
-_G.read_book = read_book
-_G.reset_pages = reset_pages
-_G.set_perk_level = set_perk_level
-_G.place_microscope = place_microscope
-_G.remove_microscope = remove_microscope
-_G.research_specimen = research_specimen
-_G.clear_research_data = clear_research_data
-

@@ -27,8 +27,8 @@ ZBSpec.describe("Herbalist unlock", function()
         init_player(player)
         clear_research_data(player)
         -- Remove Herbalist trait/recipe if present
-        all_exec("get_player():getKnownRecipes():remove('Herbalist')")
-        all_exec("get_player():getCharacterTraits():remove(CharacterTrait.HERBALIST)")
+        all_exec("(getPlayer() or getOnlinePlayers():get(0)):getKnownRecipes():remove('Herbalist')")
+        all_exec("(getPlayer() or getOnlinePlayers():get(0)):getCharacterTraits():remove(CharacterTrait.HERBALIST)")
     end)
     
     it("does not unlock Herbalist with 9 plants", function()
@@ -78,7 +78,7 @@ ZBSpec.describe("Herbalist unlock", function()
         wait_for(ISResearchSpecimen.isResearched, player, cricket)
         
         -- Cricket is not a plant, so researchedPlants should be empty
-        assert.equals(nil, player:getModData().researchedPlants)
+        assert.is_equal(nil, player:getModData().researchedPlants)
     end)
 end)
 

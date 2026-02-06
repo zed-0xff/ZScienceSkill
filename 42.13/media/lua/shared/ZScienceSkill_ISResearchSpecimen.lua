@@ -153,6 +153,8 @@ function ISResearchSpecimen:complete()
                 if not self.character:hasTrait(CharacterTrait.HERBALIST) then
                     self.character:getCharacterTraits():add(CharacterTrait.HERBALIST)
                 end
+                -- Sync recipes (0x01) and traits (0x02) to client
+                sendSyncPlayerFields(self.character, 0x00000003)
                 -- Notify client to show unlock UI
                 sendServerCommand(self.character, "ZScienceSkill", "herbalistUnlocked", {})
             elseif not hasHerbalist then

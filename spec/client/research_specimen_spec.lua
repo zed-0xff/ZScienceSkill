@@ -1,51 +1,6 @@
 -- Client-side integration tests for ISResearchSpecimen
 -- Tests the full research flow with player actions
 
--- Place a microscope on the player's square (for testing research)
-local function place_microscope(player)
-    local sq = player:getSquare()
-    if not sq then return nil end
-    
-    -- Check if microscope already exists on square
-    for i = 0, sq:getObjects():size() - 1 do
-        local obj = sq:getObjects():get(i)
-        if obj and obj.getProperties and obj:getProperties():get("CustomName") == "Microscope" then
-            return obj -- Already have one
-        end
-    end
-    
-    -- Create and add microscope
-    sq:addTileObject("location_community_medical_01_139")
-    return obj
-end
-
--- Remove microscope from player's square
-local function remove_microscope(player)
-    local sq = player:getSquare()
-    if not sq then return end
-    
-    for i = sq:getObjects():size() - 1, 0, -1 do
-        local obj = sq:getObjects():get(i)
-        if obj and obj.getProperties and obj:getProperties():get("CustomName") == "Microscope" then
-            sq:RemoveTileObject(obj)
-            return
-        end
-    end
-end
-
--- Perform research on a specimen
-local function research_specimen(player, item)
-    ISTimedActionQueue.add(ISResearchSpecimen:new(player, item, 100))
-    wait_for_not(ISTimedActionQueue.isPlayerDoingAction, player)
-end
-
--- Clear player's research data
-local function clear_research_data(player)
-    all_exec("(getPlayer() or getOnlinePlayers():get(0)):getModData().researchedSpecimens = {}")
-    all_exec("(getPlayer() or getOnlinePlayers():get(0)):getModData().researchedPlants = {}")
-    all_exec("(getPlayer() or getOnlinePlayers():get(0)):getXp():AddXP(Perks.Science, -999)")
-end
-
 ZBSpec.describe("ISResearchSpecimen action", function()
     local player = get_player()
     
@@ -55,9 +10,8 @@ ZBSpec.describe("ISResearchSpecimen action", function()
     end)
     
     before_each(function()
-        clear_research_data(player)
         init_player(player)
-        SyncXp(player)
+        clear_research_data(player)
     end)
     
     describe("researching a specimen", function()
@@ -79,7 +33,9 @@ ZBSpec.describe("ISResearchSpecimen action", function()
             
             research_specimen(player, specimen)
             
-            wait_for(ISResearchSpecimen.isResearched, player, specimen)
+            wait_for(function()
+                return ISResearchSpecimen.isResearched(player, specimen)
+            end)
         end)
         
         it("cannot research same specimen twice", function()
@@ -99,7 +55,7 @@ ZBSpec.describe("ISResearchSpecimen action", function()
             research_specimen(player, specimen2)
             
             -- XP should not increase (already researched this type)
-            assert.equals(xpAfterFirst, player:getXp():getXP(Perks.Science))
+            assert.is_equal(xpAfterFirst, player:getXp():getXP(Perks.Science))
         end)
     end)
     
