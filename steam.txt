@@ -7,6 +7,8 @@ Introducing the Science skill - finally a reason to hoard all that nerdy stuff!
 [b]Research Specimens[/b]
 Found a jar with a brain in it? A dead rat? Some weird mushrooms? Now you can actually study them! Just find a microscope, plop your specimen nearby, and get that sweet, sweet Science XP.
 
+Where to find microscopes: schools, medical clinics, hospitals, police stations (forensics), and the occasional fancy house.
+
 Pro tip: Pay extra attention to plants, berries, and mushrooms. Rumor has it that studying enough of them might unlock something... useful. 👀
 
 Look for the small gray "R" on item icons - that means you haven't read/researched it yet and it can give you Science XP!
@@ -52,6 +54,10 @@ Pretty much anything that looks sciency:
 
 [h1]Compatibility[/h1]
 Should work with most mods. We hook into vanilla functions cleanly and call originals when possible.
+
+[b]Multiplayer:[/b] Fully supported! Works on dedicated servers and co-op.
+
+[b]✓ Safe to add or remove mid-game.[/b]
 
 ---
 
