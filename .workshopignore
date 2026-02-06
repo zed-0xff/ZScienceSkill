@@ -8,5 +8,6 @@
 *.xcf
 
 Brewfile
+Gemfile*
 Rakefile
 tmp
