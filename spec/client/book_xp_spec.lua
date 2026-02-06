@@ -5,7 +5,7 @@ ZBSpec.player.describe("Science book", function()
 
     before_all(function()
         set_sandbox_option("MinutesPerPage", 0.001)
-        set_timed_action_instant_cheat(false) -- breaks skillbooks reading in SP
+        set_timed_action_instant(false) -- breaks skillbooks reading in SP
     end)
 
     before_each(function()

@@ -7,7 +7,7 @@ ZBSpec.describe(ISResearchRecipe, function()
     local player = get_player()
 
     before_all(function()
-        set_timed_action_instant_cheat(true)
+        set_timed_action_instant(true)
     end)
 
     before_each(function()

@@ -13,7 +13,7 @@ ZBSpec.describe("Electrical XP synergy", function()
     local player = get_player()
 
     before_all(function()
-        set_timed_action_instant_cheat(true)
+        set_timed_action_instant(true)
         add_item(player, "Base.Screwdriver")
         -- TODO: find reliable way to get more Electircal XP in test and remove ZScienceSkill.minGain
         if isClient() then

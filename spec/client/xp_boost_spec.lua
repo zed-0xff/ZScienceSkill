@@ -13,7 +13,7 @@ ZBSpec.describe("XP boost", function()
     local player = get_player()
 
     before_all(function()
-        set_timed_action_instant_cheat(true)
+        set_timed_action_instant(true)
         add_item(player, "Base.HuntingKnife")
         if isClient() then
             SendCommandToServer("/lua ZScienceSkill.minGain=0")
