@@ -17,6 +17,10 @@ function init_player(player)
     if not player then
         player = get_player()
     end
+    -- Abort any action the player is currently doing
+    if ISTimedActionQueue and ISTimedActionQueue.clear then
+        ISTimedActionQueue.clear(get_player())
+    end
     if isClient() then
         -- Use server_eval (not server_exec) to wait for server to complete clearing
         -- before test continues. Otherwise race condition: add_item might run before
@@ -27,6 +31,11 @@ function init_player(player)
     -- both for SP and MP client
     player:getInventory():clear()
     player:getReadLiterature():clear()
+end
+
+-- abort any action the player is currently doing (e.g. reading a book)
+if ISTimedActionQueue and ISTimedActionQueue.clear then
+    ISTimedActionQueue.clear(get_player())
 end
 
 ---------------------------------------------
