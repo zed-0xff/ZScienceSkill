@@ -197,6 +197,7 @@ ZScienceSkill.Data.add({ specimens = {
 local sciXP = 15
 local docXP = 20
 ZScienceSkill.Data.add({ specimens = {
+    ["Base.Antibiotics"]          = { Science = sciXP, Doctor = docXP },
     ["Base.Pills"]                = { Science = sciXP, Doctor = docXP },
     ["Base.PillsAntiDep"]         = { Science = sciXP, Doctor = docXP },
     ["Base.PillsBeta"]            = { Science = sciXP, Doctor = docXP },
