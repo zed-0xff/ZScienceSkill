@@ -63,7 +63,7 @@ function ISInventoryPane:renderdetails(doDragged)
                     texture = grayTickTexture
                 end
             -- Specimens: gray "R" if unresearched, green tick if researched
-            elseif ZScienceSkill.specimens[fullType] then
+            elseif ZScienceSkill.Data.specimens[fullType] then
                 if isSpecimenResearched(player, fullType) then
                     if showCheckmark then
                         texture = greenTickTexture

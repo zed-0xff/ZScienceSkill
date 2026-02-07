@@ -1,14 +1,202 @@
 require "ZScienceSkill/Data"
 
-ZScienceSkill.Data.add({
-     literature = {
-        -- Science books (full XP)
-        ["Base.Book_Science"]         = 35,
-        ["Base.Paperback_Science"]    = 30,
-        ["Base.Magazine_Science"]     = 15,
-        ["Base.Magazine_Science_New"] = 15,
-        -- SciFi books (smaller XP - fiction inspires curiosity)
-        ["Base.Book_SciFi"]           = 10,
-        ["Base.Paperback_SciFi"]      = 10,
-    }
-})
+ZScienceSkill.Data.add({ literature = {
+    -- Science books (full XP)
+    ["Base.Book_Science"]         = 35,
+    ["Base.Paperback_Science"]    = 30,
+    ["Base.Magazine_Science"]     = 15,
+    ["Base.Magazine_Science_New"] = 15,
+    -- SciFi books (smaller XP - fiction inspires curiosity)
+    ["Base.Book_SciFi"]           = 10,
+    ["Base.Paperback_SciFi"]      = 10,
+}})
+
+
+local specimenXP = 30
+ZScienceSkill.Data.add({ specimens = {
+    -- Preserved specimens
+    ["Base.Specimen_Insects"]       = specimenXP,
+    ["Base.Specimen_Beetles"]       = specimenXP,
+    ["Base.Specimen_Butterflies"]   = specimenXP,
+    ["Base.Specimen_Centipedes"]    = specimenXP,
+    ["Base.Specimen_Tapeworm"]      = specimenXP,
+    ["Base.Specimen_Minerals"]      = specimenXP,
+    ["Base.Specimen_Octopus"]       = specimenXP,
+    ["Base.Specimen_FetalCalf"]     = specimenXP,
+    ["Base.Specimen_FetalLamb"]     = specimenXP,
+    ["Base.Specimen_FetalPiglet"]   = specimenXP,
+    ["Base.Specimen_MonkeyHead"]    = specimenXP,
+    ["Base.Specimen_Brain"]         = specimenXP * 2,
+
+    -- Animal brains & skulls
+    ["Base.Animal_Brain"]           = specimenXP * 1.5,
+    ["Base.Animal_Brain_Small"]     = specimenXP,
+    ["Base.AnimalSinew"]            = specimenXP * 0.5,
+    ["Base.Hominid_Skull"]          = specimenXP,
+    ["Base.Hominid_Skull_Fragment"] = specimenXP * 0.5,
+    ["Base.Hominid_Skull_Partial"]  = specimenXP * 0.75,
+}})
+
+
+local insectXP = 10
+ZScienceSkill.Data.add({ specimens = {
+    -- Insects (entomology)
+    ["Base.AmericanLadyCaterpillar"]    = insectXP,
+    ["Base.BandedWoolyBearCaterpillar"] = insectXP,
+    ["Base.Centipede"]                  = insectXP,
+    ["Base.Centipede2"]                 = insectXP,
+    ["Base.Cockroach"]                  = insectXP,
+    ["Base.Cricket"]                    = insectXP,
+    ["Base.Grasshopper"]                = insectXP,
+    ["Base.Ladybug"]                    = insectXP,
+    ["Base.Leech"]                      = insectXP,
+    ["Base.Maggots"]                    = insectXP * 0.5,
+    ["Base.Millipede"]                  = insectXP,
+    ["Base.Millipede2"]                 = insectXP,
+    ["Base.MonarchCaterpillar"]         = insectXP,
+    ["Base.Pillbug"]                    = insectXP * 0.5,
+    ["Base.SawflyLarva"]                = insectXP,
+    ["Base.SilkMothCaterpillar"]        = insectXP,
+    ["Base.SwallowtailCaterpillar"]     = insectXP,
+    ["Base.Termites"]                   = insectXP,
+    ["Base.Worm"]                       = insectXP * 0.5,
+
+    -- Zoology
+    ["Base.Frog"]                       = insectXP * 2,
+    ["Base.Snail"]                      = insectXP,
+    ["Base.Slug"]                       = insectXP,
+    ["Base.Slug2"]                      = insectXP,
+}})
+
+
+local berryXP = 10
+ZScienceSkill.Data.add({ specimens = {
+    -- Berries (botany)
+    ["Base.BeautyBerry"]    = berryXP,
+    ["Base.HollyBerry"]     = berryXP,
+    ["Base.WinterBerry"]    = berryXP,
+    ["Base.BerryBlack"]     = berryXP,
+    ["Base.BerryBlue"]      = berryXP,
+    ["Base.BerryGeneric1"]  = berryXP * 2,  -- Unknown berry, more XP for identification
+    ["Base.BerryGeneric2"]  = berryXP * 2,
+    ["Base.BerryGeneric3"]  = berryXP * 2,
+    ["Base.BerryGeneric4"]  = berryXP * 2,
+    ["Base.BerryGeneric5"]  = berryXP * 2,
+    ["Base.BerryPoisonIvy"] = berryXP * 3,  -- Toxic, extra XP for toxicology
+}})
+
+
+local mushroomXP = 15
+ZScienceSkill.Data.add({ specimens = {
+    -- Mushrooms (mycology)
+    ["Base.MushroomGeneric1"] = mushroomXP * 2,  -- Unknown, more XP
+    ["Base.MushroomGeneric2"] = mushroomXP * 2,
+    ["Base.MushroomGeneric3"] = mushroomXP * 2,
+    ["Base.MushroomGeneric4"] = mushroomXP * 2,
+    ["Base.MushroomGeneric5"] = mushroomXP * 2,
+    ["Base.MushroomGeneric6"] = mushroomXP * 2,
+    ["Base.MushroomGeneric7"] = mushroomXP * 2,
+    ["Base.MushroomsButton"]  = mushroomXP,
+}})
+
+
+local herbXP = 10
+ZScienceSkill.Data.add({ specimens = {
+    -- Medicinal plants (pharmacology)
+    ["Base.BlackSage"]         = herbXP,
+    ["Base.BlackSageDried"]    = herbXP,
+    ["Base.CommonMallow"]      = herbXP,
+    ["Base.CommonMallowDried"] = herbXP,
+    ["Base.Comfrey"]           = herbXP,
+    ["Base.ComfreyDried"]      = herbXP,
+    ["Base.Ginseng"]           = herbXP,
+    ["Base.LemonGrass"]        = herbXP,
+    ["Base.Plantain"]          = herbXP,
+    ["Base.PlantainDried"]     = herbXP,
+    ["Base.WildGarlic2"]       = herbXP,
+    ["Base.WildGarlicDried"]   = herbXP,
+}})
+
+
+local plantXP = 10
+ZScienceSkill.Data.add({ specimens = {
+    -- Wild foraged plants (botany)
+    ["Base.Acorn"]       = plantXP,
+    ["Base.Dandelions"]  = plantXP,
+    ["Base.GrapeLeaves"] = plantXP,
+    ["Base.Nettles"]     = plantXP,
+    ["Base.Rosehips"]    = plantXP,
+    ["Base.Thistle"]     = plantXP,
+    ["Base.Violets"]     = plantXP,
+}})
+
+
+local smallCorpseXP = 15
+ZScienceSkill.Data.add({ specimens = {
+    -- Small animal corpses (anatomy/dissection)
+    ["Base.DeadRat"]       = smallCorpseXP,
+    ["Base.DeadRatBaby"]   = smallCorpseXP * 0.75,
+    ["Base.DeadMouse"]     = smallCorpseXP,
+    ["Base.DeadMousePups"] = smallCorpseXP * 0.5,
+    ["Base.DeadBird"]      = smallCorpseXP,
+    ["Base.DeadSquirrel"]  = smallCorpseXP * 1.25,
+}})
+
+
+local seafoodXP = 10
+ZScienceSkill.Data.add({ specimens = {
+    -- Marine biology
+    ["Base.Crayfish"] = seafoodXP,
+    ["Base.Mussels"]  = seafoodXP,
+    ["Base.Oysters"]  = seafoodXP,
+    ["Base.Seaweed"]  = seafoodXP,
+    ["Base.Shrimp"]   = seafoodXP,
+    ["Base.Squid"]    = seafoodXP * 1.5,
+}})
+
+local gemXP = 30
+ZScienceSkill.Data.add({ specimens = {
+    -- Gems, minerals & geology
+    ["Base.Diamond"]        = gemXP,
+    ["Base.Emerald"]        = gemXP,
+    ["Base.Ruby"]           = gemXP,
+    ["Base.Sapphire"]       = gemXP,
+    ["Base.Amethyst"]       = gemXP,
+    ["Base.Crystal"]        = gemXP,
+    ["Base.Crystal_Large"]  = gemXP * 1.5,
+    ["Base.LargeMeteorite"] = 200,  -- Rare space rock
+}})
+
+
+local coinXP = 10
+ZScienceSkill.Data.add({ specimens = {
+    -- Numismatics
+    ["Base.GoldCoin"]   = coinXP,
+    ["Base.SilverCoin"] = coinXP,
+}})
+
+
+local dungXP = 10
+ZScienceSkill.Data.add({ specimens = {
+    -- Animal dung (tracking/scat analysis)
+    ["Base.Dung_Turkey"]  = dungXP,
+    ["Base.Dung_Chicken"] = dungXP,
+    ["Base.Dung_Cow"]     = dungXP,
+    ["Base.Dung_Deer"]    = dungXP,
+    ["Base.Dung_Mouse"]   = dungXP,
+    ["Base.Dung_Pig"]     = dungXP,
+    ["Base.Dung_Rabbit"]  = dungXP,
+    ["Base.Dung_Raccoon"] = dungXP,
+    ["Base.Dung_Rat"]     = dungXP,
+    ["Base.Dung_Sheep"]   = dungXP,
+}})
+
+
+local pillXP = 15
+ZScienceSkill.Data.add({ specimens = {
+    ["Base.Pills"]                = pillXP,
+    ["Base.PillsAntiDep"]         = pillXP,
+    ["Base.PillsBeta"]            = pillXP,
+    ["Base.PillsSleepingTablets"] = pillXP,
+    ["Base.PillsVitamins"]        = pillXP,
+}})

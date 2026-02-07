@@ -108,7 +108,7 @@ function ISResearchSpecimen:complete()
     
     -- Regular specimen
     if not isFluid then
-        local xp = ZScienceSkill.specimens[fullType]
+        local xp = ZScienceSkill.Data.specimens[fullType]
         addXp(self.character, Perks.Science, xp)
         
         -- Grant Tracking XP for scat analysis (dung items)
@@ -184,7 +184,7 @@ function ISResearchSpecimen:perform()
             HaloTextHelper.addTextWithArrow(self.character, getText("IGUI_perks_" .. perkName) .. " +" .. xp, true, HaloTextHelper.getColorGreen())
         end
     else
-        local xp = ZScienceSkill.specimens[fullType]
+        local xp = ZScienceSkill.Data.specimens[fullType]
         HaloTextHelper.addTextWithArrow(self.character, getText("IGUI_perks_Science") .. " +" .. xp, true, HaloTextHelper.getColorGreen())
         
         if fullType:find("Dung_") and ZScienceSkill.trackingXP then
@@ -239,7 +239,7 @@ end
 
 function ISResearchSpecimen.isSpecimen(item)
     -- Check item type
-    if ZScienceSkill.specimens[item:getFullType()] then return true end
+    if ZScienceSkill.Data.specimens[item:getFullType()] then return true end
     
     -- Check fluid type
     local fluidType = ZScienceSkill.getFluidType(item)
@@ -315,7 +315,7 @@ local function findUnresearchedSpecimens(playerObj)
         local fullType = item:getFullType()
         
         -- Check regular specimens
-        if ZScienceSkill.specimens[fullType] then
+        if ZScienceSkill.Data.specimens[fullType] then
             if not (modData and modData[fullType]) then
                 table.insert(specimens, item)
             end
