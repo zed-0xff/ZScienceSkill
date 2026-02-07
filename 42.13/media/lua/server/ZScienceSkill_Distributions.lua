@@ -9,25 +9,14 @@ local function updateDistributions()
     -- Distribution tables and base spawn weights for BookScience1
     local loot = {
         -- Library locations
-        LibraryBooks = 10,
+        LibraryBooks = 8,
         LibraryCounter = 8,
-        LibraryDesk = 6,
-        -- School locations
-        SchoolLockers = 4,
-        ClassroomDesk = 6,
-        ClassroomShelves = 8,
-        -- Office locations
-        OfficeDesk = 4,
-        OfficeDeskHome = 4,
-        OfficeDrawers = 4,
-        -- Medical/Research locations
-        MedicalClinicBooks = 8,
-        MedicalStorageBooks = 8,
+        LibraryDesk = 4,
         -- Bookstore
-        BookstoreBooks = 10,
+        BookstoreBooks = 8,
         -- Shelves in homes (rare)
-        ShelfGeneric = 2,
-        BookShelf = 4,
+        ShelfGeneric = 1,
+        BookShelf = 2,
     }
 
     -- Book weights decrease for higher volumes
