@@ -9,7 +9,6 @@ ZScienceSkill.Data.add({
         ["LabBooks.BkVirologyCourses1"]     = 40, -- virology basics
         ["LabBooks.BkVirologyCourses2"]     = 50, -- advanced virology
         ["LabBooks.BkChemistryCourse"]      = 40, -- chemistry
-        ["LabBooks.LabPaintLightsMag"]      = 10, -- magazine
     },
     specimens = {
         -- Human brains (autopsy)
