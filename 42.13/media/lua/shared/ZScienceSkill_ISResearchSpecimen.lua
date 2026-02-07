@@ -94,11 +94,11 @@ function ISResearchSpecimen:complete()
     local isFluid = false
     
     -- Check if this is a fluid research
-    if fluidType and ZScienceSkill.fluids and ZScienceSkill.fluids[fluidType] then
+    if fluidType and ZScienceSkill.Data.fluids and ZScienceSkill.Data.fluids[fluidType] then
         isFluid = true
         researchKey = "Fluid:" .. fluidType
         -- Grant XP for each perk defined for this fluid
-        for perkName, xp in pairs(ZScienceSkill.fluids[fluidType]) do
+        for perkName, xp in pairs(ZScienceSkill.Data.fluids[fluidType]) do
             local perk = Perks[perkName]
             if perk then
                 addXp(self.character, perk, xp)
@@ -176,11 +176,11 @@ function ISResearchSpecimen:perform()
     
     local fullType = self.item:getFullType()
     local fluidType = ZScienceSkill.getFluidType(self.item)
-    local isFluid = fluidType and ZScienceSkill.fluids and ZScienceSkill.fluids[fluidType]
+    local isFluid = fluidType and ZScienceSkill.Data.fluids and ZScienceSkill.Data.fluids[fluidType]
     
     -- Show UI feedback (HaloText) - this runs on client
     if isFluid then
-        for perkName, xp in pairs(ZScienceSkill.fluids[fluidType]) do
+        for perkName, xp in pairs(ZScienceSkill.Data.fluids[fluidType]) do
             HaloTextHelper.addTextWithArrow(self.character, getText("IGUI_perks_" .. perkName) .. " +" .. xp, true, HaloTextHelper.getColorGreen())
         end
     else
@@ -243,7 +243,7 @@ function ISResearchSpecimen.isSpecimen(item)
     
     -- Check fluid type
     local fluidType = ZScienceSkill.getFluidType(item)
-    if fluidType and ZScienceSkill.fluids and ZScienceSkill.fluids[fluidType] then return true end
+    if fluidType and ZScienceSkill.Data.fluids and ZScienceSkill.Data.fluids[fluidType] then return true end
     
     return false
 end
@@ -322,7 +322,7 @@ local function findUnresearchedSpecimens(playerObj)
         else
             -- Check fluid specimens
             local fluidType = ZScienceSkill.getFluidType(item)
-            if fluidType and ZScienceSkill.fluids and ZScienceSkill.fluids[fluidType] then
+            if fluidType and ZScienceSkill.Data.fluids and ZScienceSkill.Data.fluids[fluidType] then
                 if not (modData and modData["Fluid:" .. fluidType]) then
                     table.insert(specimens, item)
                 end

@@ -74,7 +74,7 @@ function ISInventoryPane:renderdetails(doDragged)
             else
                 -- Fluids: check if container has researchable fluid
                 local fluidType = ZScienceSkill.getFluidType(item)
-                if fluidType and ZScienceSkill.fluids and ZScienceSkill.fluids[fluidType] then
+                if fluidType and ZScienceSkill.Data.fluids and ZScienceSkill.Data.fluids[fluidType] then
                     if isFluidResearched(player, fluidType) then
                         if showCheckmark then
                             texture = greenTickTexture

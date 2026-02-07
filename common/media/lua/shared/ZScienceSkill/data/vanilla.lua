@@ -200,3 +200,10 @@ ZScienceSkill.Data.add({ specimens = {
     ["Base.PillsSleepingTablets"] = pillXP,
     ["Base.PillsVitamins"]        = pillXP,
 }})
+
+-- fluids
+ZScienceSkill.Data.add({ fluids = {
+    ["Acid"]            = { Science =  50 },
+    ["Blood"]           = { Science =  50,  Doctor = 50 },
+    ["SecretFlavoring"] = { Science = 200, Cooking = 50 },
+}})

@@ -96,26 +96,26 @@ ZBSpec.describe("ZScienceSkill.herbalistPlants", function()
     end)
 end)
 
-ZBSpec.describe("ZScienceSkill.fluids", function()
+ZBSpec.describe("ZScienceSkill.Data.fluids", function()
     it("is a table", function()
-        assert.is_table(ZScienceSkill.fluids)
+        assert.is_table(ZScienceSkill.Data.fluids)
     end)
     
     it("has Acid and Blood", function()
-        assert.is_table(ZScienceSkill.fluids["Acid"])
-        assert.is_table(ZScienceSkill.fluids["Blood"])
+        assert.is_table(ZScienceSkill.Data.fluids["Acid"])
+        assert.is_table(ZScienceSkill.Data.fluids["Blood"])
     end)
     
     it("all fluids grant positive Science XP", function()
-        for fluidName, perks in pairs(ZScienceSkill.fluids) do
+        for fluidName, perks in pairs(ZScienceSkill.Data.fluids) do
             assert.is_number(perks.Science)
             assert.greater_than(0, perks.Science)
         end
     end)
     
     it("SecretFlavoring grants 200 Science XP", function()
-        assert.is_not_nil(ZScienceSkill.fluids["SecretFlavoring"])
-        assert.is_equal(200, ZScienceSkill.fluids["SecretFlavoring"].Science)
+        assert.is_not_nil(ZScienceSkill.Data.fluids["SecretFlavoring"])
+        assert.is_equal(200, ZScienceSkill.Data.fluids["SecretFlavoring"].Science)
     end)
 end)
 

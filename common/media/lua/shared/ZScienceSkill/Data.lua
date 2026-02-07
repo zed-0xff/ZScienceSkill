@@ -81,19 +81,3 @@ ZScienceSkill.trackingXP = 15
 
 -- Pharmacology grants Doctor XP (items matching "Pills" pattern)
 ZScienceSkill.medicalXP = 20
-
--- Fluids that can be researched (in any container)
--- Fluids: fluid_name => { perk_name => xp, ... }
-ZScienceSkill.fluids = {
-    -- vanilla
-    ["Acid"]            = { Science = 50 },
-    ["Blood"]           = { Science = 50, Doctor = 50 },
-    ["SecretFlavoring"] = { Science = 200, Cooking = 50 },
-    -- Project Summer Car
-    ["Antifreeze"]      = { Science = 30, Mechanics = 30 },
-    ["ATF"]             = { Science = 30, Mechanics = 30 },
-    ["MotorOil"]        = { Science = 30, Mechanics = 30 },
-    ["UsedMotorOil"]    = { Science = 30, Maintenance = 30 },
-    -- Sewing Workbranch
-    ["MachineOil"]      = { Science = 30, Maintenance = 30 },
-}
