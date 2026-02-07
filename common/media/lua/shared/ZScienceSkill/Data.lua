@@ -7,8 +7,6 @@ ZScienceSkill.Data = {
     skillBookXP = {},
     herbalistPlants = {},
     herbalistPlantsRequired = 0,
-    trackingXP = 0,
-    medicalXP = 0,
     literatureReadOnce = {},
 }
 
@@ -75,9 +73,3 @@ ZScienceSkill.herbalistPlants = {
     ["Base.Violets"] = true,
 }
 ZScienceSkill.herbalistPlantsRequired = 10
-
--- Scat analysis grants Tracking XP (items matching "Dung_" pattern)
-ZScienceSkill.trackingXP = 15
-
--- Pharmacology grants Doctor XP (items matching "Pills" pattern)
-ZScienceSkill.medicalXP = 20

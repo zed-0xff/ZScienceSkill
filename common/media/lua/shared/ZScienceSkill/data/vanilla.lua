@@ -176,29 +176,31 @@ ZScienceSkill.Data.add({ specimens = {
 }})
 
 
-local dungXP = 10
+local sciXP = 10
+local traXP = 15
 ZScienceSkill.Data.add({ specimens = {
     -- Animal dung (tracking/scat analysis)
-    ["Base.Dung_Turkey"]  = dungXP,
-    ["Base.Dung_Chicken"] = dungXP,
-    ["Base.Dung_Cow"]     = dungXP,
-    ["Base.Dung_Deer"]    = dungXP,
-    ["Base.Dung_Mouse"]   = dungXP,
-    ["Base.Dung_Pig"]     = dungXP,
-    ["Base.Dung_Rabbit"]  = dungXP,
-    ["Base.Dung_Raccoon"] = dungXP,
-    ["Base.Dung_Rat"]     = dungXP,
-    ["Base.Dung_Sheep"]   = dungXP,
+    ["Base.Dung_Turkey"]          = { Science = sciXP, Tracking = traXP },
+    ["Base.Dung_Chicken"]         = { Science = sciXP, Tracking = traXP },
+    ["Base.Dung_Cow"]             = { Science = sciXP, Tracking = traXP },
+    ["Base.Dung_Deer"]            = { Science = sciXP, Tracking = traXP },
+    ["Base.Dung_Mouse"]           = { Science = sciXP, Tracking = traXP },
+    ["Base.Dung_Pig"]             = { Science = sciXP, Tracking = traXP },
+    ["Base.Dung_Rabbit"]          = { Science = sciXP, Tracking = traXP },
+    ["Base.Dung_Raccoon"]         = { Science = sciXP, Tracking = traXP },
+    ["Base.Dung_Rat"]             = { Science = sciXP, Tracking = traXP },
+    ["Base.Dung_Sheep"]           = { Science = sciXP, Tracking = traXP },
 }})
 
 
-local pillXP = 15
+local sciXP = 15
+local docXP = 20
 ZScienceSkill.Data.add({ specimens = {
-    ["Base.Pills"]                = pillXP,
-    ["Base.PillsAntiDep"]         = pillXP,
-    ["Base.PillsBeta"]            = pillXP,
-    ["Base.PillsSleepingTablets"] = pillXP,
-    ["Base.PillsVitamins"]        = pillXP,
+    ["Base.Pills"]                = { Science = sciXP, Doctor = docXP },
+    ["Base.PillsAntiDep"]         = { Science = sciXP, Doctor = docXP },
+    ["Base.PillsBeta"]            = { Science = sciXP, Doctor = docXP },
+    ["Base.PillsSleepingTablets"] = { Science = sciXP, Doctor = docXP },
+    ["Base.PillsVitamins"]        = { Science = sciXP, Doctor = docXP },
 }})
 
 -- fluids

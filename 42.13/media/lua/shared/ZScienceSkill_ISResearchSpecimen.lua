@@ -85,6 +85,38 @@ function ISResearchSpecimen:stop()
     ISBaseTimedAction.stop(self)
 end
 
+local function addXpFromTable(character, tbl, key)
+    if type(tbl) ~= "table" then
+        print("[?] ZScienceSkill: table expected for XP data, got type=" .. type(tbl) .. ", tbl=" .. tostring(tbl) .. ", key=" .. tostring(key))
+        return false
+    end
+
+    local val = tbl[key]
+    if not val then
+        print("[?] ZScienceSkill: no XP data for key=" .. tostring(key))
+        return false
+    end
+
+    if type(val) == "number" then
+        addXp(character, Perks.Science, val)
+        return true
+    end
+    if type(val) == "table" then
+        for perk, xp in pairs(val) do -- 'perk' can be either string (perk name) or the Perk object itself
+            if type(perk) == "string" then
+                perk = Perks[perk]
+            end
+            if perk then
+                addXp(character, perk, xp)
+            end
+        end
+        return true
+    end
+
+    print("[?] ZScienceSkill: invalid XP data for specimen: type=" .. type(val) .. ", value=" .. tostring(val) .. ", key=" .. tostring(key))
+    return false
+end
+
 -- Called by Java networking on server in MP to apply action effects
 -- This is where XP and ModData changes should happen for proper MP sync
 function ISResearchSpecimen:complete()
@@ -98,28 +130,12 @@ function ISResearchSpecimen:complete()
         isFluid = true
         researchKey = "Fluid:" .. fluidType
         -- Grant XP for each perk defined for this fluid
-        for perkName, xp in pairs(ZScienceSkill.Data.fluids[fluidType]) do
-            local perk = Perks[perkName]
-            if perk then
-                addXp(self.character, perk, xp)
-            end
-        end
+        addXpFromTable(self.character, ZScienceSkill.Data.fluids, fluidType)
     end
     
     -- Regular specimen
     if not isFluid then
-        local xp = ZScienceSkill.Data.specimens[fullType]
-        addXp(self.character, Perks.Science, xp)
-        
-        -- Grant Tracking XP for scat analysis (dung items)
-        if fullType:find("Dung_") and ZScienceSkill.trackingXP then
-            addXp(self.character, Perks.Tracking, ZScienceSkill.trackingXP)
-        end
-        
-        -- Grant Doctor XP for pharmacology (pills)
-        if fullType:find("Pills") and ZScienceSkill.medicalXP then
-            addXp(self.character, Perks.Doctor, ZScienceSkill.medicalXP)
-        end
+        addXpFromTable(self.character, ZScienceSkill.Data.specimens, fullType)
     end
     
     -- Update ModData
@@ -173,28 +189,6 @@ end
 function ISResearchSpecimen:perform()
     self.character:setReading(false)
     self.item:setJobDelta(0.0)
-    
-    local fullType = self.item:getFullType()
-    local fluidType = ZScienceSkill.getFluidType(self.item)
-    local isFluid = fluidType and ZScienceSkill.Data.fluids and ZScienceSkill.Data.fluids[fluidType]
-    
-    -- Show UI feedback (HaloText) - this runs on client
-    if isFluid then
-        for perkName, xp in pairs(ZScienceSkill.Data.fluids[fluidType]) do
-            HaloTextHelper.addTextWithArrow(self.character, getText("IGUI_perks_" .. perkName) .. " +" .. xp, true, HaloTextHelper.getColorGreen())
-        end
-    else
-        local xp = ZScienceSkill.Data.specimens[fullType]
-        HaloTextHelper.addTextWithArrow(self.character, getText("IGUI_perks_Science") .. " +" .. xp, true, HaloTextHelper.getColorGreen())
-        
-        if fullType:find("Dung_") and ZScienceSkill.trackingXP then
-            HaloTextHelper.addTextWithArrow(self.character, getText("IGUI_perks_Tracking") .. " +" .. ZScienceSkill.trackingXP, true, HaloTextHelper.getColorGreen())
-        end
-        
-        if fullType:find("Pills") and ZScienceSkill.medicalXP then
-            HaloTextHelper.addTextWithArrow(self.character, getText("IGUI_perks_Doctor") .. " +" .. ZScienceSkill.medicalXP, true, HaloTextHelper.getColorGreen())
-        end
-    end
     
     -- Sync item with server
     syncItemFields(self.character, self.item)
