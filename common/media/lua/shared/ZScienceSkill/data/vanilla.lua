@@ -26,7 +26,7 @@ ZScienceSkill.Data.add({ specimens = {
     ["Base.Specimen_FetalLamb"]     = specimenXP,
     ["Base.Specimen_FetalPiglet"]   = specimenXP,
     ["Base.Specimen_MonkeyHead"]    = specimenXP,
-    ["Base.Specimen_Brain"]         = specimenXP * 2,
+    ["Base.Specimen_Brain"]         = { Science = specimenXP * 2, Doctor = specimenXP },
 
     -- Animal brains & skulls
     ["Base.Animal_Brain"]           = specimenXP * 1.5,
@@ -89,6 +89,7 @@ ZScienceSkill.Data.add({ specimens = {
 local mushroomXP = 15
 ZScienceSkill.Data.add({ specimens = {
     -- Mushrooms (mycology)
+    ["Base.MushroomsButton"]  = mushroomXP,
     ["Base.MushroomGeneric1"] = mushroomXP * 2,  -- Unknown, more XP
     ["Base.MushroomGeneric2"] = mushroomXP * 2,
     ["Base.MushroomGeneric3"] = mushroomXP * 2,
@@ -96,25 +97,25 @@ ZScienceSkill.Data.add({ specimens = {
     ["Base.MushroomGeneric5"] = mushroomXP * 2,
     ["Base.MushroomGeneric6"] = mushroomXP * 2,
     ["Base.MushroomGeneric7"] = mushroomXP * 2,
-    ["Base.MushroomsButton"]  = mushroomXP,
 }})
 
 
-local herbXP = 10
+local sciXP = 10
+local docXP = 10
 ZScienceSkill.Data.add({ specimens = {
     -- Medicinal plants (pharmacology)
-    ["Base.BlackSage"]         = herbXP,
-    ["Base.BlackSageDried"]    = herbXP,
-    ["Base.CommonMallow"]      = herbXP,
-    ["Base.CommonMallowDried"] = herbXP,
-    ["Base.Comfrey"]           = herbXP,
-    ["Base.ComfreyDried"]      = herbXP,
-    ["Base.Ginseng"]           = herbXP,
-    ["Base.LemonGrass"]        = herbXP,
-    ["Base.Plantain"]          = herbXP,
-    ["Base.PlantainDried"]     = herbXP,
-    ["Base.WildGarlic2"]       = herbXP,
-    ["Base.WildGarlicDried"]   = herbXP,
+    ["Base.BlackSage"]         = { Science = sciXP, Doctor = docXP },
+    ["Base.BlackSageDried"]    = { Science = sciXP, Doctor = docXP },
+    ["Base.CommonMallow"]      = { Science = sciXP, Doctor = docXP },
+    ["Base.CommonMallowDried"] = { Science = sciXP, Doctor = docXP },
+    ["Base.Comfrey"]           = { Science = sciXP, Doctor = docXP },
+    ["Base.ComfreyDried"]      = { Science = sciXP, Doctor = docXP },
+    ["Base.Ginseng"]           = { Science = sciXP, Doctor = docXP },
+    ["Base.LemonGrass"]        = { Science = sciXP, Doctor = docXP },
+    ["Base.Plantain"]          = { Science = sciXP, Doctor = docXP },
+    ["Base.PlantainDried"]     = { Science = sciXP, Doctor = docXP },
+    ["Base.WildGarlic2"]       = { Science = sciXP, Doctor = docXP },
+    ["Base.WildGarlicDried"]   = { Science = sciXP, Doctor = docXP },
 }})
 
 

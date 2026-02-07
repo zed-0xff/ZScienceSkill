@@ -25,7 +25,7 @@ ZBSpec.describe("ZScienceSkill.Data.specimens data", function()
     end)
     
     it("has correct XP for special specimens", function()
-        assert.is_equal(60, ZScienceSkill.Data.specimens["Base.Specimen_Brain"])
+        assert.is_equal(60, ZScienceSkill.Data.specimens["Base.Specimen_Brain"]["Science"])
         assert.is_equal(200, ZScienceSkill.Data.specimens["Base.LargeMeteorite"])
     end)
     
