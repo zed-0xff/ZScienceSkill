@@ -1,35 +1,28 @@
 ZScienceSkill = ZScienceSkill or {}
 
--- Science literature items and their XP rewards
-ZScienceSkill.literature = {
-    -- Science books (full XP)
-    ["Base.Book_Science"]         = 35,
-    ["Base.Paperback_Science"]    = 30,
-    ["Base.Magazine_Science"]     = 15,
-    ["Base.Magazine_Science_New"] = 15,
-    -- SciFi books (smaller XP - fiction inspires curiosity)
-    ["Base.Book_SciFi"]           = 10,
-    ["Base.Paperback_SciFi"]      = 10,
+ZScienceSkill.Data = {
+    literature = {},
+    specimens = {},
+    fluids = {},
+    skillBookXP = {},
+    herbalistPlants = {},
+    herbalistPlantsRequired = 0,
+    trackingXP = 0,
+    medicalXP = 0,
+    literatureReadOnce = {},
 }
 
-ZScienceSkill.literatureReadOnce = {
-    -- ResearchLabInternProfession mod diary pages
-    ["ProfessionItems.DiaryPage1"] = 5,
-    ["ProfessionItems.DiaryPage2"] = 5,
-    ["ProfessionItems.DiaryPage3"] = 5,
-    ["ProfessionItems.DiaryPage4"] = 5,
-    ["ProfessionItems.DiaryPage5"] = 5,
-    ["ProfessionItems.DiaryPage6"] = 15, -- contains actual lab procedures
-
-    -- ZVirusVaccine42 mod lab books
-    ["LabBooks.BkLaboratoryEquipment1"] = 30, -- lab equipment assembly
-    ["LabBooks.BkLaboratoryEquipment2"] = 30, -- decorations assembly
-    ["LabBooks.BkLaboratoryEquipment3"] = 30, -- glassware crafting
-    ["LabBooks.BkVirologyCourses1"]     = 40, -- virology basics
-    ["LabBooks.BkVirologyCourses2"]     = 50, -- advanced virology
-    ["LabBooks.BkChemistryCourse"]      = 40, -- chemistry
-    ["LabBooks.LabPaintLightsMag"]      = 10, -- magazine
-}
+function ZScienceSkill.Data.add(tables)
+    for data_key, values_tbl in pairs(tables) do
+        if ZScienceSkill.Data[data_key] then
+            for k, v in pairs(values_tbl) do
+                ZScienceSkill.Data[data_key][k] = v
+            end
+        else
+            print("ZScienceSkill.Data.add: target not found for key: " .. data_key)
+        end
+    end
+end
 
 local specimenXP = 30
 local insectXP = 10

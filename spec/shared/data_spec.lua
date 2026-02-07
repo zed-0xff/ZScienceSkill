@@ -1,25 +1,25 @@
--- Test for ZScienceSkill_Data.lua
+-- Test for ZScienceSkill/Data.lua
 -- Validates data tables are correctly defined
 
-ZBSpec.describe("ZScienceSkill.literature", function()
+ZBSpec.describe("ZScienceSkill.Data.literature", function()
     it("is a table", function()
-        assert.is_table(ZScienceSkill.literature)
+        assert.is_table(ZScienceSkill.Data.literature)
     end)
     
     it("has correct science book XP values", function()
-        assert.is_equal(35, ZScienceSkill.literature["Base.Book_Science"])
-        assert.is_equal(30, ZScienceSkill.literature["Base.Paperback_Science"])
-        assert.is_equal(15, ZScienceSkill.literature["Base.Magazine_Science"])
+        assert.is_equal(35, ZScienceSkill.Data.literature["Base.Book_Science"])
+        assert.is_equal(30, ZScienceSkill.Data.literature["Base.Paperback_Science"])
+        assert.is_equal(15, ZScienceSkill.Data.literature["Base.Magazine_Science"])
     end)
     
     it("gives more XP for science books than scifi", function()
-        local scienceXP = ZScienceSkill.literature["Base.Book_Science"]
-        local scifiXP = ZScienceSkill.literature["Base.Book_SciFi"]
+        local scienceXP = ZScienceSkill.Data.literature["Base.Book_Science"]
+        local scifiXP = ZScienceSkill.Data.literature["Base.Book_SciFi"]
         assert.greater_than(scifiXP, scienceXP)
     end)
     
     it("has all positive number values", function()
-        for key, xp in pairs(ZScienceSkill.literature) do
+        for key, xp in pairs(ZScienceSkill.Data.literature) do
             assert.is_string(key)
             assert.is_number(xp)
             assert.greater_than(0, xp)

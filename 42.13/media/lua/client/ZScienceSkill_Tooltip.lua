@@ -1,6 +1,6 @@
 -- Add "Researchable" / "Already Researched" text to item tooltips
 require "ISUI/ISToolTipInv"
-require "ZScienceSkill_Data"
+require "ZScienceSkill/Data"
 require "ZScienceSkill_ModOptions"
 
 local originalRender = ISToolTipInv.render
@@ -15,7 +15,7 @@ function ISToolTipInv:render()
     if not self.item then return end
     local fullType = self.item:getFullType()
     
-    local isResearchable = ZScienceSkill.specimens[fullType] or ZScienceSkill.literature[fullType] or ZScienceSkill.literatureReadOnce[fullType]
+    local isResearchable = ZScienceSkill.specimens[fullType] or ZScienceSkill.Data.literature[fullType] or ZScienceSkill.Data.literatureReadOnce[fullType]
     if not isResearchable then return end
     
     -- Check if already researched/read
@@ -23,9 +23,9 @@ function ISToolTipInv:render()
     if not player then return end
     
     local alreadyDone = false
-    if ZScienceSkill.literature[fullType] then
+    if ZScienceSkill.Data.literature[fullType] then
         alreadyDone = player:isLiteratureRead(fullType)
-    elseif ZScienceSkill.literatureReadOnce[fullType] then
+    elseif ZScienceSkill.Data.literatureReadOnce[fullType] then
         local modData = player:getModData().readLiteratureOnce
         alreadyDone = modData and modData[fullType]
     elseif ZScienceSkill.specimens[fullType] then

@@ -1,5 +1,5 @@
 require "TimedActions/ISBaseTimedAction"
-require "ZScienceSkill_Data"
+require "ZScienceSkill/Data"
 
 ISResearchSpecimen = ISBaseTimedAction:derive("ISResearchSpecimen")
 

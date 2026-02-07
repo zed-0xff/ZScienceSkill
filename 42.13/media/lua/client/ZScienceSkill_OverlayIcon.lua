@@ -1,7 +1,7 @@
 -- Draw icon overlays for science-related items:
 -- Gray "R": unread science books / unresearched specimens (Science XP available)
 -- Green tick: researched specimens (optional)
-require "ZScienceSkill_Data"
+require "ZScienceSkill/Data"
 require "ZScienceSkill_ModOptions"
 
 local grayTickTexture = getTexture("media/ui/R_Mark_Gray.png")
@@ -49,12 +49,12 @@ function ISInventoryPane:renderdetails(doDragged)
             local texture = nil
             
             -- Science literature: gray "R" if unread
-            if ZScienceSkill.literature[fullType] then
+            if ZScienceSkill.Data.literature[fullType] then
                 if not self:isLiteratureRead(player, item) and showOverlay then
                     texture = grayTickTexture
                 end
             -- Read-once literature: gray "R" if unread, green tick if read
-            elseif ZScienceSkill.literatureReadOnce[fullType] then
+            elseif ZScienceSkill.Data.literatureReadOnce[fullType] then
                 if isLiteratureReadOnce(player, fullType) then
                     if showCheckmark then
                         texture = greenTickTexture

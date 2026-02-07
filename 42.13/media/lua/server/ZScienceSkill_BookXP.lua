@@ -1,5 +1,5 @@
 -- Grant Science XP when reading skill books or science literature
-require "ZScienceSkill_Data"
+require "ZScienceSkill/Data"
 
 -- MP:
 -- ISReadABook:perform()  is called on client ONLY
@@ -44,20 +44,20 @@ function ISReadABook:complete()
     local itemType = self.item:getFullType()
 
     -- Check if this is read-once literature (mod compatibility items)
-    if ZScienceSkill.literatureReadOnce[itemType] then
+    if ZScienceSkill.Data.literatureReadOnce[itemType] then
         local modData = self.character:getModData()
         modData.readLiteratureOnce = modData.readLiteratureOnce or {}
         if not modData.readLiteratureOnce[itemType] then
             modData.readLiteratureOnce[itemType] = true
-            addXp(self.character, Perks.Science, ZScienceSkill.literatureReadOnce[itemType])
+            addXp(self.character, Perks.Science, ZScienceSkill.Data.literatureReadOnce[itemType])
             if isClient() then
                 self.character:transmitModData()
             end
         end
     elseif not isAlreadyRead then
         -- Check if this is science literature
-        if ZScienceSkill.literature[itemType] then
-            addXp(self.character, Perks.Science, ZScienceSkill.literature[itemType])
+        if ZScienceSkill.Data.literature[itemType] then
+            addXp(self.character, Perks.Science, ZScienceSkill.Data.literature[itemType])
         -- Check if this was a skill book
         elseif SkillBook and SkillBook[self.item:getSkillTrained()] and self.item:getSkillTrained() ~= "Science" then
             local lvl = self.item:getLvlSkillTrained() or 1
