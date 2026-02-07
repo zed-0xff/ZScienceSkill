@@ -1,13 +1,10 @@
 ZScienceSkill = ZScienceSkill or {}
 
 ZScienceSkill.Data = {
-    literature = {},
-    specimens = {},
     fluids = {},
-    skillBookXP = {},
-    herbalistPlants = {},
-    herbalistPlantsRequired = 0,
+    literature = {},
     literatureReadOnce = {},
+    specimens = {},
 }
 
 function ZScienceSkill.Data.add(tables)
