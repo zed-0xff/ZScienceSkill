@@ -103,11 +103,13 @@ local function addXpFromTable(character, tbl, key)
     end
     if type(val) == "table" then
         for perk, xp in pairs(val) do -- 'perk' can be either string (perk name) or the Perk object itself
-            if type(perk) == "string" then
-                perk = Perks[perk]
-            end
-            if perk then
-                addXp(character, perk, xp)
+            if perk ~= "key" then  -- skip the 'key' field, it's not a perk
+                if type(perk) == "string" then
+                    perk = Perks[perk]
+                end
+                if perk and type(xp) == "number" then
+                    addXp(character, perk, xp)
+                end
             end
         end
         return true
@@ -117,12 +119,21 @@ local function addXpFromTable(character, tbl, key)
     return false
 end
 
+-- Get the research key for a specimen (uses 'key' field if present, otherwise fullType)
+local function getSpecimenResearchKey(fullType)
+    local config = ZScienceSkill.Data.specimens[fullType]
+    if type(config) == "table" and config.key then
+        return config.key
+    end
+    return fullType
+end
+
 -- Called by Java networking on server in MP to apply action effects
 -- This is where XP and ModData changes should happen for proper MP sync
 function ISResearchSpecimen:complete()
     local fullType = self.item:getFullType()
     local fluidType = ZScienceSkill.getFluidType(self.item)
-    local researchKey = fullType
+    local researchKey
     local isFluid = false
     
     -- Check if this is a fluid research
@@ -135,6 +146,7 @@ function ISResearchSpecimen:complete()
     
     -- Regular specimen
     if not isFluid then
+        researchKey = getSpecimenResearchKey(fullType)
         addXpFromTable(self.character, ZScienceSkill.Data.specimens, fullType)
     end
     
@@ -221,8 +233,11 @@ function ISResearchSpecimen.isResearched(character, item)
     local modData = character:getModData().researchedSpecimens
     if not modData then return false end
     
-    -- Check item type
-    if modData[item:getFullType()] then return true end
+    local fullType = item:getFullType()
+    
+    -- Check specimen research key (may differ from fullType if 'key' is set)
+    local researchKey = getSpecimenResearchKey(fullType)
+    if modData[researchKey] then return true end
     
     -- Check fluid type
     local fluidType = ZScienceSkill.getFluidType(item)
@@ -310,7 +325,8 @@ local function findUnresearchedSpecimens(playerObj)
         
         -- Check regular specimens
         if ZScienceSkill.Data.specimens[fullType] then
-            if not (modData and modData[fullType]) then
+            local researchKey = getSpecimenResearchKey(fullType)
+            if not (modData and modData[researchKey]) then
                 table.insert(specimens, item)
             end
         else
