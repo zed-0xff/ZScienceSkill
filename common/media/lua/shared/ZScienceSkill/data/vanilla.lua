@@ -169,14 +169,6 @@ ZScienceSkill.Data.add({ specimens = {
 }})
 
 
-local coinXP = 10
-ZScienceSkill.Data.add({ specimens = {
-    -- Numismatics
-    ["Base.GoldCoin"]   = coinXP,
-    ["Base.SilverCoin"] = coinXP,
-}})
-
-
 local sciXP = 10
 local traXP = 15
 ZScienceSkill.Data.add({ specimens = {
@@ -224,3 +216,25 @@ ZScienceSkill.Data.add({ fluids = {
     ["Base.Blood"]           = { Science =  50,  Doctor = 50 },
     ["Base.SecretFlavoring"] = { Science = 200, Cooking = 50 },
 }})
+
+
+-- metals
+local sciXP = 10
+local blkXP = 20
+local metals = {
+    Aluminum = { "Aluminum", "AluminumFragments", "AluminumScrap" },
+    Bronze   = { "TrophyBronze", "Medal_Bronze" },
+    Copper   = { "CopperOre", "CopperIngot", "CopperSheet", "SmallCopperSheet", "CopperScrap" },
+    Gold     = { "GoldBar", "SmallGoldBar", "GoldScrap", "GoldSheet", "GoldCoin", "Medal_Gold", "TrophyGold" },
+    Iron     = { "IronBar", "IronBarHalf", "IronBarQuarter", "IronBlock", "IronChunk", "IronIngot", "IronOre", "IronPiece", "IronScrap" },
+    Silver   = { "SilverBar", "SmallSilverBar", "SilverScrap", "SilverSheet", "SilverCoin", "TrophySilver", "Medal_Silver" },
+    Steel    = { "SteelBar", "SteelBarHalf", "SteelBarQuarter", "SteelBlock", "SteelChunk", "SteelIngot", "SteelPiece", "SteelScrap", "SteelSlug", "SteelWool" },
+}
+for metal, variants in pairs(metals) do
+    local metalKey = "Base." .. metal
+    for _, variant in ipairs(variants) do
+        ZScienceSkill.Data.add({ specimens = {
+            ["Base." .. variant] = { Science = sciXP, Blacksmith = blkXP, key = metalKey },
+        }})
+    end
+end
