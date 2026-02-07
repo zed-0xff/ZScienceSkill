@@ -1,4 +1,6 @@
-task :default => [:check, :spec]
+require 'zbspec/rake_task'
+
+task :default => [:check, :zbspec]
 
 desc "Install dependencies"
 task :setup do
@@ -11,7 +13,4 @@ task :check do
   sh "luacheck 42.13/media/lua/"
 end
 
-desc "Run ZBSpec tests"
-task :spec do
-  sh "zbspec"
-end
+ZBSpec::RakeTask.new
