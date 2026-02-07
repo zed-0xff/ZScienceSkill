@@ -12,6 +12,25 @@ ZScienceSkill.literature = {
     ["Base.Paperback_SciFi"]      = 10,
 }
 
+ZScienceSkill.literatureReadOnce = {
+    -- ResearchLabInternProfession mod diary pages
+    ["ProfessionItems.DiaryPage1"] = 5,
+    ["ProfessionItems.DiaryPage2"] = 5,
+    ["ProfessionItems.DiaryPage3"] = 5,
+    ["ProfessionItems.DiaryPage4"] = 5,
+    ["ProfessionItems.DiaryPage5"] = 5,
+    ["ProfessionItems.DiaryPage6"] = 15, -- contains actual lab procedures
+
+    -- ZVirusVaccine42 mod lab books
+    ["LabBooks.BkLaboratoryEquipment1"] = 30, -- lab equipment assembly
+    ["LabBooks.BkLaboratoryEquipment2"] = 30, -- decorations assembly
+    ["LabBooks.BkLaboratoryEquipment3"] = 30, -- glassware crafting
+    ["LabBooks.BkVirologyCourses1"]     = 40, -- virology basics
+    ["LabBooks.BkVirologyCourses2"]     = 50, -- advanced virology
+    ["LabBooks.BkChemistryCourse"]      = 40, -- chemistry
+    ["LabBooks.LabPaintLightsMag"]      = 10, -- magazine
+}
+
 local specimenXP = 30
 local insectXP = 10
 local berryXP = 10

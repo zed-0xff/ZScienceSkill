@@ -18,6 +18,11 @@ local function isFluidResearched(player, fluidType)
     return modData and modData["Fluid:" .. fluidType]
 end
 
+local function isLiteratureReadOnce(player, fullType)
+    local modData = player:getModData().readLiteratureOnce
+    return modData and modData[fullType]
+end
+
 local originalRenderDetails = ISInventoryPane.renderdetails
 
 function ISInventoryPane:renderdetails(doDragged)
@@ -46,6 +51,15 @@ function ISInventoryPane:renderdetails(doDragged)
             -- Science literature: gray "R" if unread
             if ZScienceSkill.literature[fullType] then
                 if not self:isLiteratureRead(player, item) and showOverlay then
+                    texture = grayTickTexture
+                end
+            -- Read-once literature: gray "R" if unread, green tick if read
+            elseif ZScienceSkill.literatureReadOnce[fullType] then
+                if isLiteratureReadOnce(player, fullType) then
+                    if showCheckmark then
+                        texture = greenTickTexture
+                    end
+                elseif showOverlay then
                     texture = grayTickTexture
                 end
             -- Specimens: gray "R" if unresearched, green tick if researched

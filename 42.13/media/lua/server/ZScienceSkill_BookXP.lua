@@ -41,9 +41,20 @@ function ISReadABook:complete()
 
     local result = orig_complete(self) -- saves literature read flags
 
-    if not isAlreadyRead then
-        local itemType = self.item:getFullType()
+    local itemType = self.item:getFullType()
 
+    -- Check if this is read-once literature (mod compatibility items)
+    if ZScienceSkill.literatureReadOnce[itemType] then
+        local modData = self.character:getModData()
+        modData.readLiteratureOnce = modData.readLiteratureOnce or {}
+        if not modData.readLiteratureOnce[itemType] then
+            modData.readLiteratureOnce[itemType] = true
+            addXp(self.character, Perks.Science, ZScienceSkill.literatureReadOnce[itemType])
+            if isClient() then
+                self.character:transmitModData()
+            end
+        end
+    elseif not isAlreadyRead then
         -- Check if this is science literature
         if ZScienceSkill.literature[itemType] then
             addXp(self.character, Perks.Science, ZScienceSkill.literature[itemType])

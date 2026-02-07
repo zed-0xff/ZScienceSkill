@@ -127,4 +127,5 @@ end
 function clear_research_data(player)
     all_exec("(getPlayer() or getOnlinePlayers():get(0)):getModData().researchedSpecimens = nil")
     all_exec("(getPlayer() or getOnlinePlayers():get(0)):getModData().researchedPlants = nil")
+    all_exec("(getPlayer() or getOnlinePlayers():get(0)):getModData().readLiteratureOnce = nil")
 end

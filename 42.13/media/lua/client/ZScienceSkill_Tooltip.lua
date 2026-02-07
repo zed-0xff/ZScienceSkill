@@ -15,7 +15,7 @@ function ISToolTipInv:render()
     if not self.item then return end
     local fullType = self.item:getFullType()
     
-    local isResearchable = ZScienceSkill.specimens[fullType] or ZScienceSkill.literature[fullType]
+    local isResearchable = ZScienceSkill.specimens[fullType] or ZScienceSkill.literature[fullType] or ZScienceSkill.literatureReadOnce[fullType]
     if not isResearchable then return end
     
     -- Check if already researched/read
@@ -25,6 +25,9 @@ function ISToolTipInv:render()
     local alreadyDone = false
     if ZScienceSkill.literature[fullType] then
         alreadyDone = player:isLiteratureRead(fullType)
+    elseif ZScienceSkill.literatureReadOnce[fullType] then
+        local modData = player:getModData().readLiteratureOnce
+        alreadyDone = modData and modData[fullType]
     elseif ZScienceSkill.specimens[fullType] then
         local modData = player:getModData().researchedSpecimens
         alreadyDone = modData and modData[fullType]
