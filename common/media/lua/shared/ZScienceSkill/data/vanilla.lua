@@ -206,15 +206,15 @@ ZScienceSkill.Data.add({ specimens = {
 
 -- Chemistry / household chemicals
 ZScienceSkill.Data.add({ specimens = {
-    ["Base.BakingSoda"]   = 20,  -- sodium bicarbonate
-    ["Base.Vinegar2"]     = { Science = 20, key = "Base.Vinegar" },
-    ["Base.Vinegar_Jug"]  = { Science = 20, key = "Base.Vinegar" },
+    ["Base.BakingSoda"]   = { Science = 20, Cooking = 20 },  -- sodium bicarbonate
+    ["Base.Vinegar2"]     = { Science = 20, Cooking = 20, key = "Base.Vinegar" },
+    ["Base.Vinegar_Jug"]  = { Science = 20, Cooking = 20, key = "Base.Vinegar" },
 }})
 
 -- fluids
 ZScienceSkill.Data.add({ fluids = {
-    ["Acid"]            = { Science =  50 },
-    ["Bleach"]          = { Science =  30 },
-    ["Blood"]           = { Science =  50,  Doctor = 50 },
-    ["SecretFlavoring"] = { Science = 200, Cooking = 50 },
+    ["Base.Acid"]            = { Science =  50 },
+    ["Base.Bleach"]          = { Science =  30 },
+    ["Base.Blood"]           = { Science =  50,  Doctor = 50 },
+    ["Base.SecretFlavoring"] = { Science = 200, Cooking = 50 },
 }})
