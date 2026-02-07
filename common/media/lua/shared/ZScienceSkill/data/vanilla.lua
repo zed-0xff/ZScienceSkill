@@ -212,6 +212,11 @@ ZScienceSkill.Data.add({ specimens = {
     ["Base.Vinegar_Jug"]  = { Science = 20, Cooking = 20, key = "Base.Vinegar" },
 }})
 
+-- Industrial / gas equipment
+ZScienceSkill.Data.add({ specimens = {
+    ["Base.Oxygen_Tank"] = 25,  -- pressurized gas storage
+}})
+
 -- fluids
 ZScienceSkill.Data.add({ fluids = {
     ["Base.Acid"]            = { Science =  50 },

@@ -14,10 +14,10 @@ ZScienceSkill.Data.add({
     },
     literatureReadOnce = {
         -- Design blueprints (technical documentation)
-        ["Printer3D.Design_Basics"]     = 20, -- 14 pages
-        ["Printer3D.Design_Industrial"] = 35, -- 28 pages
-        ["Printer3D.Design_Heavy"]      = 50, -- 42 pages
-        ["Printer3D.Design_Advanced"]   = 70, -- 64 pages
-        ["Printer3D.Design_Reclicler"]  = 70, -- 64 pages, recycler blueprints
+        ["Printer3D.Design_Basics"]     = 10, -- 14 pages
+        ["Printer3D.Design_Industrial"] = 20, -- 28 pages
+        ["Printer3D.Design_Heavy"]      = 30, -- 42 pages
+        ["Printer3D.Design_Advanced"]   = 30, -- 64 pages
+        ["Printer3D.Design_Reclicler"]  = 30, -- 64 pages, recycler blueprints
     },
 })
