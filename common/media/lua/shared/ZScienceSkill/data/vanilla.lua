@@ -206,7 +206,8 @@ ZScienceSkill.Data.add({ specimens = {
 
 -- Industrial / gas equipment
 ZScienceSkill.Data.add({ specimens = {
-    ["Base.Oxygen_Tank"] = 25,  -- pressurized gas storage
+    ["Base.Oxygen_Tank"]    = 25,
+    ["Base.Propane_Refill"] = 20,
 }})
 
 -- fluids don't have "Base." prefix nor getFullType() method
