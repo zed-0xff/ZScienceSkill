@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/zed-0xff/zbspec
-  revision: e750a4c80eece9ba5f0aaab3545793f32e66a6f8
+  revision: dcfa44c8fbb149fbe8e37f2b74ce1faf21e61c34
   specs:
     zbspec (0.0.1)
 

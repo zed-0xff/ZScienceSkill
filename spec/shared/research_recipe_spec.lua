@@ -1,7 +1,7 @@
 ZBSpec.describe(ISResearchRecipe, function()
     it("has shorter duration with higher Science skill", function()
         local player = get_player()
-        local item = instanceItem("Base.ScrapMetal")
+        local item = create_item("Base.ScrapMetal")
 
         player:setPerkLevelDebug(Perks.Science, 10)
         local dur10 = described_class:new(player, item):getDuration()

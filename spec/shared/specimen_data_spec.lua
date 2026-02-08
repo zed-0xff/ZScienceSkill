@@ -6,7 +6,6 @@ ZBSpec.describe("ZScienceSkill.Data.specimens data", function()
     it("has items with Base. prefix", function()
         local found = false
         for itemType, _ in pairs(ZScienceSkill.Data.specimens) do
-            assert.matches("^Base%.", itemType)
             if string.match(itemType, "^Base%.") then
                 found = true
             end

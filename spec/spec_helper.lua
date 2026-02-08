@@ -56,6 +56,12 @@ function set_timed_action_instant(value)
     all_exec("(getPlayer() or getOnlinePlayers():get(0)):setTimedActionInstantCheat(" .. tostring(value) .. ")")
 end
 
+function create_item(itemFullType)
+    local item = instanceItem(itemFullType)
+    assert(item, "Failed to create item: " .. itemFullType)
+    return item
+end
+
 function add_item(player, itemFullType)
     local item = nil
     if isClient() then
@@ -66,7 +72,7 @@ function add_item(player, itemFullType)
         item = inv:getItemFromType(itemFullType, false, false)
     else
         -- SP
-        item = instanceItem(itemFullType)
+        item = create_item(itemFullType)
         player:getInventory():AddItem(item)
     end
     assert(item, "Failed to create item: " .. itemFullType)

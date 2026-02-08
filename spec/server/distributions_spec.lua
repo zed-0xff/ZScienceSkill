@@ -15,7 +15,7 @@ ZBSpec.describe("Science book items", function()
     end)
     
     it("BookScience1 can be instantiated", function()
-        local item = instanceItem("ZScienceSkill.BookScience1")
+        local item = create_item("ZScienceSkill.BookScience1")
         assert.is_not_nil(item, "Should be able to create BookScience1 instance")
     end)
 end)

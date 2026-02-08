@@ -67,7 +67,6 @@ MANUAL_GLOBALS = [
   "IsoZombie",
   "IsoWorld",
   "InventoryItem",
-  "InventoryItemFactory",
   "ItemContainer",
   "Texture",
   "LuaEventManager",

@@ -2,7 +2,7 @@ ZBSpec.describe(ISReadABook, function()
     local player = get_player()
 
     it("has shorter duration for skillbooks", function()
-        local book = instanceItem("Base.BookFirstAid1")
+        local book = create_item("Base.BookFirstAid1")
 
         player:setPerkLevelDebug(Perks.Science, 10)
         local dur10 = described_class:new(player, book, 1):getDuration()
@@ -16,7 +16,7 @@ ZBSpec.describe(ISReadABook, function()
     end)
 
     it("has same duration for regular books", function()
-        local book = instanceItem("Base.Book")
+        local book = create_item("Base.Book")
 
         player:setPerkLevelDebug(Perks.Science, 10)
         local dur10 = described_class:new(player, book, 1):getDuration()
