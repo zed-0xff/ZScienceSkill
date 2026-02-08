@@ -28,6 +28,8 @@ ZScienceSkill.Data.add({
         -- Blood samples
         ["LabItems.MatInfectedBlood"]    = { Science = 30, Doctor = 25 },
         ["LabItems.MatTaintedBlood"]     = { Science = 35, Doctor = 30 },
+        -- Pills
+        ["LabItems.CmpAlbuminPills"]     = { Science = 30, Doctor = 20 },
         -- Chemicals (Science only)
         ["LabItems.CmpChlorineTablets"]    = 30,
         ["LabItems.ChHydrochloricAcidCan"] = 50,

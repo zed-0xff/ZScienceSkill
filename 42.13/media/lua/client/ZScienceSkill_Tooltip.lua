@@ -13,6 +13,7 @@ function ISToolTipInv:render()
     
     -- Check if item is researchable
     if not self.item then return end
+    if not self.item.getFullType then return end  -- Not a valid InventoryItem
     local fullType = self.item:getFullType()
     
     local isResearchable = ZScienceSkill.Data.specimens[fullType] or ZScienceSkill.Data.literature[fullType] or ZScienceSkill.Data.literatureReadOnce[fullType]
