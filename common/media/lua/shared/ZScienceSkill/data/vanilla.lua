@@ -210,6 +210,7 @@ ZScienceSkill.Data.add({ specimens = {
 ZScienceSkill.Data.add({ specimens = {
     ["Base.Oxygen_Tank"]    = 25,
     ["Base.Propane_Refill"] = 20,
+    ["Base.PropaneTank"]    = { Science = 30, MetalWelding = 30 },
 }})
 
 -- fluids don't have "Base." prefix nor getFullType() method
