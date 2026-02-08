@@ -199,9 +199,10 @@ ZScienceSkill.Data.add({ specimens = {
 
 -- Chemistry / household chemicals
 ZScienceSkill.Data.add({ specimens = {
-    ["Base.BakingSoda"]   = { Science = 20, Cooking = 20 },  -- sodium bicarbonate
-    ["Base.Vinegar2"]     = { Science = 20, Cooking = 20, key = "Base.Vinegar" },
-    ["Base.Vinegar_Jug"]  = { Science = 20, Cooking = 20, key = "Base.Vinegar" },
+    ["Base.BakingSoda"]      = { Science = 20, Cooking = 20 },  -- sodium bicarbonate
+    ["Base.InsectRepellent"] = 20,
+    ["Base.Vinegar2"]        = { Science = 20, Cooking = 20, key = "Base.Vinegar" },
+    ["Base.Vinegar_Jug"]     = { Science = 20, Cooking = 20, key = "Base.Vinegar" },
 }})
 
 -- Industrial / gas equipment
