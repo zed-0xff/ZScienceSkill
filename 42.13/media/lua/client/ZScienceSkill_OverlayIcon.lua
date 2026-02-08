@@ -7,9 +7,20 @@ require "ZScienceSkill_ModOptions"
 local grayTickTexture = getTexture("media/ui/R_Mark_Gray.png")
 local greenTickTexture = getTexture("media/ui/Tick_Mark-10.png")
 
+-- Get the research key for a specimen (uses 'key' field if present, otherwise fullType)
+local function getSpecimenResearchKey(fullType)
+    local config = ZScienceSkill.Data.specimens[fullType]
+    if type(config) == "table" and config.key then
+        return config.key
+    end
+    return fullType
+end
+
 local function isSpecimenResearched(player, fullType)
     local modData = player:getModData().researchedSpecimens
-    return modData and modData[fullType]
+    if not modData then return false end
+    local researchKey = getSpecimenResearchKey(fullType)
+    return modData[researchKey]
 end
 
 
