@@ -1,0 +1,11 @@
+VERSION = 1,
+
+option XPMultiplier.Science
+{
+    type = double,
+    min = 0,
+    max = 1000,
+    default = 1.0,
+    page = XP,
+    translation = Sandbox_XPMultiplier_Science,
+}
