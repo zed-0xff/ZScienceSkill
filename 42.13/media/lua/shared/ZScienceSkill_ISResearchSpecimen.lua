@@ -33,16 +33,69 @@ local function findNearbyMicroscope(character)
     return nil
 end
 
+-- Get all accessible inventories for a character (main + equipped bags + hand-held bags)
+local function getAccessibleInventories(character)
+    local inventories = { character:getInventory() }
+    local seen = {}  -- Track seen inventories to avoid duplicates
+    seen[character:getInventory()] = true
+    
+    local function addInventory(item)
+        if item and item.getInventory then
+            local inv = item:getInventory()
+            if inv and not seen[inv] then
+                seen[inv] = true
+                table.insert(inventories, inv)
+            end
+        end
+    end
+    
+    -- Check equipped/worn bags (backpack, fanny pack, etc.)
+    local wornItems = character:getWornItems()
+    if wornItems then
+        for i = 0, wornItems:size() - 1 do
+            local wornSlot = wornItems:get(i)
+            if wornSlot then
+                addInventory(wornSlot:getItem())
+            end
+        end
+    end
+    
+    -- Check hand-held items (bags held in hands)
+    addInventory(character:getPrimaryHandItem())
+    addInventory(character:getSecondaryHandItem())
+    
+    return inventories
+end
+
+-- Check if character has item in any accessible inventory
+local function characterHasItem(character, item)
+    if not item then return false end
+    
+    local inventories = getAccessibleInventories(character)
+    for _, inv in ipairs(inventories) do
+        if isClient() then
+            if inv:containsID(item:getID()) then return true end
+        else
+            if inv:contains(item) then return true end
+        end
+    end
+    return false
+end
+
+-- Find item by ID in any accessible inventory
+local function findItemById(character, itemId)
+    local inventories = getAccessibleInventories(character)
+    for _, inv in ipairs(inventories) do
+        local found = inv:getItemById(itemId)
+        if found then return found end
+    end
+    return nil
+end
+
 function ISResearchSpecimen:isValid()
-    -- see ISEatFoodAction:isValid()
-    if isClient() and self.item then
-        if not self.character:getInventory():containsID(self.item:getID()) then
-            return false
-        end
-    else
-        if not self.character:getInventory():contains(self.item) then
-            return false
-        end
+    -- Check if item is in any accessible inventory (main + equipped bags)
+    if not characterHasItem(self.character, self.item) then
+        return false
     end
     if ISResearchSpecimen.isResearched(self.character, self.item) then
         return false
@@ -64,7 +117,7 @@ end
 
 function ISResearchSpecimen:start()
     if isClient() and self.item then
-        self.item = self.character:getInventory():getItemById(self.item:getID())
+        self.item = findItemById(self.character, self.item:getID())
     end
     
     self.item:setJobType(getText("ContextMenu_ResearchSpecimen"))
@@ -312,29 +365,31 @@ end
 
 Events.OnFillInventoryObjectContextMenu.Add(onFillInventoryContextMenu)
 
--- Find all unresearched specimens in player inventory
+-- Find all unresearched specimens in player's accessible inventories (main + equipped bags)
 local function findUnresearchedSpecimens(playerObj)
     local specimens = {}
-    local inventory = playerObj:getInventory()
-    local items = inventory:getItems()
     local modData = playerObj:getModData().researchedSpecimens
+    local inventories = getAccessibleInventories(playerObj)
     
-    for i = 0, items:size() - 1 do
-        local item = items:get(i)
-        local fullType = item:getFullType()
-        
-        -- Check regular specimens
-        if ZScienceSkill.Data.specimens[fullType] then
-            local researchKey = getSpecimenResearchKey(fullType)
-            if not (modData and modData[researchKey]) then
-                table.insert(specimens, item)
-            end
-        else
-            -- Check fluid specimens
-            local fluidType = ZScienceSkill.getFluidType(item)
-            if fluidType and ZScienceSkill.Data.fluids and ZScienceSkill.Data.fluids[fluidType] then
-                if not (modData and modData["Fluid:" .. fluidType]) then
+    for _, inventory in ipairs(inventories) do
+        local items = inventory:getItems()
+        for i = 0, items:size() - 1 do
+            local item = items:get(i)
+            local fullType = item:getFullType()
+            
+            -- Check regular specimens
+            if ZScienceSkill.Data.specimens[fullType] then
+                local researchKey = getSpecimenResearchKey(fullType)
+                if not (modData and modData[researchKey]) then
                     table.insert(specimens, item)
+                end
+            else
+                -- Check fluid specimens
+                local fluidType = ZScienceSkill.getFluidType(item)
+                if fluidType and ZScienceSkill.Data.fluids and ZScienceSkill.Data.fluids[fluidType] then
+                    if not (modData and modData["Fluid:" .. fluidType]) then
+                        table.insert(specimens, item)
+                    end
                 end
             end
         end
