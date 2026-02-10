@@ -223,8 +223,20 @@ ZScienceSkill.Data.add({ fluids = {
 
 -- Electronics / tech components
 ZScienceSkill.Data.add({ specimens = {
-    ["Base.Battery"]       = { Science = 10, Electricity = 10 },
-    ["Base.ScannerModule"] = { Science = 20, Electricity = 20 },
+    ["Base.ElectricWire"]      = { Science =  5, Electricity =  5 },
+    ["Base.LightBulb"]         = { Science =  5, Electricity =  5 },
+    ["Base.CarBattery1"]       = { Science = 10, Electricity = 10 },
+    ["Base.CarBattery2"]       = { Science = 10, Electricity = 10 },
+    ["Base.CarBattery3"]       = { Science = 10, Electricity = 10 },
+    ["Base.Battery"]           = { Science = 10, Electricity = 10 },
+    ["Base.ElectronicsScrap"]  = { Science = 10, Electricity = 10 },
+    ["Base.Speaker"]           = { Science = 10, Electricity = 10 },
+    ["Base.CarBatteryCharger"] = { Science = 20, Electricity = 20 },
+    ["Base.ScannerModule"]     = { Science = 20, Electricity = 20 },
+    ["Base.MotionSensor"]      = { Science = 20, Electricity = 20 },
+    ["Base.Receiver"]          = { Science = 20, Electricity = 20 },
+    ["Base.HomeAlarm"]         = { Science = 20, Electricity = 20 },
+    ["Base.CDplayer"]          = { Science = 20, Electricity = 20 },
 }})
 
 
