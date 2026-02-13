@@ -11,3 +11,4 @@ Brewfile
 Gemfile*
 Rakefile
 tmp
+tools
