@@ -7,7 +7,8 @@ local SEARCH_RADIUS = 1
 
 -- Check if object is a microscope
 local function isMicroscope(obj)
-    return obj and obj.getProperties and obj:getProperties():get("CustomName") == "Microscope"
+    local props = obj and obj.getProperties and obj:getProperties()
+    return props and props.get and props:get("CustomName") == "Microscope"
 end
 
 -- Find a microscope within radius of player
