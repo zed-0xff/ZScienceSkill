@@ -3,8 +3,6 @@
 -- shared environment (not _G). This allows spec files to access them without
 -- polluting the global namespace.
 
-require "ZBSpec"
-
 function get_player()
     if isServer() then
         return getOnlinePlayers():get(0) -- XXX assumes only one player online

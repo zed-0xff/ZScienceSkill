@@ -27,7 +27,7 @@ ZBSpec.describe("Science XP multiplier sandbox option", function()
     end)
 end)
 
-ZBSpec.client.describe("addXp for Science perk", function()
+ZBSpec.describe("addXp for Science perk", function()
     local player = get_player()
     
     before_each(function()

@@ -1,6 +1,8 @@
 ---
 # ZBSpec configuration for ZScienceSkill
 
+sandbox: false
+
 # Your mod(s) to spec (ZombieBuddy and ZBSpec are automatically included)
 mods:
   - { id: ZScienceSkill, path: "." }
