@@ -1,4 +1,6 @@
 -- Grant Science XP when gaining Electrical XP
+require 'ZSS_Fix_Events'
+
 if isClient() then return end
 
 ZScienceSkill = ZScienceSkill or {}
@@ -13,4 +15,4 @@ local function onAddXP(character, perk, amount)
     end
 end
 
-Events.AddXP.Add(onAddXP)
+ZSS_Fix_Events.AddXP.Add(onAddXP)
