@@ -17,11 +17,21 @@ local function onAddXP(character, perk, amount)
         local bonusPercent = scienceLevel * 0.02  -- 2% per level
         local bonusXP = amount * bonusPercent
         if bonusXP >= ZScienceSkill.minGain then
-            -- Use direct AddXP to avoid triggering event again
             addXp(character, perk, bonusXP)
         end
     end
     updating = false
 end
+
+-- XXX logic changed after 42.13.1:
+--
+--  zombie/characters/IsoGameCharacter.java:
+--    42.13.1:
+--      12927-            if (!GameServer.server) {
+--      12928:                LuaEventManager.triggerEventGarbage("AddXP", this.chr, type, Float.valueOf(amount));
+--
+--    unstable:
+--      12940-            if (!GameClient.client) {
+--      12941:                LuaEventManager.triggerEventGarbage("AddXP", this.chr, type, Float.valueOf(amount));
 
 Events.AddXP.Add(onAddXP)

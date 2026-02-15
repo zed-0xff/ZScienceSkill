@@ -1,4 +1,4 @@
-ZBSpec.describe("ZScienceSkill.isCombatPerk", function()
+describe("ZScienceSkill.isCombatPerk", function()
     it("detects Combat perk", function()
         assert.is_true(ZScienceSkill.isCombatPerk(Perks.Combat))
     end)

@@ -1,4 +1,4 @@
-ZBSpec.describe("SkillBook['Science']", function()
+describe("SkillBook['Science']", function()
 
     local sci = SkillBook["Science"]
 
@@ -7,15 +7,15 @@ ZBSpec.describe("SkillBook['Science']", function()
     end)
 
     it("has a perk", function()
-        assert.is_equal(Perks.Science, sci.perk)
+        assert.eq(Perks.Science, sci.perk)
     end)
 
     it("has multipliers", function()
-        assert.is_equal(3, sci.maxMultiplier1)
-        assert.is_equal(5, sci.maxMultiplier2)
-        assert.is_equal(8, sci.maxMultiplier3)
-        assert.is_equal(12, sci.maxMultiplier4)
-        assert.is_equal(16, sci.maxMultiplier5)
+        assert.eq(3, sci.maxMultiplier1)
+        assert.eq(5, sci.maxMultiplier2)
+        assert.eq(8, sci.maxMultiplier3)
+        assert.eq(12, sci.maxMultiplier4)
+        assert.eq(16, sci.maxMultiplier5)
     end)
 end)
 

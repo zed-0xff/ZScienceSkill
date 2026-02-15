@@ -15,7 +15,7 @@ local HERBALIST_PLANTS = {
     "Base.Thistle",
 }
 
-ZBSpec.describe("Herbalist unlock", function()
+describe("Herbalist unlock", function()
     local player = get_player()
     
     before_all(function()
@@ -78,7 +78,7 @@ ZBSpec.describe("Herbalist unlock", function()
         wait_for(ISResearchSpecimen.isResearched, player, cricket)
         
         -- Cricket is not a plant, so researchedPlants should be empty
-        assert.is_equal(nil, player:getModData().researchedPlants)
+        assert.eq(nil, player:getModData().researchedPlants)
     end)
 end)
 

@@ -1,4 +1,4 @@
-ZBSpec.describe("ZScienceSkill.Data.specimens data", function()
+describe("ZScienceSkill.Data.specimens data", function()
     it("is a table", function()
         assert.is_table(ZScienceSkill.Data.specimens)
     end)
@@ -24,8 +24,8 @@ ZBSpec.describe("ZScienceSkill.Data.specimens data", function()
     end)
     
     it("has correct XP for special specimens", function()
-        assert.is_equal(60, ZScienceSkill.Data.specimens["Base.Specimen_Brain"]["Science"])
-        assert.is_equal(200, ZScienceSkill.Data.specimens["Base.LargeMeteorite"])
+        assert.eq(60, ZScienceSkill.Data.specimens["Base.Specimen_Brain"]["Science"])
+        assert.eq(200, ZScienceSkill.Data.specimens["Base.LargeMeteorite"])
     end)
     
     it("has at least 50 specimens", function()

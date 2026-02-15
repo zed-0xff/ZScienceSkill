@@ -9,10 +9,11 @@ local function carve_spear(player, item)
     wait_for_not(ISTimedActionQueue.isPlayerDoingAction, player)
 end
 
-ZBSpec.describe("XP boost", function()
+describe("XP boost", function()
     local player = get_player()
 
     before_all(function()
+        init_player()
         set_timed_action_instant(true)
         add_item(player, "Base.HuntingKnife")
         all_exec("ZScienceSkill.minGain=0")
@@ -35,8 +36,8 @@ ZBSpec.describe("XP boost", function()
         local xp05 = make(5)
         local xp00 = make(0)
 
-        assert(xp05 > xp00)
-        assert(xp10 > xp05)
+        assert.gt(xp05, xp00)
+        assert.gt(xp10, xp05)
     end)
 end)
 

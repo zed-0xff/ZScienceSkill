@@ -1,7 +1,7 @@
 -- Server-side tests for research ModData sync
 -- Tests that server properly handles client commands for research
 
-ZBSpec.describe("ZScienceSkill research sync", function()
+describe("ZScienceSkill research sync", function()
     local player = get_player()
     
     before_each(function()

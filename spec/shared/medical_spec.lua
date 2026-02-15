@@ -1,7 +1,7 @@
 local player   = get_player()
 local bodyPart = player:getBodyDamage():getBodyPart(BodyPartType.Hand_L)
 
-ZBSpec.describe(ISApplyBandage, function()
+describe(ISApplyBandage, function()
     local bandage = create_item("Base.Bandage")
 
     it("has shorter duration with higher Science skill", function()
@@ -19,7 +19,7 @@ ZBSpec.describe(ISApplyBandage, function()
     pending("has longer bandage life with higher Science skill")
 end)
 
-ZBSpec.describe(ISDisinfect, function()
+describe(ISDisinfect, function()
     local alcohol = create_item("Base.AlcoholWipes")
 
     it("has shorter duration with higher Science skill", function()
@@ -35,7 +35,7 @@ ZBSpec.describe(ISDisinfect, function()
     end)
 end)
 
-ZBSpec.describe(ISSplint, function()
+describe(ISSplint, function()
     local splint = create_item("Base.Splint")
 
     it("has shorter duration with higher Science skill", function()

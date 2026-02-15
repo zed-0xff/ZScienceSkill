@@ -1,4 +1,4 @@
-ZBSpec.describe("ISResearchSpecimen.isSpecimen", function()
+describe("ISResearchSpecimen.isSpecimen", function()
     it("identifies Cricket as specimen", function()
         local cricket = create_item("Base.Cricket")
         assert.is_not_nil(cricket)
@@ -12,7 +12,7 @@ ZBSpec.describe("ISResearchSpecimen.isSpecimen", function()
     end)
 end)
 
-ZBSpec.describe("ISResearchSpecimen.isResearched", function()
+describe("ISResearchSpecimen.isResearched", function()
     local player = getPlayer()
     
     it("returns false for new specimen", function()

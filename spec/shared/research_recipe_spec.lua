@@ -1,4 +1,4 @@
-ZBSpec.describe(ISResearchRecipe, function()
+describe(ISResearchRecipe, function()
     it("has shorter duration with higher Science skill", function()
         local player = get_player()
         local item = create_item("Base.ScrapMetal")

@@ -3,7 +3,7 @@ local function research_recipe(player, item)
     wait_for_not(ISTimedActionQueue.isPlayerDoingAction, player)
 end
 
-ZBSpec.describe(ISResearchRecipe, function()
+describe(ISResearchRecipe, function()
     local player = get_player()
 
     before_all(function()

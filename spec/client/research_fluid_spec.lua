@@ -1,7 +1,7 @@
 -- Client-side integration tests for fluid research
 -- Tests researching items containing fluids (bleach, blood, etc.)
 
-ZBSpec.describe("Fluid research", function()
+describe("Fluid research", function()
     local player = get_player()
     
     before_all(function()
@@ -23,7 +23,7 @@ ZBSpec.describe("Fluid research", function()
             assert(ISResearchSpecimen.isSpecimen(bleach), "Bleach should be a specimen")
             
             local fluidType = ZScienceSkill.getFluidType(bleach)
-            assert.is_equal("Bleach", fluidType)
+            assert.eq("Bleach", fluidType)
             
             research_specimen(player, bleach)
             

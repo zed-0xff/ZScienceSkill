@@ -1,4 +1,4 @@
-ZBSpec.describe(ISReadABook, function()
+describe(ISReadABook, function()
     local player = get_player()
 
     it("has shorter duration for skillbooks", function()

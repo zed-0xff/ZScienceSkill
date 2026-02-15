@@ -1,7 +1,7 @@
 -- Test for ZScienceSkill_Distributions.lua
 -- Verifies Science skill books are added to loot distributions
 
-ZBSpec.describe("Science book items", function()
+describe("Science book items", function()
     it("BookScience1 is registered with ScriptManager", function()
         local item = ScriptManager.instance:getItem("ZScienceSkill.BookScience1")
         assert.is_not_nil(item, "BookScience1 should be registered")
@@ -20,7 +20,7 @@ ZBSpec.describe("Science book items", function()
     end)
 end)
 
-ZBSpec.describe("Science book distributions", function()
+describe("Science book distributions", function()
     it("ProceduralDistributions exists after game init", function()
         assert.is_not_nil(ProceduralDistributions)
         assert.is_table(ProceduralDistributions.list)
@@ -83,12 +83,12 @@ ZBSpec.describe("Science book distributions", function()
         local w5 = weights["ZScienceSkill.BookScience5"] or 0
         
         if w1 > 0 and w5 > 0 then
-            assert.greater_than(w5, w1, "Vol 1 should have higher weight than Vol 5")
+            assert.gt(w1, w5, "Vol 1 should have higher weight than Vol 5")
         end
     end)
 end)
 
-ZBSpec.describe("Science book spawning", function()
+describe("Science book spawning", function()
     it("books can spawn from distribution roll", function()
         local dist = ProceduralDistributions.list.LibraryBooks
         if not dist or not dist.items then
@@ -115,12 +115,12 @@ ZBSpec.describe("Science book spawning", function()
         end
         
         -- Verify books are present with positive weights
-        assert.greater_than(0, scienceBooks["ZScienceSkill.BookScience1"] or 0, "BookScience1 should have weight > 0")
+        assert.gt(scienceBooks["ZScienceSkill.BookScience1"] or 0, 0, "BookScience1 should have weight > 0")
         
         -- Calculate spawn probability
         local book1Weight = scienceBooks["ZScienceSkill.BookScience1"] or 0
         local spawnChance = book1Weight / totalWeight * 100
-        assert.greater_than(0, spawnChance, "BookScience1 should have spawn chance > 0%")
+        assert.gt(spawnChance, 0, "BookScience1 should have spawn chance > 0%")
     end)
 end)
 

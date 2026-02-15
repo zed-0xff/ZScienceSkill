@@ -1,54 +1,54 @@
 -- Test for ZScienceSkill/Data.lua
 -- Validates data tables are correctly defined
 
-ZBSpec.describe("ZScienceSkill.Data.literature", function()
+describe("ZScienceSkill.Data.literature", function()
     it("is a table", function()
         assert.is_table(ZScienceSkill.Data.literature)
     end)
     
     it("has correct science book XP values", function()
-        assert.is_equal(35, ZScienceSkill.Data.literature["Base.Book_Science"])
-        assert.is_equal(30, ZScienceSkill.Data.literature["Base.Paperback_Science"])
-        assert.is_equal(15, ZScienceSkill.Data.literature["Base.Magazine_Science"])
+        assert.eq(35, ZScienceSkill.Data.literature["Base.Book_Science"])
+        assert.eq(30, ZScienceSkill.Data.literature["Base.Paperback_Science"])
+        assert.eq(15, ZScienceSkill.Data.literature["Base.Magazine_Science"])
     end)
     
     it("gives more XP for science books than scifi", function()
         local scienceXP = ZScienceSkill.Data.literature["Base.Book_Science"]
         local scifiXP = ZScienceSkill.Data.literature["Base.Book_SciFi"]
-        assert.greater_than(scifiXP, scienceXP)
+        assert.gt(scienceXP, scifiXP, "Science books should give more XP than Sci-Fi books")
     end)
     
     it("has all positive number values", function()
         for key, xp in pairs(ZScienceSkill.Data.literature) do
             assert.is_string(key)
             assert.is_number(xp)
-            assert.greater_than(0, xp)
+            assert.gt(xp, 0)
         end
     end)
 end)
 
-ZBSpec.describe("ZScienceSkill.skillBookXP", function()
+describe("ZScienceSkill.skillBookXP", function()
     it("is a table", function()
         assert.is_table(ZScienceSkill.skillBookXP)
     end)
     
     it("has correct XP progression", function()
-        assert.is_equal(10, ZScienceSkill.skillBookXP[1])
-        assert.is_equal(20, ZScienceSkill.skillBookXP[3])
-        assert.is_equal(30, ZScienceSkill.skillBookXP[5])
-        assert.is_equal(40, ZScienceSkill.skillBookXP[7])
-        assert.is_equal(50, ZScienceSkill.skillBookXP[9])
+        assert.eq(10, ZScienceSkill.skillBookXP[1])
+        assert.eq(20, ZScienceSkill.skillBookXP[3])
+        assert.eq(30, ZScienceSkill.skillBookXP[5])
+        assert.eq(40, ZScienceSkill.skillBookXP[7])
+        assert.eq(50, ZScienceSkill.skillBookXP[9])
     end)
     
     it("increases with level", function()
-        assert.less_than(ZScienceSkill.skillBookXP[3], ZScienceSkill.skillBookXP[1])
-        assert.less_than(ZScienceSkill.skillBookXP[5], ZScienceSkill.skillBookXP[3])
-        assert.less_than(ZScienceSkill.skillBookXP[7], ZScienceSkill.skillBookXP[5])
-        assert.less_than(ZScienceSkill.skillBookXP[9], ZScienceSkill.skillBookXP[7])
+        assert.lt(ZScienceSkill.skillBookXP[1], ZScienceSkill.skillBookXP[3])
+        assert.lt(ZScienceSkill.skillBookXP[3], ZScienceSkill.skillBookXP[5])
+        assert.lt(ZScienceSkill.skillBookXP[5], ZScienceSkill.skillBookXP[7])
+        assert.lt(ZScienceSkill.skillBookXP[7], ZScienceSkill.skillBookXP[9])
     end)
 end)
 
-ZBSpec.describe("ZScienceSkill.herbalistPlants", function()
+describe("ZScienceSkill.herbalistPlants", function()
     it("is a table", function()
         assert.is_table(ZScienceSkill.herbalistPlants)
     end)
@@ -69,7 +69,7 @@ ZBSpec.describe("ZScienceSkill.herbalistPlants", function()
     end)
 end)
 
-ZBSpec.describe("ZScienceSkill.Data.fluids", function()
+describe("ZScienceSkill.Data.fluids", function()
     it("is a table", function()
         assert.is_table(ZScienceSkill.Data.fluids)
     end)
@@ -82,13 +82,13 @@ ZBSpec.describe("ZScienceSkill.Data.fluids", function()
     it("all fluids grant positive Science XP", function()
         for fluidName, perks in pairs(ZScienceSkill.Data.fluids) do
             assert.is_number(perks.Science)
-            assert.greater_than(0, perks.Science)
+            assert.gt(perks.Science, 0)
         end
     end)
     
     it("SecretFlavoring grants 200 Science XP", function()
         assert.is_not_nil(ZScienceSkill.Data.fluids["SecretFlavoring"])
-        assert.is_equal(200, ZScienceSkill.Data.fluids["SecretFlavoring"].Science)
+        assert.eq(200, ZScienceSkill.Data.fluids["SecretFlavoring"].Science)
     end)
 end)
 

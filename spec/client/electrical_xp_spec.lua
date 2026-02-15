@@ -9,7 +9,7 @@ local function dismantle_radio(player, item)
     wait_for_not(ISTimedActionQueue.isPlayerDoingAction, player)
 end
 
-ZBSpec.describe("Electrical XP synergy", function()
+describe("Electrical XP synergy", function()
     local player = get_player()
 
     before_all(function()
@@ -30,7 +30,7 @@ ZBSpec.describe("Electrical XP synergy", function()
         end)
         
         local scienceAfter = player:getXp():getXP(Perks.Science)
-        assert.greater_than(scienceBefore, scienceAfter)
+        assert.gt(scienceAfter, scienceBefore, "Science XP should increase after gaining Electrical XP")
     end)
 end)
 

@@ -1,29 +1,29 @@
 -- Test that specimens with shared 'key' field are tracked together
-ZBSpec.describe("Specimen shared key", function()
+describe("Specimen shared key", function()
     it("vinegar items share the same research key", function()
         local config1 = ZScienceSkill.Data.specimens["Base.Vinegar2"]
         local config2 = ZScienceSkill.Data.specimens["Base.Vinegar_Jug"]
         
         assert.is_table(config1, "Base.Vinegar2 should be defined")
         assert.is_table(config2, "Base.Vinegar_Jug should be defined")
-        assert.is_equal("Base.Vinegar", config1.key)
-        assert.is_equal("Base.Vinegar", config2.key)
+        assert.eq("Base.Vinegar", config1.key)
+        assert.eq("Base.Vinegar", config2.key)
     end)
     
     it("vinegar items grant Science XP", function()
         local config1 = ZScienceSkill.Data.specimens["Base.Vinegar2"]
         local config2 = ZScienceSkill.Data.specimens["Base.Vinegar_Jug"]
         
-        assert.is_equal(20, config1.Science)
-        assert.is_equal(20, config2.Science)
+        assert.eq(20, config1.Science)
+        assert.eq(20, config2.Science)
     end)
 end)
 
-ZBSpec.describe("Specimen research with shared key", function()
+describe("Specimen research with shared key", function()
     local player
     
     before_each(function()
-        player = getPlayer()
+        player = get_player()
         player:getModData().researchedSpecimens = nil
     end)
     

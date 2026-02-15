@@ -1,7 +1,7 @@
 -- Client-side integration tests for ISResearchSpecimen
 -- Tests the full research flow with player actions
 
-ZBSpec.describe("ISResearchSpecimen action", function()
+describe("ISResearchSpecimen action", function()
     local player = get_player()
     
     before_all(function()
@@ -55,7 +55,7 @@ ZBSpec.describe("ISResearchSpecimen action", function()
             research_specimen(player, specimen2)
             
             -- XP should not increase (already researched this type)
-            assert.is_equal(xpAfterFirst, player:getXp():getXP(Perks.Science))
+            assert.eq(xpAfterFirst, player:getXp():getXP(Perks.Science))
         end)
     end)
     

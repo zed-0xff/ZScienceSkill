@@ -1,4 +1,4 @@
-ZBSpec.describe("Science book", function()
+describe("Science book", function()
     local player = get_player()
     local ITEMTYPE = "Base.Book_Science"
 
@@ -43,7 +43,7 @@ ZBSpec.describe("Science book", function()
         local scienceXP = xpBefore2 - xpBefore1
         local scifiXP   = player:getXp():getXP(Perks.Science) - xpBefore2
 
-        assert.greater_than(scifiXP, scienceXP)
+        assert.gt(scienceXP, scifiXP)
     end)
     
     it("does not grant infinite XP", function()
@@ -58,12 +58,12 @@ ZBSpec.describe("Science book", function()
         xpBefore = player:getXp():getXP(Perks.Science)
         for i = 1, 5 do
             read_book(player, book) -- same book again
-            assert.is_equal(xpBefore, player:getXp():getXP(Perks.Science)) -- no xp
+            assert.eq(xpBefore, player:getXp():getXP(Perks.Science)) -- no xp
         end
     end)
 end)
 
-ZBSpec.describe("Another SkillBook", function()
+describe("Another SkillBook", function()
     local player = get_player()
     local ITEMTYPE = "Base.BookMechanic1"
 
@@ -95,7 +95,7 @@ ZBSpec.describe("Another SkillBook", function()
         xpBefore = player:getXp():getXP(Perks.Science)
         for i = 1, 5 do
             read_book(player, book) -- same book again
-            assert.is_equal(xpBefore, player:getXp():getXP(Perks.Science)) -- no xp
+            assert.eq(xpBefore, player:getXp():getXP(Perks.Science)) -- no xp
         end
     end)
 end)
