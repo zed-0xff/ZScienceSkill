@@ -2,6 +2,8 @@
 # ZBSpec configuration for ZScienceSkill
 
 sandbox: false
+log_events: false
+log_packets: false
 
 # Your mod(s) to spec (ZombieBuddy and ZBSpec are automatically included)
 mods:

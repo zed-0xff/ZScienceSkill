@@ -7,14 +7,14 @@ describe("addXp for Science perk", function()
     
     it("works without error", function()
         local xpBefore = player:getXp():getXP(Perks.Science)
+        assert(xpBefore, "should not be nil")
         
         -- This should not throw NullPointerException
         addXp(player, Perks.Science, 50)
         
-        wait_for(function()
-            return player:getXp():getXP(Perks.Science) > xpBefore
-        end)
+        local xpAfter = player:getXp():getXP(Perks.Science)
+        assert.gt(xpAfter, xpBefore)
     end)
 end)
 
-return ZBSpec.runAsync()
+return ZBSpec.run()

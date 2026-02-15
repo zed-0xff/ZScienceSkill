@@ -29,8 +29,9 @@ describe("Electrical XP synergy", function()
             return player:getXp():getXP(Perks.Electricity) > electricalBefore
         end)
         
-        local scienceAfter = player:getXp():getXP(Perks.Science)
-        assert.gt(scienceAfter, scienceBefore, "Science XP should increase after gaining Electrical XP")
+        wait_for(function()
+            return player:getXp():getXP(Perks.Science) > scienceBefore
+        end)
     end)
 end)
 

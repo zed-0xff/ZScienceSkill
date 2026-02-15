@@ -18,26 +18,27 @@ describe("XP boost", function()
         add_item(player, "Base.HuntingKnife")
         all_exec("ZScienceSkill.minGain=0")
     end)
+
+    after_all(function()
+        set_perk_level(player, Perks.Science, 0)
+    end)
     
     it("increases skill XP gain with higher Science level", function()
-        local function make(level)
+        local function make(level, min_diff)
             set_perk_level(player, Perks.Science, level)
 
             local xpBefore = player:getXp():getXP(Perks.Carving)
             local stick = add_item(player, "Base.LongStick")
             carve_spear(player, stick)
             wait_for(function()
-                return player:getXp():getXP(Perks.Carving) > xpBefore
+                return player:getXp():getXP(Perks.Carving) - xpBefore > min_diff
             end)
             return player:getXp():getXP(Perks.Carving) - xpBefore
         end
 
-        local xp10 = make(10)
-        local xp05 = make(5)
-        local xp00 = make(0)
-
-        assert.gt(xp05, xp00)
-        assert.gt(xp10, xp05)
+        local xp0 = make( 0, 0)
+        local xp5 = make( 5, xp0)
+        local xpA = make(10, xp5)
     end)
 end)
 

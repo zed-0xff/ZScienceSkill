@@ -23,11 +23,11 @@ function init_player(player)
         -- Use server_eval (not server_exec) to wait for server to complete clearing
         -- before test continues. Otherwise race condition: add_item might run before
         -- server processes the clear, causing items to disappear after being added.
-        server_eval("getOnlinePlayers():get(0):getInventory():clear()")
+        server_eval("getOnlinePlayers():get(0):getInventory():removeAllItems()")
         server_eval("getOnlinePlayers():get(0):getReadLiterature():clear()")
     end
     -- both for SP and MP client
-    player:getInventory():clear()
+    player:getInventory():removeAllItems()
     player:getReadLiterature():clear()
 end
 
