@@ -119,16 +119,73 @@ ZScienceSkill.Data.add({ specimens = {
 }})
 
 
-local plantXP = 10
+local farmXP = 10
+local sciXP = farmXP/2
 ZScienceSkill.Data.add({ specimens = {
     -- Wild foraged plants (botany)
-    ["Base.Acorn"]       = plantXP,
-    ["Base.Dandelions"]  = plantXP,
-    ["Base.GrapeLeaves"] = plantXP,
-    ["Base.Nettles"]     = plantXP,
-    ["Base.Rosehips"]    = plantXP,
-    ["Base.Thistle"]     = plantXP,
-    ["Base.Violets"]     = plantXP,
+    ["Base.Acorn"]                 = { Science = sciXP, Farming = farmXP },
+    ["Base.Dandelions"]            = { Science = sciXP, Farming = farmXP },
+    ["Base.GrapeLeaves"]           = { Science = sciXP, Farming = farmXP },
+    ["Base.Nettles"]               = { Science = sciXP, Farming = farmXP },
+    ["Base.Rosehips"]              = { Science = sciXP, Farming = farmXP },
+    ["Base.Thistle"]               = { Science = sciXP, Farming = farmXP },
+    ["Base.Violets"]               = { Science = sciXP, Farming = farmXP },
+
+    -- seeds
+    ["Base.BarleySeed"]            = { Science = sciXP, Farming = farmXP },
+    ["Base.BasilSeed"]             = { Science = sciXP, Farming = farmXP },
+    ["Base.BellPepperSeed"]        = { Science = sciXP, Farming = farmXP },
+    ["Base.BlackSageSeed"]         = { Science = sciXP, Farming = farmXP },
+    ["Base.BroadleafPlantainSeed"] = { Science = sciXP, Farming = farmXP },
+    ["Base.BroccoliSeed"]          = { Science = sciXP, Farming = farmXP },
+    ["Base.CabbageSeed"]           = { Science = sciXP, Farming = farmXP },
+    ["Base.CarrotSeed"]            = { Science = sciXP, Farming = farmXP },
+    ["Base.CauliflowerSeed"]       = { Science = sciXP, Farming = farmXP },
+    ["Base.ChamomileSeed"]         = { Science = sciXP, Farming = farmXP },
+    ["Base.ChivesSeed"]            = { Science = sciXP, Farming = farmXP },
+    ["Base.CilantroSeed"]          = { Science = sciXP, Farming = farmXP },
+    ["Base.ComfreySeed"]           = { Science = sciXP, Farming = farmXP },
+    ["Base.CommonMallowSeed"]      = { Science = sciXP, Farming = farmXP },
+    ["Base.CornSeed"]              = { Science = sciXP, Farming = farmXP },
+    ["Base.CucumberSeed"]          = { Science = sciXP, Farming = farmXP },
+    ["Base.FlaxSeed"]              = { Science = sciXP, Farming = farmXP },
+    ["Base.GarlicSeed"]            = { Science = sciXP, Farming = farmXP },
+    ["Base.GreenpeasSeed"]         = { Science = sciXP, Farming = farmXP },
+    ["Base.HabaneroSeed"]          = { Science = sciXP, Farming = farmXP },
+    ["Base.HempSeed"]              = { Science = sciXP, Farming = farmXP },
+    ["Base.HopsSeed"]              = { Science = sciXP, Farming = farmXP },
+    ["Base.JalapenoSeed"]          = { Science = sciXP, Farming = farmXP },
+    ["Base.KaleSeed"]              = { Science = sciXP, Farming = farmXP },
+    ["Base.LavenderSeed"]          = { Science = sciXP, Farming = farmXP },
+    ["Base.LeekSeed"]              = { Science = sciXP, Farming = farmXP },
+    ["Base.LemonGrassSeed"]        = { Science = sciXP, Farming = farmXP },
+    ["Base.LettuceSeed"]           = { Science = sciXP, Farming = farmXP },
+    ["Base.MarigoldSeed"]          = { Science = sciXP, Farming = farmXP },
+    ["Base.MintSeed"]              = { Science = sciXP, Farming = farmXP },
+    ["Base.OnionSeed"]             = { Science = sciXP, Farming = farmXP },
+    ["Base.OreganoSeed"]           = { Science = sciXP, Farming = farmXP },
+    ["Base.ParsleySeed"]           = { Science = sciXP, Farming = farmXP },
+    ["Base.PoppySeed"]             = { Science = sciXP, Farming = farmXP },
+    ["Base.PotatoSeed"]            = { Science = sciXP, Farming = farmXP },
+    ["Base.PumpkinSeed"]           = { Science = sciXP, Farming = farmXP },
+    ["Base.RedRadishSeed"]         = { Science = sciXP, Farming = farmXP },
+    ["Base.RosemarySeed"]          = { Science = sciXP, Farming = farmXP },
+    ["Base.RoseSeed"]              = { Science = sciXP, Farming = farmXP },
+    ["Base.RyeSeed"]               = { Science = sciXP, Farming = farmXP },
+    ["Base.SageSeed"]              = { Science = sciXP, Farming = farmXP },
+    ["Base.SoybeansSeed"]          = { Science = sciXP, Farming = farmXP },
+    ["Base.SpinachSeed"]           = { Science = sciXP, Farming = farmXP },
+    ["Base.StrewberrieSeed"]       = { Science = sciXP, Farming = farmXP },
+    ["Base.SugarBeetSeed"]         = { Science = sciXP, Farming = farmXP },
+    ["Base.SweetPotatoSeed"]       = { Science = sciXP, Farming = farmXP },
+    ["Base.ThymeSeed"]             = { Science = sciXP, Farming = farmXP },
+    ["Base.TobaccoSeed"]           = { Science = sciXP, Farming = farmXP },
+    ["Base.TomatoSeed"]            = { Science = sciXP, Farming = farmXP },
+    ["Base.TurnipSeed"]            = { Science = sciXP, Farming = farmXP },
+    ["Base.WatermelonSeed"]        = { Science = sciXP, Farming = farmXP },
+    ["Base.WheatSeed"]             = { Science = sciXP, Farming = farmXP },
+    ["Base.WildGarlicSeed"]        = { Science = sciXP, Farming = farmXP },
+    ["Base.ZucchiniSeed"]          = { Science = sciXP, Farming = farmXP },
 }})
 
 
@@ -208,6 +265,8 @@ ZScienceSkill.Data.add({ specimens = {
 
 -- Industrial / gas equipment
 ZScienceSkill.Data.add({ specimens = {
+    ["Base.BlowTorch"]      = { Science =  5, MetalWelding = 10 },
+    ["Base.Extinguisher"]   = 10,
     ["Base.Oxygen_Tank"]    = 25,
     ["Base.Propane_Refill"] = 20,
     ["Base.PropaneTank"]    = { Science = 30, MetalWelding = 30 },
@@ -217,26 +276,41 @@ ZScienceSkill.Data.add({ specimens = {
 ZScienceSkill.Data.add({ fluids = {
     ["Acid"]            = { Science =  50 },
     ["Bleach"]          = { Science =  30 },
-    ["Blood"]           = { Science =  50,  Doctor = 50 },
+    ["Blood"]           = { Science =  50, Doctor = 50 },
+    ["Cologne"]         = { Science =  10 }, -- TODO: learn recipeL disinfect rags with cologne
+    ["IndustrialDye"]   = { Science =  10, Maintenance = 10 },
     ["SecretFlavoring"] = { Science = 200, Cooking = 50 },
 }})
 
 -- Electronics / tech components
 ZScienceSkill.Data.add({ specimens = {
+    ["Base.Disc_Retail"]       = { Science =  5, Electricity =  5 },
     ["Base.ElectricWire"]      = { Science =  5, Electricity =  5 },
+    ["Base.HairDryer"]         = { Science =  5, Electricity =  5 },
     ["Base.LightBulb"]         = { Science =  5, Electricity =  5 },
+    ["Base.PowerBar"]          = { Science =  5, Electricity =  5 },
+
+    ["Base.Battery"]           = { Science = 10, Electricity = 10 },
+    ["Base.Bullhorn"]          = { Science = 10, Electricity = 10 }, -- megaphone
     ["Base.CarBattery1"]       = { Science = 10, Electricity = 10 },
     ["Base.CarBattery2"]       = { Science = 10, Electricity = 10 },
     ["Base.CarBattery3"]       = { Science = 10, Electricity = 10 },
-    ["Base.Battery"]           = { Science = 10, Electricity = 10 },
     ["Base.ElectronicsScrap"]  = { Science = 10, Electricity = 10 },
+    ["Base.Microphone"]        = { Science = 10, Electricity = 10 },
+    ["Base.Remote"]            = { Science = 10, Electricity = 10 },
     ["Base.Speaker"]           = { Science = 10, Electricity = 10 },
+
+    ["Base.VideoGame"]         = { Science = 10, Electricity = 15 },
+
     ["Base.CarBatteryCharger"] = { Science = 20, Electricity = 20 },
-    ["Base.ScannerModule"]     = { Science = 20, Electricity = 20 },
-    ["Base.MotionSensor"]      = { Science = 20, Electricity = 20 },
-    ["Base.Receiver"]          = { Science = 20, Electricity = 20 },
-    ["Base.HomeAlarm"]         = { Science = 20, Electricity = 20 },
     ["Base.CDplayer"]          = { Science = 20, Electricity = 20 },
+    ["Base.HomeAlarm"]         = { Science = 20, Electricity = 20 },
+    ["Base.MotionSensor"]      = { Science = 20, Electricity = 20 },
+    ["Base.RadioRed"]          = { Science = 20, Electricity = 20 },
+    ["Base.RadioTransmitter"]  = { Science = 20, Electricity = 20 },
+    ["Base.Receiver"]          = { Science = 20, Electricity = 20 },
+    ["Base.ScannerModule"]     = { Science = 20, Electricity = 20 },
+    ["Base.WalkieTalkie1"]     = { Science = 20, Electricity = 20 },
 }})
 
 
@@ -250,7 +324,8 @@ local metals = {
     Gold     = { "GoldBar", "SmallGoldBar", "GoldScrap", "GoldSheet", "GoldCoin", "Medal_Gold", "TrophyGold" },
     Iron     = { "IronBar", "IronBarHalf", "IronBarQuarter", "IronBlock", "IronChunk", "IronIngot", "IronOre", "IronPiece", "IronScrap" },
     Silver   = { "SilverBar", "SmallSilverBar", "SilverScrap", "SilverSheet", "SilverCoin", "TrophySilver", "Medal_Silver" },
-    Steel    = { "SteelBar", "SteelBarHalf", "SteelBarQuarter", "SteelBlock", "SteelChunk", "SteelIngot", "SteelPiece", "SteelScrap", "SteelSlug", "SteelWool" },
+    Steel    = { "SteelBar", "SteelBarHalf", "SteelBarQuarter", "SteelBlock", "SteelChunk", "SteelIngot", "SteelPiece", "SteelScrap", "SteelSlug" },
+    Tin      = { "TinCanEmpty" },
 }
 for metal, variants in pairs(metals) do
     local metalKey = "Base." .. metal
@@ -260,3 +335,10 @@ for metal, variants in pairs(metals) do
         }})
     end
 end
+
+
+-- maintenance stuff
+ZScienceSkill.Data.add({ specimens = {
+    ["Base.SteelWool"]      = { Science =  5, Maintenance = 10 },
+    ["Base.Whetstone"]      = { Science =  5, Maintenance = 10 },
+}})
