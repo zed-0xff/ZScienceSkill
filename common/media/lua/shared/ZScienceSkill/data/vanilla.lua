@@ -285,8 +285,10 @@ ZScienceSkill.Data.add({ fluids = {
 -- Electronics / tech components
 ZScienceSkill.Data.add({ specimens = {
     ["Base.Disc_Retail"]       = { Science =  5, Electricity =  5 },
+    ["Base.Earbuds"]           = { Science =  5, Electricity =  5 },
     ["Base.ElectricWire"]      = { Science =  5, Electricity =  5 },
     ["Base.HairDryer"]         = { Science =  5, Electricity =  5 },
+    ["Base.Headphones"]        = { Science =  5, Electricity =  5 },
     ["Base.LightBulb"]         = { Science =  5, Electricity =  5 },
     ["Base.PowerBar"]          = { Science =  5, Electricity =  5 },
 
@@ -302,15 +304,22 @@ ZScienceSkill.Data.add({ specimens = {
 
     ["Base.VideoGame"]         = { Science = 10, Electricity = 15 },
 
+    ["Base.Amplifier"]         = { Science = 20, Electricity = 20 },
     ["Base.CarBatteryCharger"] = { Science = 20, Electricity = 20 },
     ["Base.CDplayer"]          = { Science = 20, Electricity = 20 },
+    ["Base.TriggerCrafted"]    = { Science = 20, Electricity = 20 }, -- TODO: learn recipe
     ["Base.HomeAlarm"]         = { Science = 20, Electricity = 20 },
     ["Base.MotionSensor"]      = { Science = 20, Electricity = 20 },
     ["Base.RadioRed"]          = { Science = 20, Electricity = 20 },
     ["Base.RadioTransmitter"]  = { Science = 20, Electricity = 20 },
     ["Base.Receiver"]          = { Science = 20, Electricity = 20 },
     ["Base.ScannerModule"]     = { Science = 20, Electricity = 20 },
-    ["Base.WalkieTalkie1"]     = { Science = 20, Electricity = 20 },
+
+    ["Base.WalkieTalkie1"]     = { Science = 20, Electricity = 20, key = "Base.WalkieTalkie" },
+    ["Base.WalkieTalkie2"]     = { Science = 20, Electricity = 20, key = "Base.WalkieTalkie" },
+    ["Base.WalkieTalkie3"]     = { Science = 20, Electricity = 20, key = "Base.WalkieTalkie" },
+    ["Base.WalkieTalkie4"]     = { Science = 20, Electricity = 20, key = "Base.WalkieTalkie" },
+    ["Base.WalkieTalkie5"]     = { Science = 20, Electricity = 20, key = "Base.WalkieTalkie" },
 }})
 
 
@@ -339,6 +348,15 @@ end
 
 -- maintenance stuff
 ZScienceSkill.Data.add({ specimens = {
+    ["Base.BrokenGlass"]    = { Science = 10, Maintenance = 10 }, -- TODO: learn recipe
+    ["Base.Epoxy"]          = { Science = 10, Maintenance = 15 },
+    ["Base.FiberglassTape"] = { Science = 10, Maintenance = 15 },
     ["Base.SteelWool"]      = { Science =  5, Maintenance = 10 },
     ["Base.Whetstone"]      = { Science =  5, Maintenance = 10 },
+}})
+
+
+-- science stuff
+ZScienceSkill.Data.add({ specimens = {
+    ["Base.CompassGeometry"] = { Science = 20 }, -- TODO: recipe with diamond
 }})
