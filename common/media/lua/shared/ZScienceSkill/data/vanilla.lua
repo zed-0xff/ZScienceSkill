@@ -362,3 +362,19 @@ ZScienceSkill.Data.add({ specimens = {
     ["Base.Calipers"]        = { Science = 20, Mechanics = 20 },
     ["Base.CompassGeometry"] = { Science = 20 }, -- TODO: recipe with diamond
 }})
+
+
+-- lulz: random perk)
+pcall(function( )
+    if Perks.fromIndex and Perks.getMaxIndex then
+        local randomPerk = Perks.fromIndex(ZombRand(1, Perks.getMaxIndex()))
+        if randomPerk and randomPerk.getId and randomPerk:getId() then
+            local tbl = { Science = 10 }
+            tbl[randomPerk:getId()] = 200
+
+            ZScienceSkill.Data.add({ specimens = {
+                ["Base.EyeOfCthulhu"] = tbl,
+            }})
+        end
+    end
+end)
