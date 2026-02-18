@@ -32,6 +32,7 @@ ZScienceSkill.Data.add({ specimens = {
     ["Base.Animal_Brain"]           = specimenXP * 1.5,
     ["Base.Animal_Brain_Small"]     = specimenXP,
     ["Base.AnimalSinew"]            = specimenXP * 0.5,
+    ["Base.BrainTan"]               = { Science = specimenXP, Tailoring = specimenXP },
     ["Base.Hominid_Skull"]          = specimenXP,
     ["Base.Hominid_Skull_Fragment"] = specimenXP * 0.5,
     ["Base.Hominid_Skull_Partial"]  = specimenXP * 0.75,
