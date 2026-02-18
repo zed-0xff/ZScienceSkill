@@ -358,5 +358,6 @@ ZScienceSkill.Data.add({ specimens = {
 
 -- science stuff
 ZScienceSkill.Data.add({ specimens = {
+    ["Base.Calipers"]        = { Science = 20, Mechanics = 20 },
     ["Base.CompassGeometry"] = { Science = 20 }, -- TODO: recipe with diamond
 }})
