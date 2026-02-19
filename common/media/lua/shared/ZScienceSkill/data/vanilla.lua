@@ -87,9 +87,9 @@ ZScienceSkill.Data.add({ specimens = {
 }})
 
 
+-- Mushrooms (mycology)
 local mushroomXP = 15
 ZScienceSkill.Data.add({ specimens = {
-    -- Mushrooms (mycology)
     ["Base.MushroomsButton"]  = mushroomXP,
     ["Base.MushroomGeneric1"] = mushroomXP * 2,  -- Unknown, more XP
     ["Base.MushroomGeneric2"] = mushroomXP * 2,
@@ -101,10 +101,10 @@ ZScienceSkill.Data.add({ specimens = {
 }})
 
 
+-- Medicinal plants (pharmacology)
 local sciXP = 10
 local docXP = 10
 ZScienceSkill.Data.add({ specimens = {
-    -- Medicinal plants (pharmacology)
     ["Base.BlackSage"]         = { Science = sciXP, Doctor = docXP },
     ["Base.BlackSageDried"]    = { Science = sciXP, Doctor = docXP },
     ["Base.CommonMallow"]      = { Science = sciXP, Doctor = docXP },
@@ -120,10 +120,24 @@ ZScienceSkill.Data.add({ specimens = {
 }})
 
 
+-- pills & other medical stuff
+local sciXP = 15
+local docXP = 20
+ZScienceSkill.Data.add({ specimens = {
+    ["Base.Antibiotics"]          = { Science = sciXP, Doctor = docXP },
+    ["Base.Pills"]                = { Science = sciXP, Doctor = docXP },
+    ["Base.PillsAntiDep"]         = { Science = sciXP, Doctor = docXP },
+    ["Base.PillsBeta"]            = { Science = sciXP, Doctor = docXP },
+    ["Base.PillsSleepingTablets"] = { Science = sciXP, Doctor = docXP },
+    ["Base.PillsVitamins"]        = { Science = sciXP, Doctor = docXP },
+    ["Base.TongueDepressor"]      = { Science = sciXP/2, Doctor = docXP }, -- make it useful for something
+}})
+
+
+-- Wild foraged plants (botany)
 local farmXP = 10
 local sciXP = farmXP/2
 ZScienceSkill.Data.add({ specimens = {
-    -- Wild foraged plants (botany)
     ["Base.Acorn"]                 = { Science = sciXP, Farming = farmXP },
     ["Base.Dandelions"]            = { Science = sciXP, Farming = farmXP },
     ["Base.GrapeLeaves"]           = { Science = sciXP, Farming = farmXP },
@@ -244,17 +258,6 @@ ZScienceSkill.Data.add({ specimens = {
 }})
 
 
-local sciXP = 15
-local docXP = 20
-ZScienceSkill.Data.add({ specimens = {
-    ["Base.Antibiotics"]          = { Science = sciXP, Doctor = docXP },
-    ["Base.Pills"]                = { Science = sciXP, Doctor = docXP },
-    ["Base.PillsAntiDep"]         = { Science = sciXP, Doctor = docXP },
-    ["Base.PillsBeta"]            = { Science = sciXP, Doctor = docXP },
-    ["Base.PillsSleepingTablets"] = { Science = sciXP, Doctor = docXP },
-    ["Base.PillsVitamins"]        = { Science = sciXP, Doctor = docXP },
-}})
-
 -- Chemistry / household chemicals
 ZScienceSkill.Data.add({ specimens = {
     ["Base.BakingSoda"]      = { Science = 20, Cooking = 20 },  -- sodium bicarbonate
@@ -263,6 +266,7 @@ ZScienceSkill.Data.add({ specimens = {
     ["Base.Vinegar2"]        = { Science = 20, Cooking = 20, key = "Base.Vinegar" },
     ["Base.Vinegar_Jug"]     = { Science = 20, Cooking = 20, key = "Base.Vinegar" },
 }})
+
 
 -- Industrial / gas equipment
 ZScienceSkill.Data.add({ specimens = {
@@ -273,6 +277,7 @@ ZScienceSkill.Data.add({ specimens = {
     ["Base.PropaneTank"]    = { Science = 30, MetalWelding = 30 },
 }})
 
+
 -- fluids don't have "Base." prefix nor getFullType() method
 ZScienceSkill.Data.add({ fluids = {
     ["Acid"]            = { Science =  50 },
@@ -282,6 +287,7 @@ ZScienceSkill.Data.add({ fluids = {
     ["IndustrialDye"]   = { Science =  10, Maintenance = 10 },
     ["SecretFlavoring"] = { Science = 200, Cooking = 50 },
 }})
+
 
 -- Electronics / tech components
 ZScienceSkill.Data.add({ specimens = {
@@ -347,9 +353,16 @@ for metal, variants in pairs(metals) do
 end
 
 
+-- Glassmaking
+ZScienceSkill.Data.add({ specimens = {
+    ["Base.BrokenGlass"]     = { Science = 10, Glassmaking = 20 }, -- TODO: learn recipe
+    ["Base.Loupe"]           = { Science = 10, Glassmaking = 10 },
+    ["Base.MagnifyingGlass"] = { Science = 15, Glassmaking = 15 },
+}})
+
+
 -- maintenance stuff
 ZScienceSkill.Data.add({ specimens = {
-    ["Base.BrokenGlass"]    = { Science = 10, Maintenance = 10 }, -- TODO: learn recipe
     ["Base.Epoxy"]          = { Science = 10, Maintenance = 15 },
     ["Base.FiberglassTape"] = { Science = 10, Maintenance = 15 },
     ["Base.SteelWool"]      = { Science =  5, Maintenance = 10 },

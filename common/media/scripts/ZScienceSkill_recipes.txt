@@ -1,0 +1,24 @@
+module ZScienceSkill
+{
+    craftRecipe AssembleGlassCutter
+    {
+        time = 100,
+        NeedToBeLearn = true,
+        category = Assembly,
+        Tags = AnySurfaceCraft;Engineer,
+        SkillRequired = Maintenance:1,
+        timedAction = MakingHammer_Surface,
+        xpAward = Maintenance:20,
+        inputs
+        {
+            item 1 tags[base:hammer] mode:keep flags[Prop1;MayDegradeLight],
+            item 1 [Base.CompassGeometry] mode:destroy,
+            item 1 [Base.Diamond] mode:destroy,
+            item 1 tags[base:epoxy],
+        }
+        outputs
+        {
+            item 1 ZScienceSkill.GlassCutter,
+        }
+    }
+}

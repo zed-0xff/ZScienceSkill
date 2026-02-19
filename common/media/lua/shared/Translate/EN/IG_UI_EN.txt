@@ -11,14 +11,16 @@ IG_UI_EN = {
     IGUI_perks_Science_Description8 = "",
     IGUI_perks_Science_Description9 = "",
     IGUI_perks_Science_Description10 = "",
-    Tooltip_BookTitle_Science = "Science",
+
     IGUI_HerbalistUnlocked = "Herbalist knowledge acquired!",
+
     IGUI_HerbalistHint1 = "Interesting... I should study more specimens like this.",
     IGUI_HerbalistHint2 = "I'm starting to notice patterns in these plants...",
     IGUI_HerbalistHint3 = "I feel like I'm close to understanding something important.",
+
     IGUI_Researchable = "Researchable",
     IGUI_AlreadyResearched = "Already Researched",
-    -- Mod Options
+
     IGUI_ZScienceSkill_ShowOverlay = "Show 'R' overlay on researchable items",
     IGUI_ZScienceSkill_ShowOverlay_Tooltip = "Display a small 'R' icon on items that can be researched for Science XP.",
     IGUI_ZScienceSkill_ShowResearchedCheckmark = "Show checkmark on researched items",
