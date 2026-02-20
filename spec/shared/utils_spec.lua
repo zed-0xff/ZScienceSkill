@@ -1,18 +1,18 @@
-describe("ZScienceSkill.isCombatPerk", function()
+describe(ZScienceSkill.isCombatPerk, function()
     it("detects Combat perk", function()
-        assert.is_true(ZScienceSkill.isCombatPerk(Perks.Combat))
+        assert.is_true(subject(Perks.Combat))
     end)
     
     it("detects Firearm perk", function()
-        assert.is_true(ZScienceSkill.isCombatPerk(Perks.Firearm))
+        assert.is_true(subject(Perks.Firearm))
     end)
 
     it("detects Axe perk", function()
-        assert.is_true(ZScienceSkill.isCombatPerk(Perks.Axe))
+        assert.is_true(subject(Perks.Axe))
     end)
     
     it("rejects non-Combat perk", function()
-        assert.is_false(ZScienceSkill.isCombatPerk(Perks.Woodwork))
+        assert.is_false(subject(Perks.Woodwork))
     end)
 end)
 

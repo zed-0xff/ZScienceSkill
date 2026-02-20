@@ -11,4 +11,5 @@ mods:
 
 game_versions:
   - 42.13.1
+  - 42.13.2
   - unstable

@@ -1,6 +1,5 @@
-describe("Science book", function()
+describe("Base.Book_Science", function()
     local player = get_player()
-    local ITEMTYPE = "Base.Book_Science"
 
     before_all(function()
         set_sandbox_option("MinutesPerPage", 0.001)
@@ -12,7 +11,7 @@ describe("Science book", function()
     end)
     
     it("grants Science XP", function()
-        local book = add_item(player, ITEMTYPE)
+        local book = add_item(player, subject)
         local xpBefore = player:getXp():getXP(Perks.Science)
 
         read_book(player, book)
@@ -23,7 +22,7 @@ describe("Science book", function()
     
     it("grants more XP than scifi book", function()
         -- Read science book
-        local sciBook = add_item(player, ITEMTYPE)
+        local sciBook = add_item(player, subject)
         local xpBefore1 = player:getXp():getXP(Perks.Science)
 
         read_book(player, sciBook)
@@ -47,7 +46,7 @@ describe("Science book", function()
     end)
     
     it("does not grant infinite XP", function()
-        local book = add_item(player, ITEMTYPE)
+        local book = add_item(player, subject)
         local xpBefore = player:getXp():getXP(Perks.Science)
 
         read_book(player, book) -- first time, grants XP
@@ -63,16 +62,15 @@ describe("Science book", function()
     end)
 end)
 
-describe("Another SkillBook", function()
+describe("Base.BookMechanic1", function()
     local player = get_player()
-    local ITEMTYPE = "Base.BookMechanic1"
 
     before_each(function()
         init_player(player)
     end)
     
     it("grants Science XP", function()
-        local book = add_item(player, ITEMTYPE)
+        local book = add_item(player, subject)
         local xpBefore = player:getXp():getXP(Perks.Science)
 
         reset_pages(player, book)
@@ -83,7 +81,7 @@ describe("Another SkillBook", function()
     end)
     
     it("does not grant infinite XP", function()
-        local book = add_item(player, ITEMTYPE)
+        local book = add_item(player, subject)
         local xpBefore = player:getXp():getXP(Perks.Science)
 
         reset_pages(player, book)

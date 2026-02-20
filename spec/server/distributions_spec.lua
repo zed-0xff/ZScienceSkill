@@ -60,8 +60,11 @@ describe("Science book distributions", function()
         end
         
         -- Should have all 5 volumes
-        assert.is_not_nil(foundBooks["ZScienceSkill.BookScience1"], "BookScience1 should be present")
-        assert.is_not_nil(foundBooks["ZScienceSkill.BookScience5"], "BookScience5 should be present")
+        assert(foundBooks["ZScienceSkill.BookScience1"])
+        assert(foundBooks["ZScienceSkill.BookScience2"])
+        assert(foundBooks["ZScienceSkill.BookScience3"])
+        assert(foundBooks["ZScienceSkill.BookScience4"])
+        assert(foundBooks["ZScienceSkill.BookScience5"])
     end)
     
     it("higher volume books have lower spawn weights", function()
@@ -79,12 +82,10 @@ describe("Science book distributions", function()
             end
         end
         
-        local w1 = weights["ZScienceSkill.BookScience1"] or 0
-        local w5 = weights["ZScienceSkill.BookScience5"] or 0
+        local w1 = weights["ZScienceSkill.BookScience1"]
+        local w5 = weights["ZScienceSkill.BookScience5"]
         
-        if w1 > 0 and w5 > 0 then
-            assert.gt(w1, w5, "Vol 1 should have higher weight than Vol 5")
-        end
+        assert.gt(w1, w5, "Vol 1 should have higher weight than Vol 5")
     end)
 end)
 

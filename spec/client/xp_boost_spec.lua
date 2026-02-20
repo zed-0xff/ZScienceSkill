@@ -6,7 +6,7 @@ local function carve_spear(player, item)
     local playerNum = player:getPlayerNum()
 
     ISInventoryPaneContextMenu.OnNewCraft(item, recipe, playerNum, false)
-    wait_for_not(ISTimedActionQueue.isPlayerDoingAction, player)
+    ZBSpec.wait_for_not(ISTimedActionQueue.isPlayerDoingAction, player)
 end
 
 describe("XP boost", function()

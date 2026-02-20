@@ -1,25 +1,25 @@
 -- Test for ZScienceSkill/Data.lua
 -- Validates data tables are correctly defined
 
-describe("ZScienceSkill.Data.literature", function()
+describe(ZScienceSkill.Data.literature, function()
     it("is a table", function()
-        assert.is_table(ZScienceSkill.Data.literature)
+        assert.is_table(subject)
     end)
     
     it("has correct science book XP values", function()
-        assert.eq(35, ZScienceSkill.Data.literature["Base.Book_Science"])
-        assert.eq(30, ZScienceSkill.Data.literature["Base.Paperback_Science"])
-        assert.eq(15, ZScienceSkill.Data.literature["Base.Magazine_Science"])
+        assert.eq(35, subject["Base.Book_Science"])
+        assert.eq(30, subject["Base.Paperback_Science"])
+        assert.eq(15, subject["Base.Magazine_Science"])
     end)
     
     it("gives more XP for science books than scifi", function()
-        local scienceXP = ZScienceSkill.Data.literature["Base.Book_Science"]
-        local scifiXP = ZScienceSkill.Data.literature["Base.Book_SciFi"]
+        local scienceXP = subject["Base.Book_Science"]
+        local scifiXP = subject["Base.Book_SciFi"]
         assert.gt(scienceXP, scifiXP, "Science books should give more XP than Sci-Fi books")
     end)
     
     it("has all positive number values", function()
-        for key, xp in pairs(ZScienceSkill.Data.literature) do
+        for key, xp in pairs(subject) do
             assert.is_string(key)
             assert.is_number(xp)
             assert.gt(xp, 0)
@@ -27,41 +27,41 @@ describe("ZScienceSkill.Data.literature", function()
     end)
 end)
 
-describe("ZScienceSkill.skillBookXP", function()
+describe(ZScienceSkill.skillBookXP, function()
     it("is a table", function()
-        assert.is_table(ZScienceSkill.skillBookXP)
+        assert.is_table(subject)
     end)
     
     it("has correct XP progression", function()
-        assert.eq(10, ZScienceSkill.skillBookXP[1])
-        assert.eq(20, ZScienceSkill.skillBookXP[3])
-        assert.eq(30, ZScienceSkill.skillBookXP[5])
-        assert.eq(40, ZScienceSkill.skillBookXP[7])
-        assert.eq(50, ZScienceSkill.skillBookXP[9])
+        assert.eq(10, subject[1])
+        assert.eq(20, subject[3])
+        assert.eq(30, subject[5])
+        assert.eq(40, subject[7])
+        assert.eq(50, subject[9])
     end)
     
     it("increases with level", function()
-        assert.lt(ZScienceSkill.skillBookXP[1], ZScienceSkill.skillBookXP[3])
-        assert.lt(ZScienceSkill.skillBookXP[3], ZScienceSkill.skillBookXP[5])
-        assert.lt(ZScienceSkill.skillBookXP[5], ZScienceSkill.skillBookXP[7])
-        assert.lt(ZScienceSkill.skillBookXP[7], ZScienceSkill.skillBookXP[9])
+        assert.lt(subject[1], subject[3])
+        assert.lt(subject[3], subject[5])
+        assert.lt(subject[5], subject[7])
+        assert.lt(subject[7], subject[9])
     end)
 end)
 
-describe("ZScienceSkill.herbalistPlants", function()
+describe(ZScienceSkill.herbalistPlants, function()
     it("is a table", function()
-        assert.is_table(ZScienceSkill.herbalistPlants)
+        assert.is_table(subject)
     end)
     
     it("has all values set to true", function()
-        for plant, value in pairs(ZScienceSkill.herbalistPlants) do
+        for plant, value in pairs(subject) do
             assert.is_true(value, plant .. " should be true")
         end
     end)
     
     it("has at least required number of plants", function()
         local count = 0
-        for _ in pairs(ZScienceSkill.herbalistPlants) do
+        for _ in pairs(subject) do
             count = count + 1
         end
         local required = ZScienceSkill.herbalistPlantsRequired or 10
@@ -69,26 +69,26 @@ describe("ZScienceSkill.herbalistPlants", function()
     end)
 end)
 
-describe("ZScienceSkill.Data.fluids", function()
+describe(ZScienceSkill.Data.fluids, function()
     it("is a table", function()
-        assert.is_table(ZScienceSkill.Data.fluids)
+        assert.is_table(subject)
     end)
     
     it("has Acid and Blood", function()
-        assert.is_table(ZScienceSkill.Data.fluids["Acid"])
-        assert.is_table(ZScienceSkill.Data.fluids["Blood"])
+        assert.is_table(subject["Acid"])
+        assert.is_table(subject["Blood"])
     end)
     
     it("all fluids grant positive Science XP", function()
-        for fluidName, perks in pairs(ZScienceSkill.Data.fluids) do
+        for fluidName, perks in pairs(subject) do
             assert.is_number(perks.Science)
             assert.gt(perks.Science, 0)
         end
     end)
     
     it("SecretFlavoring grants 200 Science XP", function()
-        assert.is_not_nil(ZScienceSkill.Data.fluids["SecretFlavoring"])
-        assert.eq(200, ZScienceSkill.Data.fluids["SecretFlavoring"].Science)
+        assert.is_not_nil(subject["SecretFlavoring"])
+        assert.eq(200, subject["SecretFlavoring"].Science)
     end)
 end)
 

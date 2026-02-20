@@ -1,6 +1,6 @@
 local function research_recipe(player, item)
     ISTimedActionQueue.add(ISResearchRecipe:new(player, item))
-    wait_for_not(ISTimedActionQueue.isPlayerDoingAction, player)
+    ZBSpec.wait_for_not(ISTimedActionQueue.isPlayerDoingAction, player)
 end
 
 describe(ISResearchRecipe, function()

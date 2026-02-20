@@ -14,9 +14,9 @@ describe("Fluid research", function()
         clear_research_data(player)
     end)
     
-    describe("researching bleach", function()
+    describe("Base.Bleach", function()
         it("grants Science XP", function()
-            local bleach = add_item(player, "Base.Bleach") -- bottle of bleach
+            local bleach = add_item(player, subject) -- bottle of bleach
             local xpBefore = player:getXp():getXP(Perks.Science)
             
             -- Verify it's recognized as a fluid specimen
@@ -33,7 +33,7 @@ describe("Fluid research", function()
         end)
         
         it("marks fluid as researched", function()
-            local bleach = add_item(player, "Base.Bleach")
+            local bleach = add_item(player, subject)
             
             assert.is_false(ISResearchSpecimen.isResearched(player, bleach))
             
@@ -45,7 +45,7 @@ describe("Fluid research", function()
         end)
         
         it("cannot research same fluid type twice", function()
-            local bleach1 = add_item(player, "Base.Bleach")
+            local bleach1 = add_item(player, subject)
             local xpBefore = player:getXp():getXP(Perks.Science)
             
             research_specimen(player, bleach1)
@@ -56,14 +56,14 @@ describe("Fluid research", function()
             local xpAfterFirst = player:getXp():getXP(Perks.Science)
             
             -- Add another bleach and try to research
-            local bleach2 = add_item(player, "Base.Bleach")
+            local bleach2 = add_item(player, subject)
             
             -- Should already be marked as researched
             assert.is_true(ISResearchSpecimen.isResearched(player, bleach2))
         end)
 
         it("does not consider empty bottle as a specimen", function()
-            local bleach = add_item(player, "Base.Bleach")
+            local bleach = add_item(player, subject)
             bleach:getFluidContainer():Empty()
             wait_for_this(bleach:getFluidContainer(), "isEmpty")
 
@@ -71,7 +71,7 @@ describe("Fluid research", function()
         end)
 
         it("does not consider water in a bleach bottle as a specimen", function()
-            local bleach = add_item(player, "Base.Bleach")
+            local bleach = add_item(player, subject)
             bleach:getFluidContainer():Empty()
             wait_for_this(bleach:getFluidContainer(), "isEmpty")
 

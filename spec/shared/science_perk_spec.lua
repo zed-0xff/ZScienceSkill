@@ -1,16 +1,16 @@
 -- Test that Science perk is properly defined and can receive XP
-describe("Science perk", function()
+describe(Perks.Science, function()
     it("exists in Perks table", function()
-        assert.is_not_nil(Perks.Science)
+        assert.is_not_nil(subject)
     end)
     
     it("can be retrieved from PerkFactory", function()
-        local perk = PerkFactory.getPerk(Perks.Science)
+        local perk = PerkFactory.getPerk(subject)
         assert.is_not_nil(perk)
     end)
     
     it("has correct parent (Crafting)", function()
-        local perk = PerkFactory.getPerk(Perks.Science)
+        local perk = PerkFactory.getPerk(subject)
         assert.eq(Perks.Crafting, perk:getParent())
     end)
 end)

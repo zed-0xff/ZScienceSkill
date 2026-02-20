@@ -37,13 +37,13 @@ if ISTimedActionQueue and ISTimedActionQueue.clear then
 end
 
 if not isServer() then
-    wait_for_not(ISTimedActionQueue.isPlayerDoingAction, get_player())
+    ZBSpec.wait_for_not(ISTimedActionQueue.isPlayerDoingAction, get_player())
 end
 
 ---------------------------------------------
 
 function set_sandbox_option(option, value)
-    all_exec("getSandboxOptions():getOptionByName(\"" .. option .. "\"):setValue(" .. tostring(value) .. ")")
+    ZBSpec.all_exec("getSandboxOptions():getOptionByName(\"" .. option .. "\"):setValue(" .. tostring(value) .. ")")
 end
 
 set_sandbox_option("DayNightCycle", 2) -- Endless Day
@@ -51,7 +51,7 @@ set_sandbox_option("DayNightCycle", 2) -- Endless Day
 function set_timed_action_instant(value)
     -- Can't use get_player() here - all_exec sends code as string to server
     -- where spec_helper functions aren't available
-    all_exec("(getPlayer() or getOnlinePlayers():get(0)):setTimedActionInstantCheat(" .. tostring(value) .. ")")
+    ZBSpec.all_exec("(getPlayer() or getOnlinePlayers():get(0)):setTimedActionInstantCheat(" .. tostring(value) .. ")")
 end
 
 function create_item(itemFullType)
@@ -79,16 +79,16 @@ end
 
 function read_book(player, book)
     ISTimedActionQueue.add(ISReadABook:new(player, book, 1))
-    wait_for_not(ISTimedActionQueue.isPlayerDoingAction, player)
+    ZBSpec.wait_for_not(ISTimedActionQueue.isPlayerDoingAction, player)
 end
 
 -- for skillbooks
 function reset_pages(player, book)
-    all_exec("(getPlayer() or getOnlinePlayers():get(0)):setAlreadyReadPages(\"" .. book:getFullType() .. "\", 0)")
+    ZBSpec.all_exec("(getPlayer() or getOnlinePlayers():get(0)):setAlreadyReadPages(\"" .. book:getFullType() .. "\", 0)")
 end
 
 function set_perk_level(player, perk, level)
-    all_exec("(getPlayer() or getOnlinePlayers():get(0)):setPerkLevelDebug(Perks." .. tostring(perk) .. ", " .. level .. ")")
+    ZBSpec.all_exec("(getPlayer() or getOnlinePlayers():get(0)):setPerkLevelDebug(Perks." .. tostring(perk) .. ", " .. level .. ")")
 end
 
 -- Place a microscope on the player's square (for testing research)
@@ -124,12 +124,12 @@ end
 -- Perform research on a specimen
 function research_specimen(player, item)
     ISTimedActionQueue.add(ISResearchSpecimen:new(player, item, 100))
-    wait_for_not(ISTimedActionQueue.isPlayerDoingAction, player)
+    ZBSpec.wait_for_not(ISTimedActionQueue.isPlayerDoingAction, player)
 end
 
 -- Clear player's research data
 function clear_research_data(player)
-    all_exec("(getPlayer() or getOnlinePlayers():get(0)):getModData().researchedSpecimens = nil")
-    all_exec("(getPlayer() or getOnlinePlayers():get(0)):getModData().researchedPlants = nil")
-    all_exec("(getPlayer() or getOnlinePlayers():get(0)):getModData().readLiteratureOnce = nil")
+    ZBSpec.all_exec("(getPlayer() or getOnlinePlayers():get(0)):getModData().researchedSpecimens = nil")
+    ZBSpec.all_exec("(getPlayer() or getOnlinePlayers():get(0)):getModData().researchedPlants = nil")
+    ZBSpec.all_exec("(getPlayer() or getOnlinePlayers():get(0)):getModData().readLiteratureOnce = nil")
 end

@@ -1,7 +1,7 @@
 -- Client-side integration tests for ISResearchSpecimen
 -- Tests the full research flow with player actions
 
-describe("ISResearchSpecimen action", function()
+describe(ISResearchSpecimen, function()
     local player = get_player()
     
     before_all(function()
@@ -29,12 +29,12 @@ describe("ISResearchSpecimen action", function()
         it("marks specimen as researched in ModData", function()
             local specimen = add_item(player, "Base.Cricket")
             
-            assert.is_false(ISResearchSpecimen.isResearched(player, specimen))
+            assert.is_false(described_class.isResearched(player, specimen))
             
             research_specimen(player, specimen)
             
             wait_for(function()
-                return ISResearchSpecimen.isResearched(player, specimen)
+                return described_class.isResearched(player, specimen)
             end)
         end)
         
