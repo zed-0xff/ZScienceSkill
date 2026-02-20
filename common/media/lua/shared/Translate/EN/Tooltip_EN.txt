@@ -5,6 +5,4 @@ Tooltip_EN = {
     Tooltip_ResearchAllDesc = "Research %1 specimens in your inventory.",
 
     Tooltip_BookTitle_Science = "Science",
-
-    Tooltip_GlassCutter = "A small, sharp tool used for cutting glass. <br>Use to remove glass panes from windows.",
 }
