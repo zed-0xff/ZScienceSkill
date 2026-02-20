@@ -2,7 +2,12 @@
 -- Verifies Science XP is granted when gaining Electrical XP
 
 local function dismantle_radio(player, item)
-    local recipe = getScriptManager():getCraftRecipe("DismantleRadio")
+    local scriptMgr = getScriptManager()
+    assert(scriptMgr, "ScriptManager not found")
+
+    local recipe = scriptMgr:getCraftRecipe("DismantleRadio") or scriptMgr:getCraftRecipe("DismantleElectronicsDevice") -- changed in 42.14
+    assert(recipe, "Recipe not found")
+
     local playerNum = player:getPlayerNum()
 
     ISInventoryPaneContextMenu.OnNewCraft(item, recipe, playerNum, false)

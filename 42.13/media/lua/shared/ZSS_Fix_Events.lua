@@ -1,13 +1,22 @@
 -- Events.AddXP logic changed after 42.13.1:
 --
 --  zombie/characters/IsoGameCharacter.java:
+--
+--    42.12:
+--      12730-            if (!GameServer.bServer) {
+--      12731:                LuaEventManager.triggerEventGarbage("AddXP", this.chr, perk, Float.valueOf(f));
+--
 --    42.13.1:
 --      12927-            if (!GameServer.server) {
 --      12928:                LuaEventManager.triggerEventGarbage("AddXP", this.chr, type, Float.valueOf(amount));
 --
+--    42.13.2:
+--      12931-            if (!GameClient.client) {
+--      12932:                LuaEventManager.triggerEventGarbage("AddXP", this.chr, type, Float.valueOf(amount));
+--
 --    unstable:
---      12940-            if (!GameClient.client) {
---      12941:                LuaEventManager.triggerEventGarbage("AddXP", this.chr, type, Float.valueOf(amount));
+--      13283-            if (!GameClient.client) {
+--      13284:                LuaEventManager.triggerEventGarbage("AddXP", this.chr, type, Float.valueOf(amount));
 --
 --  so before 42.13.2 AddXP never fires on server,
 --  and after 42.13.2 it never fires on client.

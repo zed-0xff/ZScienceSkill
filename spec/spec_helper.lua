@@ -36,17 +36,19 @@ if ISTimedActionQueue and ISTimedActionQueue.clear then
     ISTimedActionQueue.clear(get_player())
 end
 
-if not isServer() then
-    ZBSpec.wait_for_not(ISTimedActionQueue.isPlayerDoingAction, get_player())
-end
-
 ---------------------------------------------
 
 function set_sandbox_option(option, value)
     ZBSpec.all_exec("getSandboxOptions():getOptionByName(\"" .. option .. "\"):setValue(" .. tostring(value) .. ")")
 end
 
-set_sandbox_option("DayNightCycle", 2) -- Endless Day
+-- it's now set in ZBSpec_client_SP.lua and servertest.ini
+-- set_sandbox_option("DayNightCycle", 2) -- Endless Day
+
+if not isServer() then
+    ZBSpec.wait_for_not(ISTimedActionQueue.isPlayerDoingAction, get_player())
+    -- ZBSpec.wait_for_not(get_player().tooDarkToRead, get_player())
+end
 
 function set_timed_action_instant(value)
     -- Can't use get_player() here - all_exec sends code as string to server
