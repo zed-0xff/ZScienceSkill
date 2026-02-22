@@ -355,9 +355,15 @@ end
 
 -- Glassmaking
 ZScienceSkill.Data.add({ specimens = {
-    ["Base.BrokenGlass"]     = { Science = 10, Glassmaking = 20 }, -- TODO: learn recipe
-    ["Base.Loupe"]           = { Science = 10, Glassmaking = 10 },
-    ["Base.MagnifyingGlass"] = { Science = 15, Glassmaking = 15 },
+    ["Base.BrokenGlass"]             = { Science = 10, Glassmaking = 20 }, -- TODO: learn recipe
+    ["Base.GlassBlowingPipe"]        = { Science = 10, Glassmaking = 20 },
+    ["Base.GlassBlowingPipeUnfired"] = { Science = 10, Glassmaking = 20, key = "Base.GlassBlowingPipe" },
+    ["Base.Glasses_3dGlasses"]       = { Science =  5, Glassmaking = 10 },
+    ["Base.Glasses_Prescription"]    = { Science =  5, Glassmaking = 10 },
+    ["Base.Loupe"]                   = { Science = 10, Glassmaking = 10 },
+    ["Base.MagnifyingGlass"]         = { Science = 15, Glassmaking = 15 },
+    ["Base.Glasses_MonocleLeft"]     = { Science =  5, Glassmaking =  5 },
+    ["Base.Glasses_MonocleRight"]    = { Science =  5, Glassmaking =  5 },
 }})
 
 
