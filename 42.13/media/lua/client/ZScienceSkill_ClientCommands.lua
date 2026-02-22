@@ -12,6 +12,7 @@ Events.OnServerCommand.Add(function(module, command, args)
     if command == "herbalistUnlocked" then
         player:playSound("GainExperienceLevel")
         HaloTextHelper.addTextWithArrow(player, getText("IGUI_HerbalistUnlocked"), true, HaloTextHelper.getColorGreen())
+
     elseif command == "herbalistProgress" then
         local count = args.count or 0
         if count <= 3 then

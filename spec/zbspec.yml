@@ -2,8 +2,9 @@
 # ZBSpec configuration for ZScienceSkill
 
 sandbox: false
-log_events: false
-log_packets: false
+
+helpers:
+  - common_helpers
 
 ready_condition: |
   local player = getPlayer() or getOnlinePlayers():get(0)
@@ -12,6 +13,7 @@ ready_condition: |
 # Your mod(s) to spec (ZombieBuddy and ZBSpec are automatically included)
 mods:
   - { id: ZScienceSkill, path: "." }
+  - ZBBetterFPS
 
 game_versions:
   - 42.13.1

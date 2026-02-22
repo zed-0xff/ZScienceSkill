@@ -92,4 +92,4 @@ describe(ZScienceSkill.Data.fluids, function()
     end)
 end)
 
-return ZBSpec.run()
+return ZBSpec.runAsync()

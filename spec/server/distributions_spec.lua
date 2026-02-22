@@ -125,4 +125,4 @@ describe("Science book spawning", function()
     end)
 end)
 
-return ZBSpec.run()
+return ZBSpec.runAsync()

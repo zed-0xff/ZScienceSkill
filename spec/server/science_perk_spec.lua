@@ -17,4 +17,4 @@ describe("addXp for Science perk", function()
     end)
 end)
 
-return ZBSpec.run()
+return ZBSpec.runAsync()

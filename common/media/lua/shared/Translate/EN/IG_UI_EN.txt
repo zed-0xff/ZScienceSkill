@@ -1,4 +1,4 @@
-IG_UI_EN = {
+IGUI_EN = {
     IGUI_perks_Science = "Science",
     IGUI_perks_Science_Description = "Knowledge of scientific principles and experimental methods.",
     IGUI_perks_Science_Description1 = "",

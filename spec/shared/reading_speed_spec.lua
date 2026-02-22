@@ -30,4 +30,4 @@ describe(ISReadABook, function()
     end)
 end)
 
-return ZBSpec.run()
+return ZBSpec.runAsync()

@@ -37,4 +37,4 @@ describe(ZScienceSkill.Data.specimens, function()
     end)
 end)
 
-return ZBSpec.run()
+return ZBSpec.runAsync()

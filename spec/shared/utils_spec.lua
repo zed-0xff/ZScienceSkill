@@ -16,4 +16,4 @@ describe(ZScienceSkill.isCombatPerk, function()
     end)
 end)
 
-return ZBSpec.run()
+return ZBSpec.runAsync()

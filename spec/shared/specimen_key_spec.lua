@@ -55,4 +55,4 @@ describe("Specimen research with shared key", function()
     end)
 end)
 
-return ZBSpec.run()
+return ZBSpec.runAsync()
