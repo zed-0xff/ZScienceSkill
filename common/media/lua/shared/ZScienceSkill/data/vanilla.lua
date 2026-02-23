@@ -314,12 +314,16 @@ ZScienceSkill.Data.add({ specimens = {
     ["Base.Amplifier"]         = { Science = 20, Electricity = 20 },
     ["Base.CarBatteryCharger"] = { Science = 20, Electricity = 20 },
     ["Base.CDplayer"]          = { Science = 20, Electricity = 20 },
-    ["Base.TriggerCrafted"]    = { Science = 20, Electricity = 20 }, -- TODO: learn recipe
+    ["Base.TriggerCrafted"]    = { Science = 20, Electricity = 20 }, -- TODO: learn recipe?
     ["Base.HomeAlarm"]         = { Science = 20, Electricity = 20 },
     ["Base.MotionSensor"]      = { Science = 20, Electricity = 20 },
     ["Base.RadioRed"]          = { Science = 20, Electricity = 20 },
+    ["Base.RadioReceiver"]     = { Science = 20, Electricity = 20 },
     ["Base.RadioTransmitter"]  = { Science = 20, Electricity = 20 },
-    ["Base.Receiver"]          = { Science = 20, Electricity = 20 },
+    ["Base.Receiver"]          = { Science = 20, Electricity = 20 }, -- seems like there are both Receiver and RadioReceiver
+    ["Base.RemoteCraftedV1"]   = { Science = 10, Electricity = 10 },
+    ["Base.RemoteCraftedV2"]   = { Science = 15, Electricity = 15 },
+    ["Base.RemoteCraftedV3"]   = { Science = 20, Electricity = 20 },
     ["Base.ScannerModule"]     = { Science = 20, Electricity = 20 },
 
     ["Base.WalkieTalkie1"]     = { Science = 20, Electricity = 20, key = "Base.WalkieTalkie" },
