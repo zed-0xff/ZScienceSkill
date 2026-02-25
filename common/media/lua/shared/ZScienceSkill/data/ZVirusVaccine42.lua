@@ -37,7 +37,10 @@ ZScienceSkill.Data.add({
         ["LabItems.ChSodiumHydroxideBag"]  = 40,
         ["LabItems.ChAmmonia"]             = 40,
         -- Other
+        ["LabItems.LabFlask"]              = { Science = 5, Glassmaking = 7.5 },
         ["LabItems.LabSyringeReusable"]    = { Science = 5, Doctor = 10 },
+        ["LabItems.LabTestTube"]           = { Science = 5, Glassmaking = 7.5 },
+        ["LabItems.MatShatteredGlass"]     = { Science = 5, Glassmaking = 5 },
     },
     fluids = {
         ["InfectedBlood"] = { Science =  50, Doctor = 50 },

@@ -6,9 +6,11 @@ ZScienceSkill.Data.add({ literature = {
     ["Base.Paperback_Science"]    = 30,
     ["Base.Magazine_Science"]     = 15,
     ["Base.Magazine_Science_New"] = 15,
+    ["Base.Magazine_Tech"]        = 10,
+    ["Base.Magazine_Tech_New"]    = 10,
     -- SciFi books (smaller XP - fiction inspires curiosity)
-    ["Base.Book_SciFi"]           = 10,
-    ["Base.Paperback_SciFi"]      = 10,
+    ["Base.Book_SciFi"]           =  8,
+    ["Base.Paperback_SciFi"]      =  8,
 }})
 
 
@@ -121,7 +123,7 @@ ZScienceSkill.Data.add({ specimens = {
 
 
 -- pills & other medical stuff
-local sciXP = 15
+local sciXP = 10
 local docXP = 20
 ZScienceSkill.Data.add({ specimens = {
     ["Base.Antibiotics"]          = { Science = sciXP, Doctor = docXP },
@@ -130,8 +132,9 @@ ZScienceSkill.Data.add({ specimens = {
     ["Base.PillsBeta"]            = { Science = sciXP, Doctor = docXP },
     ["Base.PillsSleepingTablets"] = { Science = sciXP, Doctor = docXP },
     ["Base.PillsVitamins"]        = { Science = sciXP, Doctor = docXP },
+    ["Base.Stethoscope"]          = { Science = sciXP, Doctor = docXP },
     ["Base.SutureNeedle"]         = { Science = sciXP, Doctor = docXP },
-    ["Base.TongueDepressor"]      = { Science = sciXP/2, Doctor = docXP }, -- make it useful for something
+    ["Base.TongueDepressor"]      = { Science = sciXP/2, Doctor = docXP/2 }, -- make it useful for something
 }})
 
 
@@ -262,17 +265,19 @@ ZScienceSkill.Data.add({ specimens = {
 -- Chemistry / household chemicals
 ZScienceSkill.Data.add({ specimens = {
     ["Base.BakingSoda"]      = { Science = 20, Cooking = 20 },  -- sodium bicarbonate
-    ["Base.HairSpray2"]      = 10,
+    ["Base.Hairspray2"]      = 10,                              -- TODO: learn recipe?
     ["Base.InsectRepellent"] = 20,
     ["Base.Vinegar2"]        = { Science = 20, Cooking = 20, key = "Base.Vinegar" },
     ["Base.Vinegar_Jug"]     = { Science = 20, Cooking = 20, key = "Base.Vinegar" },
+    ["Base.Yeast"]           = { Science = 10, Cooking = 10 },
 }})
 
 
 -- Industrial / gas equipment
 ZScienceSkill.Data.add({ specimens = {
     ["Base.BlowTorch"]      = { Science =  5, MetalWelding = 10 },
-    ["Base.Extinguisher"]   = 10,
+    ["Base.Extinguisher"]   =  5,
+    ["Base.LighterFluid"]   =  5, -- TODO: make bomb?
     ["Base.Oxygen_Tank"]    = 25,
     ["Base.Propane_Refill"] = 20,
     ["Base.PropaneTank"]    = { Science = 30, MetalWelding = 30 },
@@ -305,6 +310,7 @@ ZScienceSkill.Data.add({ specimens = {
     ["Base.CarBattery1"]       = { Science = 10, Electricity = 10 },
     ["Base.CarBattery2"]       = { Science = 10, Electricity = 10 },
     ["Base.CarBattery3"]       = { Science = 10, Electricity = 10 },
+    ["Base.CordlessPhone"]     = { Science = 10, Electricity = 10 },
     ["Base.ElectronicsScrap"]  = { Science = 10, Electricity = 10 },
     ["Base.Microphone"]        = { Science = 10, Electricity = 10 },
     ["Base.Remote"]            = { Science = 10, Electricity = 10 },
@@ -364,11 +370,13 @@ ZScienceSkill.Data.add({ specimens = {
     ["Base.GlassBlowingPipe"]        = { Science = 10, Glassmaking = 20 },
     ["Base.GlassBlowingPipeUnfired"] = { Science = 10, Glassmaking = 20, key = "Base.GlassBlowingPipe" },
     ["Base.Glasses_3dGlasses"]       = { Science =  5, Glassmaking = 10 },
+    ["Base.Glasses_Normal"]          = { Science =  5, Glassmaking = 10 }, -- Prescription Glasses renamed in 42.14 ?
     ["Base.Glasses_Prescription"]    = { Science =  5, Glassmaking = 10 },
     ["Base.Loupe"]                   = { Science = 10, Glassmaking = 10 },
     ["Base.MagnifyingGlass"]         = { Science = 15, Glassmaking = 15 },
     ["Base.Glasses_MonocleLeft"]     = { Science =  5, Glassmaking =  5 },
     ["Base.Glasses_MonocleRight"]    = { Science =  5, Glassmaking =  5 },
+    ["Base.Glasses_Reading"]         = { Science =  5, Glassmaking =  5 },
 }})
 
 
@@ -381,10 +389,45 @@ ZScienceSkill.Data.add({ specimens = {
 }})
 
 
+-- Mechanics
+ZScienceSkill.Data.add({ specimens = {
+    ["Base.Doorknob"]       = { Mechanics =  1, Woodwork = 5 },
+    ["Base.Hinge"]          = { Mechanics =  5, Woodwork = 5 },
+    ["Base.LargeHook"]      = { Mechanics =  5 },
+    ["Base.Padlock"]        = { Mechanics = 10, Science =  5 },
+    ["Base.Pliers"]         = { Mechanics = 10, Science =  5 },
+    ["Base.Ratchet"]        = { Mechanics = 15, Science =  5 },
+    ["Base.ViseGrips"]      = { Mechanics =  5, Blacksmith = 5 },
+    ["Base.Wrench"]         = { Mechanics = 10, Science =  5 },
+
+    ["Base.WristWatch_Left_ClassicBrown"]  = { Mechanics = 5, Science = 5, key = "Base.WristWatch" },
+    ["Base.WristWatch_Right_ClassicBrown"] = { Mechanics = 5, Science = 5, key = "Base.WristWatch" },
+}})
+
+
+-- Trapping
+ZScienceSkill.Data.add({ specimens = {
+    ["Base.RatPoison"]      = { Science =  5, Trapping =  5 }, -- recipes?
+    ["Base.TrapMouse"]      = { Science =  5, Trapping = 10 },
+}})
+
+
 -- science stuff
 ZScienceSkill.Data.add({ specimens = {
     ["Base.Calipers"]        = { Science = 20, Mechanics = 20 },
-    ["Base.CompassGeometry"] = { Science = 20 }, -- TODO: recipe with diamond
+    ["Base.CompassGeometry"] = { Science = 20 },
+}})
+
+
+-- Masonry
+ZScienceSkill.Data.add({ specimens = {
+    ["Base.Clay"]            = { Science = 5, Masonry = 15 },
+}})
+
+
+-- Firearms
+ZScienceSkill.Data.add({ specimens = {
+    ["Base.ChokeTubeFull"]   = { Science = 5, Aiming = 10 },
 }})
 
 
