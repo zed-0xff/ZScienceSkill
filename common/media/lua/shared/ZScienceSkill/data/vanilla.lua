@@ -130,6 +130,7 @@ ZScienceSkill.Data.add({ specimens = {
     ["Base.PillsBeta"]            = { Science = sciXP, Doctor = docXP },
     ["Base.PillsSleepingTablets"] = { Science = sciXP, Doctor = docXP },
     ["Base.PillsVitamins"]        = { Science = sciXP, Doctor = docXP },
+    ["Base.SutureNeedle"]         = { Science = sciXP, Doctor = docXP },
     ["Base.TongueDepressor"]      = { Science = sciXP/2, Doctor = docXP }, -- make it useful for something
 }})
 
@@ -344,7 +345,7 @@ local metals = {
     Gold     = { "GoldBar", "SmallGoldBar", "GoldScrap", "GoldSheet", "GoldCoin", "Medal_Gold", "TrophyGold" },
     Iron     = { "IronBar", "IronBarHalf", "IronBarQuarter", "IronBlock", "IronChunk", "IronIngot", "IronOre", "IronPiece", "IronScrap" },
     Silver   = { "SilverBar", "SmallSilverBar", "SilverScrap", "SilverSheet", "SilverCoin", "TrophySilver", "Medal_Silver" },
-    Steel    = { "SteelBar", "SteelBarHalf", "SteelBarQuarter", "SteelBlock", "SteelChunk", "SteelIngot", "SteelPiece", "SteelScrap", "SteelSlug" },
+    Steel    = { "MetalBar", "SteelBar", "SteelBarHalf", "SteelBarQuarter", "SteelBlock", "SteelChunk", "SteelIngot", "SteelPiece", "SteelScrap", "SteelSlug" },
     Tin      = { "TinCanEmpty" },
 }
 for metal, variants in pairs(metals) do
