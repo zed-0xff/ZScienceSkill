@@ -5,6 +5,8 @@ ZScienceSkill.Data = {
     literature = {},
     literatureReadOnce = {},
     specimens = {},
+    -- [profession id] = { research key, ... } pre-filled for profession integrations
+    profPreResearchedSpecimens = {},
 }
 
 function ZScienceSkill.Data.add(tables)
