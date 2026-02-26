@@ -52,6 +52,12 @@ Pretty much anything that looks sciency:
 - Game version 42.13+
 - No other mods required
 
+[h1]Integrations[/h1]
+- [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3615135168] Zombie Virus Vaccine [/url] (profession included!)
+- [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3671173479] Glass Cutter [/url]
+- [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3628922658] Printer3D [/url]
+- SpaceShip Z-001 (wip, coming soon!)
+
 [h1]Compatibility[/h1]
 Should work with most mods. We hook into vanilla functions cleanly and call originals when possible.
 
