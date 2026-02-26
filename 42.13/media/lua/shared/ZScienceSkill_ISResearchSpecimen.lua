@@ -173,15 +173,6 @@ local function addXpFromTable(character, tbl, key)
     return false
 end
 
--- Get the research key for a specimen (uses 'key' field if present, otherwise fullType)
-local function getSpecimenResearchKey(fullType)
-    local config = ZScienceSkill.Data.specimens[fullType]
-    if type(config) == "table" and config.key then
-        return config.key
-    end
-    return fullType
-end
-
 -- Called by Java networking on server in MP to apply action effects
 -- This is where XP and ModData changes should happen for proper MP sync
 function ISResearchSpecimen:complete()
@@ -200,7 +191,7 @@ function ISResearchSpecimen:complete()
     
     -- Regular specimen
     if not isFluid then
-        researchKey = getSpecimenResearchKey(fullType)
+        researchKey = ZScienceSkill.getSpecimenResearchKey(fullType)
         addXpFromTable(self.character, ZScienceSkill.Data.specimens, fullType)
     end
     
@@ -285,19 +276,12 @@ end
 
 function ISResearchSpecimen.isResearched(character, item)
     local modData = character:getModData().researchedSpecimens
-    if not modData then return false end
-    
-    local fullType = item:getFullType()
-    
-    -- Check specimen research key (may differ from fullType if 'key' is set)
-    local researchKey = getSpecimenResearchKey(fullType)
-    if modData[researchKey] then return true end
-    
-    -- Check fluid type
-    local fluidType = ZScienceSkill.getFluidType(item)
-    if fluidType and modData["Fluid:" .. fluidType] then return true end
-    
-    return false
+    if not modData then return false end -- nothing was researched yet
+
+    local status = ZScienceSkill.getItemStatus(item, character)
+    if not status then return end -- return nil if item has no research status (not a valid specimen)
+
+    return status.researched == status.total
 end
 
 function ISResearchSpecimen.isSpecimen(item)
@@ -369,29 +353,15 @@ Events.OnFillInventoryObjectContextMenu.Add(onFillInventoryContextMenu)
 -- Find all unresearched specimens in player's accessible inventories (main + equipped bags)
 local function findUnresearchedSpecimens(playerObj)
     local specimens = {}
-    local modData = playerObj:getModData().researchedSpecimens
     local inventories = getAccessibleInventories(playerObj)
     
     for _, inventory in ipairs(inventories) do
         local items = inventory:getItems()
         for i = 0, items:size() - 1 do
             local item = items:get(i)
-            local fullType = item:getFullType()
-            
-            -- Check regular specimens
-            if ZScienceSkill.Data.specimens[fullType] then
-                local researchKey = getSpecimenResearchKey(fullType)
-                if not (modData and modData[researchKey]) then
-                    table.insert(specimens, item)
-                end
-            else
-                -- Check fluid specimens
-                local fluidType = ZScienceSkill.getFluidType(item)
-                if fluidType and ZScienceSkill.Data.fluids and ZScienceSkill.Data.fluids[fluidType] then
-                    if not (modData and modData["Fluid:" .. fluidType]) then
-                        table.insert(specimens, item)
-                    end
-                end
+            local status = ZScienceSkill.getItemStatus(item, playerObj)
+            if status and status.researched ~= status.total then
+                table.insert(specimens, item)
             end
         end
     end

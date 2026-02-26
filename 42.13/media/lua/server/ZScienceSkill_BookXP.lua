@@ -8,54 +8,28 @@ require 'zsHook'
 
 -- SP: both are called, perform() -> complete()
 
--- supposed to run on server only
-function ISReadABook:is_literature_read()
-    local playerObj = self.character
-    local item = self.item
-
-    if not item then return true end
-    if not item:IsLiterature() then return true end
-
-    -- next is a copy of ISInventoryPane:isLiteratureRead(playerObj, item)
-    local modData = item:hasModData() and item:getModData() or nil
-    if modData ~= nil then
-        if (modData.literatureTitle) and playerObj:isLiteratureRead(modData.literatureTitle) then return true end
-        if (modData.printMedia ~= nil) and playerObj:isPrintMediaRead(modData.printMedia.title) then return true end
-        if (modData.learnedRecipe ~= nil) and playerObj:getKnownRecipes():contains(modData.learnedRecipe) then return true end
-    end
-    local skillBook = SkillBook[item:getSkillTrained()]
-    if (skillBook ~= nil) and (item:getMaxLevelTrained() < playerObj:getPerkLevel(skillBook.perk) + 1) then return true end
-    if item:getNumberOfPages() > 0 then
-        local startPage = self.startPage or playerObj:getAlreadyReadPages(item:getFullType()) or 0
-        if startPage == item:getNumberOfPages() then return true end
-    end
-    if (item:getLearnedRecipes() ~= nil) and playerObj:getKnownRecipes():containsAll(item:getLearnedRecipes()) then return true end
-    return false
-end
-
 zsHook(ISReadABook, {
     complete = function(orig, self)
-        local isAlreadyRead = self.isLiteratureRead
+        local isAlreadyRead = self.isLiteratureRead -- may be set by ISReadABook:perform(), but not in all contexts
         if isAlreadyRead == nil then
-            isAlreadyRead = self:is_literature_read()
+            isAlreadyRead = ZScienceSkill.isLiteratureRead(self.character, self.item, self.startPage)
         end
 
         local result = orig(self) -- saves literature read flags
-
         local itemType = self.item:getFullType()
 
         -- Check if this is read-once literature (mod compatibility items)
         if ZScienceSkill.Data.literatureReadOnce[itemType] then
             local modData = self.character:getModData()
-            modData.readLiteratureOnce = modData.readLiteratureOnce or {}
-            if not modData.readLiteratureOnce[itemType] then
-                modData.readLiteratureOnce[itemType] = true
+            modData.researchedSpecimens = modData.researchedSpecimens or {}
+            if not modData.researchedSpecimens[itemType] then
+                modData.researchedSpecimens[itemType] = true
                 addXp(self.character, Perks.Science, ZScienceSkill.Data.literatureReadOnce[itemType])
                 if isClient() then
                     self.character:transmitModData()
                 end
             end
-        elseif not isAlreadyRead then
+        elseif isAlreadyRead == false then -- strict comparison, to not grant extra XP when status is unknown
             -- Check if this is science literature
             if ZScienceSkill.Data.literature[itemType] then
                 addXp(self.character, Perks.Science, ZScienceSkill.Data.literature[itemType])

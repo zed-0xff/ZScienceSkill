@@ -5,34 +5,8 @@ require "ZScienceSkill/Data"
 require "ZScienceSkill_ModOptions"
 require 'zsHook'
 
-local grayTickTexture = getTexture("media/ui/R_Mark_Gray.png")
-local greenTickTexture = getTexture("media/ui/Tick_Mark-10.png")
-
--- Get the research key for a specimen (uses 'key' field if present, otherwise fullType)
-local function getSpecimenResearchKey(fullType)
-    local config = ZScienceSkill.Data.specimens[fullType]
-    if type(config) == "table" and config.key then
-        return config.key
-    end
-    return fullType
-end
-
-local function isSpecimenResearched(player, fullType)
-    local modData = player:getModData().researchedSpecimens
-    if not modData then return false end
-    local researchKey = getSpecimenResearchKey(fullType)
-    return modData[researchKey]
-end
-
-local function isFluidResearched(player, fluidType)
-    local modData = player:getModData().researchedSpecimens
-    return modData and modData["Fluid:" .. fluidType]
-end
-
-local function isLiteratureReadOnce(player, fullType)
-    local modData = player:getModData().readLiteratureOnce
-    return modData and modData[fullType]
-end
+local TEX_R    = getTexture("media/ui/R_Mark_Gray.png")
+local TEX_TICK = getTexture("media/ui/Tick_Mark-10.png")
 
 zsHook( ISInventoryPane, {
     renderdetails = function(orig, self, doDragged, ...)
@@ -54,47 +28,21 @@ zsHook( ISInventoryPane, {
         local y = 0
         for _, v in ipairs(self.items) do
             local item = v.items and v.items[1] or v
-            if item and type(item.getFullType) == "function" then
-                local fullType = item:getFullType()
+            local status = ZScienceSkill.getItemStatus(item, player)
+            if status then
                 local texture = nil
-                
-                -- Science literature: gray "R" if unread
-                if ZScienceSkill.Data.literature[fullType] then
-                    if not self:isLiteratureRead(player, item) and showOverlay then
-                        texture = grayTickTexture
-                    end
-                -- Read-once literature: gray "R" if unread, green tick if read
-                elseif ZScienceSkill.Data.literatureReadOnce[fullType] then
-                    if isLiteratureReadOnce(player, fullType) then
-                        if showCheckmark then
-                            texture = greenTickTexture
-                        end
-                    elseif showOverlay then
-                        texture = grayTickTexture
-                    end
-                -- Specimens: gray "R" if unresearched, green tick if researched
-                elseif ZScienceSkill.Data.specimens[fullType] then
-                    if isSpecimenResearched(player, fullType) then
-                        if showCheckmark then
-                            texture = greenTickTexture
-                        end
-                    elseif showOverlay then
-                        texture = grayTickTexture
+                if status.researched == status.total then
+                    -- already fully researched, show checkmark if enabled
+                    if showCheckmark then
+                        texture = TEX_TICK
                     end
                 else
-                    -- Fluids: check if container has researchable fluid
-                    local fluidType = ZScienceSkill.getFluidType(item)
-                    if fluidType and ZScienceSkill.Data.fluids and ZScienceSkill.Data.fluids[fluidType] then
-                        if isFluidResearched(player, fluidType) then
-                            if showCheckmark then
-                                texture = greenTickTexture
-                            end
-                        elseif showOverlay then
-                            texture = grayTickTexture
-                        end
+                    -- not fully researched, show "R" if enabled
+                    if showOverlay then
+                        texture = TEX_R
                     end
                 end
-                
+
                 if texture then
                     local topOfItem = y * self.itemHgt + YSCROLL
                     if topOfItem + self.itemHgt >= 0 and topOfItem <= HEIGHT then
@@ -108,8 +56,8 @@ zsHook( ISInventoryPane, {
                         self:drawTexture(texture, texOffsetX + auxDXY, texOffsetY + auxDXY - 1, 1, 1, 1, 1)
                     end
                 end
-            end
+            end -- if status
             y = y + 1
-        end
+        end -- for
     end -- renderdetails
 }) -- zsHook
