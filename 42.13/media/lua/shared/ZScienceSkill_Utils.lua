@@ -130,3 +130,39 @@ function ZScienceSkill.getItemStatus(item, player)
 
     return result
 end
+
+
+-- add XP to Science perk based on ZScienceSkill.Data tables
+function ZScienceSkill.addXpFromTable(character, tbl, key)
+    if type(tbl) ~= "table" then
+        print("[?] ZScienceSkill: table expected for XP data, got type=" .. type(tbl) .. ", tbl=" .. tostring(tbl) .. ", key=" .. tostring(key))
+        return false
+    end
+
+    local val = tbl[key]
+    if not val then
+        print("[?] ZScienceSkill: no XP data for key=" .. tostring(key))
+        return false
+    end
+
+    if type(val) == "number" then
+        addXp(character, Perks.Science, val)
+        return true
+    end
+    if type(val) == "table" then
+        for perk, xp in pairs(val) do -- 'perk' can be either string (perk name) or the Perk object itself
+            if perk ~= "key" then  -- skip the 'key' field, it's not a perk
+                if type(perk) == "string" then
+                    perk = Perks[perk]
+                end
+                if perk and type(xp) == "number" then
+                    addXp(character, perk, xp)
+                end
+            end
+        end
+        return true
+    end
+
+    print("[?] ZScienceSkill: invalid XP data for specimen: type=" .. type(val) .. ", value=" .. tostring(val) .. ", key=" .. tostring(key))
+    return false
+end

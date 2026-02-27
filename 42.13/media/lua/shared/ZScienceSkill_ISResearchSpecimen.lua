@@ -139,40 +139,6 @@ function ISResearchSpecimen:stop()
     ISBaseTimedAction.stop(self)
 end
 
-local function addXpFromTable(character, tbl, key)
-    if type(tbl) ~= "table" then
-        print("[?] ZScienceSkill: table expected for XP data, got type=" .. type(tbl) .. ", tbl=" .. tostring(tbl) .. ", key=" .. tostring(key))
-        return false
-    end
-
-    local val = tbl[key]
-    if not val then
-        print("[?] ZScienceSkill: no XP data for key=" .. tostring(key))
-        return false
-    end
-
-    if type(val) == "number" then
-        addXp(character, Perks.Science, val)
-        return true
-    end
-    if type(val) == "table" then
-        for perk, xp in pairs(val) do -- 'perk' can be either string (perk name) or the Perk object itself
-            if perk ~= "key" then  -- skip the 'key' field, it's not a perk
-                if type(perk) == "string" then
-                    perk = Perks[perk]
-                end
-                if perk and type(xp) == "number" then
-                    addXp(character, perk, xp)
-                end
-            end
-        end
-        return true
-    end
-
-    print("[?] ZScienceSkill: invalid XP data for specimen: type=" .. type(val) .. ", value=" .. tostring(val) .. ", key=" .. tostring(key))
-    return false
-end
-
 -- Called by Java networking on server in MP to apply action effects
 -- This is where XP and ModData changes should happen for proper MP sync
 function ISResearchSpecimen:complete()
@@ -186,13 +152,13 @@ function ISResearchSpecimen:complete()
         isFluid = true
         researchKey = "Fluid:" .. fluidType
         -- Grant XP for each perk defined for this fluid
-        addXpFromTable(self.character, ZScienceSkill.Data.fluids, fluidType)
+        ZScienceSkill.addXpFromTable(self.character, ZScienceSkill.Data.fluids, fluidType)
     end
     
     -- Regular specimen
     if not isFluid then
         researchKey = ZScienceSkill.getSpecimenResearchKey(fullType)
-        addXpFromTable(self.character, ZScienceSkill.Data.specimens, fullType)
+        ZScienceSkill.addXpFromTable(self.character, ZScienceSkill.Data.specimens, fullType)
     end
     
     -- Update ModData
@@ -361,7 +327,12 @@ local function findUnresearchedSpecimens(playerObj)
             local item = items:get(i)
             local status = ZScienceSkill.getItemStatus(item, playerObj)
             if status and status.researched ~= status.total then
-                table.insert(specimens, item)
+                for _, entry in ipairs(status.data) do
+                    if not entry.researched and not entry.type:contains("literature") then
+                        specimens[ZScienceSkill.getItemFullType(item)] = item
+                        break
+                    end
+                end
             end
         end
     end
@@ -393,7 +364,7 @@ local function onFillWorldObjectContextMenu(player, context, worldobjects, _test
     local microscopeIcon = tex and tex:splitIcon()
     
     local option
-    if #specimens == 0 then
+    if table.isempty(specimens) then
         option = context:addOption(getText("ContextMenu_ResearchAll"), nil, nil)
         option.notAvailable = true
         local tooltip = ISToolTip:new()
@@ -406,13 +377,18 @@ local function onFillWorldObjectContextMenu(player, context, worldobjects, _test
         tooltip:setName(getText("ContextMenu_TooDark"))
         option.toolTip = tooltip
     else
-        option = context:addOption(getText("ContextMenu_ResearchAll") .. " (" .. #specimens .. ")", playerObj, function(pl)
-            for _, item in ipairs(specimens) do
+        local nspec = 0
+        for _ in pairs(specimens) do
+            nspec = nspec + 1
+        end
+
+        option = context:addOption(getText("ContextMenu_ResearchAll") .. " (" .. nspec .. ")", playerObj, function(pl)
+            for _, item in pairs(specimens) do
                 ISTimedActionQueue.add(ISResearchSpecimen:new(pl, item))
             end
         end)
         local tooltip = ISToolTip:new()
-        tooltip:setName(getText("Tooltip_ResearchAllDesc", #specimens))
+        tooltip:setName(getText("Tooltip_ResearchAllDesc", nspec))
         option.toolTip = tooltip
     end
     

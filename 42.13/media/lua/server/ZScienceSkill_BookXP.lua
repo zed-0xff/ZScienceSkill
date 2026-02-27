@@ -16,29 +16,31 @@ zsHook(ISReadABook, {
         end
 
         local result = orig(self) -- saves literature read flags
-        local itemType = self.item:getFullType()
+        local fullType = self.item:getFullType()
 
-        -- Check if this is read-once literature (mod compatibility items)
-        if ZScienceSkill.Data.literatureReadOnce[itemType] then
+        -- Check if this is read-once literature
+        if ZScienceSkill.Data.literatureReadOnce[fullType] then
             local modData = self.character:getModData()
             modData.researchedSpecimens = modData.researchedSpecimens or {}
-            if not modData.researchedSpecimens[itemType] then
-                modData.researchedSpecimens[itemType] = true
-                addXp(self.character, Perks.Science, ZScienceSkill.Data.literatureReadOnce[itemType])
-                if isClient() then
-                    self.character:transmitModData()
-                end
+            if not modData.researchedSpecimens[fullType] then
+                modData.researchedSpecimens[fullType] = true
+                ZScienceSkill.addXpFromTable(self.character, ZScienceSkill.Data.literatureReadOnce, fullType)
             end
         elseif isAlreadyRead == false then -- strict comparison, to not grant extra XP when status is unknown
             -- Check if this is science literature
-            if ZScienceSkill.Data.literature[itemType] then
-                addXp(self.character, Perks.Science, ZScienceSkill.Data.literature[itemType])
+            if ZScienceSkill.Data.literature[fullType] then
+                ZScienceSkill.addXpFromTable(self.character, ZScienceSkill.Data.literature, fullType)
             -- Check if this was a skill book
             elseif SkillBook and SkillBook[self.item:getSkillTrained()] and self.item:getSkillTrained() ~= "Science" then
                 local lvl = self.item:getLvlSkillTrained() or 1
                 local scienceXP = ZScienceSkill.skillBookXP[lvl] or 2
-                addXp(self.character, Perks.Science, scienceXP)
+                addXp(self.character, Perks.Science, scienceXP) -- not from a table
             end
+        end
+
+        -- XXX is it correct?
+        if isClient() then
+            self.character:transmitModData()
         end
 
         return result

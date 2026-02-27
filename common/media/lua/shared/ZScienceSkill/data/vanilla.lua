@@ -8,9 +8,14 @@ ZScienceSkill.Data.add({ literature = {
     ["Base.Magazine_Science_New"] = 15,
     ["Base.Magazine_Tech"]        = 10,
     ["Base.Magazine_Tech_New"]    = 10,
+
     -- SciFi books (smaller XP - fiction inspires curiosity)
     ["Base.Book_SciFi"]           =  8,
     ["Base.Paperback_SciFi"]      =  8,
+
+    ["Base.Book_Medical"]         = { Science = 10, Doctor = 20 },
+    ["Base.Paperback_Medical"]    = { Science = 10, Doctor = 15 },
+    ["Base.BookFancy_Medical"]    = { Science =  5, Doctor = 15 },
 }})
 
 
@@ -30,14 +35,73 @@ ZScienceSkill.Data.add({ specimens = {
     ["Base.Specimen_MonkeyHead"]    = specimenXP,
     ["Base.Specimen_Brain"]         = { Science = specimenXP * 2, Doctor = specimenXP },
 
-    -- Animal brains & skulls
+    -- intestines
     ["Base.Animal_Brain"]           = specimenXP * 1.5,
     ["Base.Animal_Brain_Small"]     = specimenXP,
     ["Base.AnimalSinew"]            = specimenXP * 0.5,
-    ["Base.BrainTan"]               = { Science = specimenXP, Tailoring = specimenXP },
+    ["Base.BrainTan"]               = { Science = specimenXP,   Tailoring = specimenXP },
     ["Base.Hominid_Skull"]          = specimenXP,
     ["Base.Hominid_Skull_Fragment"] = specimenXP * 0.5,
     ["Base.Hominid_Skull_Partial"]  = specimenXP * 0.75,
+
+    -- bones & teeth
+    ["Base.HerbivoreTeeth"]         = { Science =  5, Carving =  5 },
+    ["Base.PigTusk"]                = { Science =  5, Carving = 10 },
+    ["Base.SmallAnimalBone"]        = { Science = 10, Carving = 10 },
+    ["Base.AnimalBone"]             = { Science = 10, Carving = 10 },
+    ["Base.LargeAnimalBone"]        = { Science = 10, Carving = 10 },
+
+    -- heads
+    ["Base.Cow_Head_Angus"]                 = { Science = 10, Butchering = 10 },
+    ["Base.Bull_Head_Angus"]                = { Science = 10, Butchering = 10 },
+    ["Base.Calf_Head_Angus"]                = { Science = 10, Butchering = 10 },
+    ["Base.Cow_Head_Simmental"]             = { Science = 10, Butchering = 10 },
+    ["Base.Bull_Head_Simmental"]            = { Science = 10, Butchering = 10 },
+    ["Base.Calf_Head_Simmental"]            = { Science = 10, Butchering = 10 },
+    ["Base.Cow_Head_Holstein"]              = { Science = 10, Butchering = 10 },
+    ["Base.Bull_Head_Holstein"]             = { Science = 10, Butchering = 10 },
+    ["Base.Calf_Head_Holstein"]             = { Science = 10, Butchering = 10 },
+    ["Base.Sheep_Ewe_Head_White"]           = { Science = 10, Butchering = 10 },
+    ["Base.Sheep_Ram_Head_White"]           = { Science = 10, Butchering = 10 },
+    ["Base.Sheep_Lamb_Head_White"]          = { Science = 10, Butchering = 10 },
+    ["Base.Sheep_Ewe_Head_Black"]           = { Science = 10, Butchering = 10 },
+    ["Base.Sheep_Ram_Head_Black"]           = { Science = 10, Butchering = 10 },
+    ["Base.Sheep_Lamb_Head_Black"]          = { Science = 10, Butchering = 10 },
+    ["Base.Pig_Sow_Head_Pink"]              = { Science = 10, Butchering = 10 },
+    ["Base.Pig_Boar_Head_Pink"]             = { Science = 10, Butchering = 10 },
+    ["Base.Pig_Piglet_Head_Pink"]           = { Science = 10, Butchering = 10 },
+    ["Base.Pig_Sow_Head_Black"]             = { Science = 10, Butchering = 10 },
+    ["Base.Pig_Boar_Head_Black"]            = { Science = 10, Butchering = 10 },
+    ["Base.Pig_Piglet_Head_Black"]          = { Science = 10, Butchering = 10 },
+    ["Base.Chicken_Rooster_Head_Brown"]     = { Science = 10, Butchering = 10 },
+    ["Base.Chicken_Rooster_Head_White"]     = { Science = 10, Butchering = 10 },
+    ["Base.Rabbit_Head_Appalachian"]        = { Science = 10, Butchering = 10 },
+    ["Base.Rabbit_Kitten_Head_Appalachian"] = { Science = 10, Butchering = 10 },
+    ["Base.Rabbit_Head_CottonTail"]         = { Science = 10, Butchering = 10 },
+    ["Base.Rabbit_Kitten_Head_CottonTail"]  = { Science = 10, Butchering = 10 },
+    ["Base.Rabbit_Head_Swamp"]              = { Science = 10, Butchering = 10 },
+    ["Base.Rabbit_Kitten_Head_Swamp"]       = { Science = 10, Butchering = 10 },
+
+    -- animal skulls
+    ["Base.Cow_Skull"]                      = { Science = 10, Butchering = 10 },
+    ["Base.Bull_Skull"]                     = { Science = 10, Butchering = 10 },
+    ["Base.Calf_Skull"]                     = { Science = 10, Butchering = 10 },
+    ["Base.Sheep_Skull"]                    = { Science = 10, Butchering = 10 },
+    ["Base.Ram_Skull"]                      = { Science = 10, Butchering = 10 },
+    ["Base.Lamb_Skull"]                     = { Science = 10, Butchering = 10 },
+    ["Base.Pig_Skull"]                      = { Science = 10, Butchering = 10 },
+    ["Base.Piglet_Skull"]                   = { Science = 10, Butchering = 10 },
+    ["Base.Chicken_Hen_Skull"]              = { Science = 10, Butchering = 10 },
+    ["Base.Chicken_Rooster_Skull"]          = { Science = 10, Butchering = 10 },
+    ["Base.Chicken_Chick_Skull"]            = { Science = 10, Butchering = 10 },
+    ["Base.Turkey_PoultSkull"]              = { Science = 10, Butchering = 10 },
+    ["Base.Turkey_Skull"]                   = { Science = 10, Butchering = 10 },
+    ["Base.Raccoon_Skull"]                  = { Science = 10, Butchering = 10 },
+    ["Base.Rabbit_KittenSkull"]             = { Science = 10, Butchering = 10 },
+    ["Base.Rabbit_Skull"]                   = { Science = 10, Butchering = 10 },
+    ["Base.DeerStag_Skull"]                 = { Science = 10, Butchering = 10 },
+    ["Base.DeerDoe_Skull"]                  = { Science = 10, Butchering = 10 },
+    ["Base.DeerFawn_Skull"]                 = { Science = 10, Butchering = 10 },
 }})
 
 
@@ -127,6 +191,7 @@ local sciXP = 10
 local docXP = 20
 ZScienceSkill.Data.add({ specimens = {
     ["Base.Antibiotics"]          = { Science = sciXP, Doctor = docXP },
+    ["Base.Coldpack"]             = { Science = sciXP, Doctor = docXP/2 }, -- TODO: recipe?
     ["Base.Pills"]                = { Science = sciXP, Doctor = docXP },
     ["Base.PillsAntiDep"]         = { Science = sciXP, Doctor = docXP },
     ["Base.PillsBeta"]            = { Science = sciXP, Doctor = docXP },
@@ -138,10 +203,13 @@ ZScienceSkill.Data.add({ specimens = {
 }})
 
 
--- Wild foraged plants (botany)
+-- Farming / Agriculture
 local farmXP = 10
 local sciXP = farmXP/2
 ZScienceSkill.Data.add({ specimens = {
+    ["Base.Fertilizer"]            = { Science = sciXP, Farming = farmXP*2 }, -- TODO: recipe?
+
+    -- wild foraged plants
     ["Base.Acorn"]                 = { Science = sciXP, Farming = farmXP },
     ["Base.Dandelions"]            = { Science = sciXP, Farming = farmXP },
     ["Base.GrapeLeaves"]           = { Science = sciXP, Farming = farmXP },
@@ -149,6 +217,8 @@ ZScienceSkill.Data.add({ specimens = {
     ["Base.Rosehips"]              = { Science = sciXP, Farming = farmXP },
     ["Base.Thistle"]               = { Science = sciXP, Farming = farmXP },
     ["Base.Violets"]               = { Science = sciXP, Farming = farmXP },
+    ["Base.WheatSheaf"]            = { Science = sciXP, Farming = farmXP },
+    ["Base.WheatSheafDried"]       = { Science = sciXP, Farming = farmXP },
 
     -- seeds
     ["Base.BarleySeed"]            = { Science = sciXP, Farming = farmXP },
@@ -264,6 +334,9 @@ ZScienceSkill.Data.add({ specimens = {
 
 -- Chemistry / household chemicals
 ZScienceSkill.Data.add({ specimens = {
+    ["Base.BouillonCube"]    = { Science =  5, Cooking = 10 },  -- recipe?
+    ["Base.SugarCubes"]      = { Science =  5, Cooking = 10 },  -- recipe?
+
     ["Base.BakingSoda"]      = { Science = 20, Cooking = 20 },  -- sodium bicarbonate
     ["Base.Hairspray2"]      = 10,                              -- TODO: learn recipe?
     ["Base.InsectRepellent"] = 20,
@@ -294,50 +367,58 @@ ZScienceSkill.Data.add({ fluids = {
     ["SecretFlavoring"] = { Science = 200, Cooking = 50 },
 }})
 
-
 -- Electronics / tech components
+ZScienceSkill.Data.add({ literatureReadOnce = {
+    ["Base.ElectronicsMag4"] = 20 -- how to use generators
+}})
 ZScienceSkill.Data.add({ specimens = {
-    ["Base.Disc_Retail"]       = { Science =  5, Electricity =  5 },
-    ["Base.Earbuds"]           = { Science =  5, Electricity =  5 },
-    ["Base.ElectricWire"]      = { Science =  5, Electricity =  5 },
-    ["Base.HairDryer"]         = { Science =  5, Electricity =  5 },
-    ["Base.Headphones"]        = { Science =  5, Electricity =  5 },
-    ["Base.LightBulb"]         = { Science =  5, Electricity =  5 },
-    ["Base.PowerBar"]          = { Science =  5, Electricity =  5 },
+    ["Base.Disc_Retail"]         = { Science =  5, Electricity =  5 },
+    ["Base.Earbuds"]             = { Science =  5, Electricity =  5 },
+    ["Base.ElectricWire"]        = { Science =  5, Electricity =  5 },
+    ["Base.HairDryer"]           = { Science =  5, Electricity =  5 },
+    ["Base.Headphones"]          = { Science =  5, Electricity =  5 },
+    ["Base.LightBulb"]           = { Science =  5, Electricity =  5 },
+    ["Base.PowerBar"]            = { Science =  5, Electricity =  5 },
 
-    ["Base.Battery"]           = { Science = 10, Electricity = 10 },
-    ["Base.Bullhorn"]          = { Science = 10, Electricity = 10 }, -- megaphone
-    ["Base.CarBattery1"]       = { Science = 10, Electricity = 10 },
-    ["Base.CarBattery2"]       = { Science = 10, Electricity = 10 },
-    ["Base.CarBattery3"]       = { Science = 10, Electricity = 10 },
-    ["Base.CordlessPhone"]     = { Science = 10, Electricity = 10 },
-    ["Base.ElectronicsScrap"]  = { Science = 10, Electricity = 10 },
-    ["Base.Microphone"]        = { Science = 10, Electricity = 10 },
-    ["Base.Remote"]            = { Science = 10, Electricity = 10 },
-    ["Base.Speaker"]           = { Science = 10, Electricity = 10 },
+    ["Base.Battery"]             = { Science = 10, Electricity = 10 },
+    ["Base.Bullhorn"]            = { Science = 10, Electricity = 10 }, -- megaphone
+    ["Base.CarBattery1"]         = { Science = 10, Electricity = 10 },
+    ["Base.CarBattery2"]         = { Science = 10, Electricity = 10 },
+    ["Base.CarBattery3"]         = { Science = 10, Electricity = 10 },
+    ["Base.CordlessPhone"]       = { Science = 10, Electricity = 10 },
+    ["Base.ElectronicsScrap"]    = { Science = 10, Electricity = 10 },
+    ["Base.Microphone"]          = { Science = 10, Electricity = 10 },
+    ["Base.Remote"]              = { Science = 10, Electricity = 10 },
+    ["Base.Speaker"]             = { Science = 10, Electricity = 10 },
 
-    ["Base.VideoGame"]         = { Science = 10, Electricity = 15 },
+    ["Base.VideoGame"]           = { Science = 10, Electricity = 15 },
 
-    ["Base.Amplifier"]         = { Science = 20, Electricity = 20 },
-    ["Base.CarBatteryCharger"] = { Science = 20, Electricity = 20 },
-    ["Base.CDplayer"]          = { Science = 20, Electricity = 20 },
-    ["Base.TriggerCrafted"]    = { Science = 20, Electricity = 20 }, -- TODO: learn recipe?
-    ["Base.HomeAlarm"]         = { Science = 20, Electricity = 20 },
-    ["Base.MotionSensor"]      = { Science = 20, Electricity = 20 },
-    ["Base.RadioRed"]          = { Science = 20, Electricity = 20 },
-    ["Base.RadioReceiver"]     = { Science = 20, Electricity = 20 },
-    ["Base.RadioTransmitter"]  = { Science = 20, Electricity = 20 },
-    ["Base.Receiver"]          = { Science = 20, Electricity = 20 }, -- seems like there are both Receiver and RadioReceiver
-    ["Base.RemoteCraftedV1"]   = { Science = 10, Electricity = 10 },
-    ["Base.RemoteCraftedV2"]   = { Science = 15, Electricity = 15 },
-    ["Base.RemoteCraftedV3"]   = { Science = 20, Electricity = 20 },
-    ["Base.ScannerModule"]     = { Science = 20, Electricity = 20 },
+    ["Base.Amplifier"]           = { Science = 20, Electricity = 20 },
+    ["Base.CarBatteryCharger"]   = { Science = 20, Electricity = 20 },
+    ["Base.CDplayer"]            = { Science = 20, Electricity = 20 },
+    ["Base.TriggerCrafted"]      = { Science = 20, Electricity = 20 }, -- TODO: learn recipe?
+    ["Base.HamRadio2"]           = { Science = 20, Electricity = 25 },
+    ["Base.HomeAlarm"]           = { Science = 20, Electricity = 20 },
+    ["Base.MotionSensor"]        = { Science = 20, Electricity = 20 },
+    ["Base.RadioRed"]            = { Science = 20, Electricity = 20 },
+    ["Base.RadioReceiver"]       = { Science = 20, Electricity = 20 },
+    ["Base.RadioTransmitter"]    = { Science = 20, Electricity = 20 },
+    ["Base.Receiver"]            = { Science = 20, Electricity = 20 }, -- seems like there are both Receiver and RadioReceiver
+    ["Base.RemoteCraftedV1"]     = { Science = 10, Electricity = 10 },
+    ["Base.RemoteCraftedV2"]     = { Science = 15, Electricity = 15 },
+    ["Base.RemoteCraftedV3"]     = { Science = 20, Electricity = 20 },
+    ["Base.ScannerModule"]       = { Science = 20, Electricity = 20 },
+    ["Base.SheepElectricShears"] = { Science =  5, Electricity =  5 },
 
-    ["Base.WalkieTalkie1"]     = { Science = 20, Electricity = 20, key = "Base.WalkieTalkie" },
-    ["Base.WalkieTalkie2"]     = { Science = 20, Electricity = 20, key = "Base.WalkieTalkie" },
-    ["Base.WalkieTalkie3"]     = { Science = 20, Electricity = 20, key = "Base.WalkieTalkie" },
-    ["Base.WalkieTalkie4"]     = { Science = 20, Electricity = 20, key = "Base.WalkieTalkie" },
-    ["Base.WalkieTalkie5"]     = { Science = 20, Electricity = 20, key = "Base.WalkieTalkie" },
+    ["Base.WalkieTalkie1"]       = { Science = 20, Electricity = 20, key = "Base.WalkieTalkie" },
+    ["Base.WalkieTalkie2"]       = { Science = 20, Electricity = 20, key = "Base.WalkieTalkie" },
+    ["Base.WalkieTalkie3"]       = { Science = 20, Electricity = 20, key = "Base.WalkieTalkie" },
+    ["Base.WalkieTalkie4"]       = { Science = 20, Electricity = 20, key = "Base.WalkieTalkie" },
+    ["Base.WalkieTalkie5"]       = { Science = 20, Electricity = 20, key = "Base.WalkieTalkie" },
+
+    -- movables)))
+    ["Base.Mov_DesktopComputer"] = { Science = 25, Electricity = 25 },
+    ["Base.Mov_SatelliteDish"]   = { Science = 25, Electricity = 25 },
 }})
 
 
@@ -382,23 +463,33 @@ ZScienceSkill.Data.add({ specimens = {
 
 -- maintenance stuff
 ZScienceSkill.Data.add({ specimens = {
-    ["Base.Epoxy"]          = { Science = 10, Maintenance = 15 },
-    ["Base.FiberglassTape"] = { Science = 10, Maintenance = 15 },
-    ["Base.SteelWool"]      = { Science =  5, Maintenance = 10 },
-    ["Base.Whetstone"]      = { Science =  5, Maintenance = 10 },
+    ["Base.CorrectionFluid"] = { Science =  5 },
+    ["Base.Epoxy"]           = { Science = 10, Maintenance = 15 },
+    ["Base.FiberglassTape"]  = { Science = 10, Maintenance = 15 },
+    ["Base.Plunger"]         = { Science =  1, Maintenance = 25 }, -- ^_^
+    ["Base.SteelWool"]       = { Science =  5, Maintenance = 10 },
+    ["Base.Whetstone"]       = { Science =  5, Maintenance = 10 },
 }})
 
 
 -- Mechanics
 ZScienceSkill.Data.add({ specimens = {
-    ["Base.Doorknob"]       = { Mechanics =  1, Woodwork = 5 },
-    ["Base.Hinge"]          = { Mechanics =  5, Woodwork = 5 },
-    ["Base.LargeHook"]      = { Mechanics =  5 },
-    ["Base.Padlock"]        = { Mechanics = 10, Science =  5 },
-    ["Base.Pliers"]         = { Mechanics = 10, Science =  5 },
-    ["Base.Ratchet"]        = { Mechanics = 15, Science =  5 },
-    ["Base.ViseGrips"]      = { Mechanics =  5, Blacksmith = 5 },
-    ["Base.Wrench"]         = { Mechanics = 10, Science =  5 },
+    ["Base.Bellows"]         = { Mechanics =  5, Blacksmith = 5 },
+    ["Base.Doorknob"]        = { Mechanics =  1, Woodwork = 5 },
+    ["Base.EngineParts"]     = { Mechanics = 20, Science = 10, Maintenance = 10 },
+    ["Base.File"]            = { Mechanics =  5 },
+    ["Base.HandDrill"]       = { Mechanics = 10, Woodwork = 10, Science = 5 },
+    ["Base.Hinge"]           = { Mechanics =  5, Woodwork = 5 },
+    ["Base.LargeHook"]       = { Mechanics =  5 },
+    ["Base.LugWrench"]       = { Mechanics =  5 },
+    ["Base.Padlock"]         = { Mechanics = 10, Science =  5 },
+    ["Base.Pliers"]          = { Mechanics = 10, Science =  5 },
+    ["Base.Ratchet"]         = { Mechanics = 15, Science =  5 },
+    ["Base.TireIron"]        = { Mechanics =  5 },
+    ["Base.TirePump"]        = { Mechanics = 15, Science = 10 },
+    ["Base.SheetMetalSnips"] = { Mechanics = 10, Science =  5 },
+    ["Base.ViseGrips"]       = { Mechanics =  5, Blacksmith = 5 },
+    ["Base.Wrench"]          = { Mechanics = 10, Science =  5 },
 
     ["Base.WristWatch_Left_ClassicBrown"]  = { Mechanics = 5, Science = 5, key = "Base.WristWatch" },
     ["Base.WristWatch_Right_ClassicBrown"] = { Mechanics = 5, Science = 5, key = "Base.WristWatch" },
@@ -416,6 +507,8 @@ ZScienceSkill.Data.add({ specimens = {
 ZScienceSkill.Data.add({ specimens = {
     ["Base.Calipers"]        = { Science = 20, Mechanics = 20 },
     ["Base.CompassGeometry"] = { Science = 20 },
+    ["Base.LighterBBQ"]      = { Science =  5 },
+    ["Base.Sparklers"]       = { Science = 10 },
 }})
 
 
@@ -428,6 +521,38 @@ ZScienceSkill.Data.add({ specimens = {
 -- Firearms
 ZScienceSkill.Data.add({ specimens = {
     ["Base.ChokeTubeFull"]   = { Science = 5, Aiming = 10 },
+}})
+
+
+-- Tailoring
+ZScienceSkill.Data.add({ specimens = {
+    ["Base.Buckle"]               = { Science =  1, Tailoring =  5 },
+    ["Base.BurlapPiece"]          = { Science =  2, Tailoring = 10 },
+    ["Base.CheeseCloth"]          = { Science =  2, Tailoring =  5 },
+    ["Base.Dogbane"]              = { Science =  2, Tailoring = 10 },
+    ["Base.Tarp"]                 = { Science =  2, Tailoring =  7 },
+    ["Base.Thread_Sinew"]         = { Science =  5, Tailoring =  5 },
+    ["Base.Twine"]                = { Science =  2, Tailoring =  5 },
+
+    ["Base.DeerLeather_Fur_Tan"]  = { Science = 10, Tailoring = 15 }, -- TODO: convert to scraps / other leather types
+
+    ["Base.Leather_Crude_Medium"]         = { Science = 10, Tailoring = 15 },
+    ["Base.Leather_Crude_Medium_Tan_Wet"] = { Science = 10, Tailoring = 10 },
+}})
+
+
+-- Animal Care
+ZScienceSkill.Data.add({ specimens = {
+    ["Base.AnimalMilkPowder"] = { Science = 5, Husbandry = 10, Cooking = 5 },
+}})
+
+
+-- Fishing
+ZScienceSkill.Data.add({ specimens = {
+    ["Base.Bobber"]      = { Science = 1, Fishing = 10 },
+    ["Base.FishingHook"] = { Science = 1, Fishing = 10 },
+    ["Base.FishingLine"] = { Science = 1, Fishing = 10 },
+    ["Base.MinnowLure"]  = { Science = 1, Fishing = 10 },
 }})
 
 

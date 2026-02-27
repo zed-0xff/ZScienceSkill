@@ -36,8 +36,19 @@ end
 
 -- Perform research on a specimen
 function research_specimen(player, item)
-    ISTimedActionQueue.add(ISResearchSpecimen:new(player, item, 100))
-    ZBSpec.wait_for_not(ISTimedActionQueue.isPlayerDoingAction, player)
+    if isServer() then
+        local modData = get_player():getModData()
+        modData.researchedSpecimens = modData.researchedSpecimens or {}
+        local fullType = ZScienceSkill.getItemFullType(item)
+        if fullType then
+            modData.researchedSpecimens[ZScienceSkill.getSpecimenResearchKey(fullType)] = true
+        else
+            error("Item does not have a valid full type for research: " .. tostring(item))
+        end
+    else
+        ISTimedActionQueue.add(ISResearchSpecimen:new(player, item, 100))
+        ZBSpec.wait_for_not(ISTimedActionQueue.isPlayerDoingAction, player)
+    end
 end
 
 -- Clear player's research data

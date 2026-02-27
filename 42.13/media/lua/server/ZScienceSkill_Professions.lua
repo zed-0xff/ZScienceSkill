@@ -25,15 +25,9 @@ local function applyPreResearchedSpecimens(player)
     player:transmitModData()
 end
 
-local function onNewGame()
-    local player = getPlayer()
-    if player then applyPreResearchedSpecimens(player) end
-end
-
-local function onGameStart()
+local function onNewGame(player)
     local player = getPlayer()
     if player then applyPreResearchedSpecimens(player) end
 end
 
 Events.OnNewGame.Add(onNewGame)
-Events.OnGameStart.Add(onGameStart)
