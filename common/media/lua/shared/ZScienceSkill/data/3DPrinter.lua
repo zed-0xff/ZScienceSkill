@@ -14,6 +14,7 @@ ZScienceSkill.Data.add({
 
         -- printers
         ["Printer3D.Printer3DPortable"] = { Science = 20, Electricity = 20 },
+        ["Printer3D.Printer3D"]         = { Science = 20, Electricity = 20 },
     },
 
     literatureReadOnce = {

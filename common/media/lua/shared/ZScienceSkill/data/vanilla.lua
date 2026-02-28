@@ -210,6 +210,7 @@ local farmXP = 10
 ZScienceSkill.Data.add({ specimens = {
     ["Base.Fertilizer"]            = { Science = sciXP, Farming = farmXP*2 }, -- TODO: recipe?
     ["Base.GardeningSprayEmpty"]   = { Science = sciXP, Farming = farmXP*2 },
+    ["Base.HandShovel"]            = { Science = sciXP/2, Farming = farmXP },
     ["Base.SlugRepellent"]         = { Science = sciXP, Farming = farmXP*2 },
 
     -- wild foraged plants
@@ -398,12 +399,13 @@ ZScienceSkill.Data.add({ specimens = {
 
     ["Base.VideoGame"]           = { Science = 10, Electricity = 15 },
 
-    ["Base.Amplifier"]           = { Science = 20, Electricity = 20 },
-    ["Base.CarBatteryCharger"]   = { Science = 20, Electricity = 20 },
-    ["Base.CDplayer"]            = { Science = 20, Electricity = 20 },
-    ["Base.TriggerCrafted"]      = { Science = 20, Electricity = 20 }, -- TODO: learn recipe?
+    ["Base.Amplifier"]           = { Science = 15, Electricity = 20 },
+    ["Base.CarBatteryCharger"]   = { Science = 10, Electricity = 20 },
+    ["Base.CDplayer"]            = { Science = 10, Electricity = 20 },
+    ["Base.TimerCrafted"]        = { Science = 15, Electricity = 20 },
+    ["Base.TriggerCrafted"]      = { Science = 15, Electricity = 20 }, -- TODO: learn recipe?
     ["Base.HamRadio2"]           = { Science = 20, Electricity = 25 },
-    ["Base.HomeAlarm"]           = { Science = 20, Electricity = 20 },
+    ["Base.HomeAlarm"]           = { Science = 15, Electricity = 20 },
     ["Base.MotionSensor"]        = { Science = 20, Electricity = 20 },
     ["Base.RadioRed"]            = { Science = 20, Electricity = 20 },
     ["Base.RadioReceiver"]       = { Science = 20, Electricity = 20 },
@@ -469,12 +471,14 @@ ZScienceSkill.Data.add({ specimens = {
 
 -- maintenance stuff
 ZScienceSkill.Data.add({ specimens = {
-    ["Base.CorrectionFluid"] = { Science =  5 },
-    ["Base.Epoxy"]           = { Science = 10, Maintenance = 15 },
-    ["Base.FiberglassTape"]  = { Science = 10, Maintenance = 15 },
-    ["Base.Plunger"]         = { Science =  1, Maintenance = 25 }, -- ^_^
-    ["Base.SteelWool"]       = { Science =  5, Maintenance = 10 },
-    ["Base.Whetstone"]       = { Science =  5, Maintenance = 10 },
+    ["Base.CorrectionFluid"]   = { Science =  5 },
+    ["Base.Epoxy"]             = { Science = 10, Maintenance = 15 },
+    ["Base.FiberglassTape"]    = { Science = 10, Maintenance = 15 },
+    ["Base.Plunger"]           = { Science =  1, Maintenance = 25 }, -- ^_^
+    ["Base.RespiratorFilters"] = { Science =  5, Maintenance = 10 },
+    ["Base.SteelWool"]         = { Science =  5, Maintenance = 10 },
+    ["Base.Whetstone"]         = { Science =  5, Maintenance = 10 },
+    ["Base.WoodGlue"]          = { Science =  5, Maintenance =  5 },
 }})
 
 
@@ -489,6 +493,7 @@ ZScienceSkill.Data.add({ specimens = {
     ["Base.LargeHook"]       = { Mechanics =  5 },
     ["Base.LugWrench"]       = { Mechanics =  5 },
     ["Base.Padlock"]         = { Mechanics = 10, Science =  5 },
+    ["Base.PipeWrench"]      = { Mechanics = 10, Maintenance = 10 },
     ["Base.Pliers"]          = { Mechanics = 10, Science =  5 },
     ["Base.Ratchet"]         = { Mechanics = 15, Science =  5 },
     ["Base.TireIron"]        = { Mechanics =  5 },
@@ -512,10 +517,11 @@ ZScienceSkill.Data.add({ specimens = {
 
 -- science stuff
 ZScienceSkill.Data.add({ specimens = {
-    ["Base.Calipers"]        = { Science = 20, Mechanics = 20 },
-    ["Base.CompassGeometry"] = { Science = 20 },
-    ["Base.LighterBBQ"]      = { Science =  5 },
-    ["Base.Sparklers"]       = { Science = 10 },
+    ["Base.Calipers"]           = { Science = 20, Mechanics = 20 },
+    ["Base.CompassDirectional"] = { Science = 20, Tracking = 10 },
+    ["Base.CompassGeometry"]    = { Science = 20 },
+    ["Base.LighterBBQ"]         = { Science =  5 },
+    ["Base.Sparklers"]          = { Science = 10 },
 }})
 
 
