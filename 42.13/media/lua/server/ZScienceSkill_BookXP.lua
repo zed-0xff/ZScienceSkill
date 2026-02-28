@@ -1,6 +1,5 @@
 -- Grant Science XP when reading skill books or science literature
 require "ZScienceSkill/Data"
-require 'zbHook'
 
 -- MP:
 -- ISReadABook:perform()  is called on client ONLY
