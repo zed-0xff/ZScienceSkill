@@ -263,7 +263,7 @@ end
 
 -- Helper function to add menu option (enabled or disabled)
 local function addMenuOption(context, item, playerObj, disableReason, cb)
-    if not item then return nil end
+    if not item then return end
     
     local option
     if disableReason then
@@ -297,7 +297,7 @@ local function onFillInventoryContextMenu(player, context, items)
         if ISResearchSpecimen.isSpecimen(item) then
             local disableReason = nil
             if ISResearchSpecimen.isResearched(playerObj, item) then
-                disableReason = "Tooltip_AlreadyResearched"
+                break -- Don't show option for already researched specimens
             elseif playerObj:tooDarkToRead() then
                 disableReason = "ContextMenu_TooDark"
             elseif not findNearbyMicroscope(playerObj) then
