@@ -18,11 +18,10 @@ describe(ZScienceSkill.Data.literature, function()
         assert.gt(scienceXP, scifiXP, "Science books should give more XP than Sci-Fi books")
     end)
     
-    it("has all positive number values", function()
+    it("has numbers or tables", function()
         for key, xp in pairs(subject) do
             assert.is_string(key)
-            assert.is_number(xp)
-            assert.gt(xp, 0)
+            assert((type(xp) == "number" and xp > 0) or type(xp) == "table")
         end
     end)
 end)
