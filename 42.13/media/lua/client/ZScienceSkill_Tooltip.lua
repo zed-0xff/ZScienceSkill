@@ -18,7 +18,7 @@ zbHook({
             local status = ZScienceSkill.getItemStatus(self.item, getSpecificPlayer(0))
             if not status then return end -- not researchable
             
-            alreadyDone = status.researched == status.total
+            local alreadyDone = status.researched == status.total
             
             -- Choose text and color
             local text, r, g, b
