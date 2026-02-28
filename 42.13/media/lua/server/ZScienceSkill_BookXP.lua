@@ -1,6 +1,6 @@
 -- Grant Science XP when reading skill books or science literature
 require "ZScienceSkill/Data"
-require 'zsHook'
+require 'zHook'
 
 -- MP:
 -- ISReadABook:perform()  is called on client ONLY
@@ -8,7 +8,7 @@ require 'zsHook'
 
 -- SP: both are called, perform() -> complete()
 
-zsHook(ISReadABook, {
+zHook(ISReadABook, {
     complete = function(orig, self)
         local isAlreadyRead = self.isLiteratureRead -- may be set by ISReadABook:perform(), but not in all contexts
         if isAlreadyRead == nil then
@@ -45,4 +45,4 @@ zsHook(ISReadABook, {
 
         return result
     end -- complete
-}) -- zsHook
+}) -- zHook

@@ -191,12 +191,13 @@ local sciXP = 10
 local docXP = 20
 ZScienceSkill.Data.add({ specimens = {
     ["Base.Antibiotics"]          = { Science = sciXP, Doctor = docXP },
+    ["Base.Coffee2"]              = { Science = sciXP/2 },
     ["Base.Coldpack"]             = { Science = sciXP, Doctor = docXP/2 }, -- TODO: recipe?
     ["Base.Pills"]                = { Science = sciXP, Doctor = docXP },
     ["Base.PillsAntiDep"]         = { Science = sciXP, Doctor = docXP },
     ["Base.PillsBeta"]            = { Science = sciXP, Doctor = docXP },
     ["Base.PillsSleepingTablets"] = { Science = sciXP, Doctor = docXP },
-    ["Base.PillsVitamins"]        = { Science = sciXP, Doctor = docXP },
+    ["Base.PillsVitamins"]        = { Science = sciXP, Doctor = docXP }, -- caffeine pills
     ["Base.Stethoscope"]          = { Science = sciXP, Doctor = docXP },
     ["Base.SutureNeedle"]         = { Science = sciXP, Doctor = docXP },
     ["Base.TongueDepressor"]      = { Science = sciXP/2, Doctor = docXP/2 }, -- make it useful for something
@@ -204,10 +205,12 @@ ZScienceSkill.Data.add({ specimens = {
 
 
 -- Farming / Agriculture
+local sciXP  =  5
 local farmXP = 10
-local sciXP = farmXP/2
 ZScienceSkill.Data.add({ specimens = {
     ["Base.Fertilizer"]            = { Science = sciXP, Farming = farmXP*2 }, -- TODO: recipe?
+    ["Base.GardeningSprayEmpty"]   = { Science = sciXP, Farming = farmXP*2 },
+    ["Base.SlugRepellent"]         = { Science = sciXP, Farming = farmXP*2 },
 
     -- wild foraged plants
     ["Base.Acorn"]                 = { Science = sciXP, Farming = farmXP },
@@ -332,9 +335,10 @@ ZScienceSkill.Data.add({ specimens = {
 }})
 
 
--- Chemistry / household chemicals
+-- cooking / household
 ZScienceSkill.Data.add({ specimens = {
     ["Base.BouillonCube"]    = { Science =  5, Cooking = 10 },  -- recipe?
+    ["Base.Flour2"]          = { Science =  5, Cooking = 10 },
     ["Base.SugarCubes"]      = { Science =  5, Cooking = 10 },  -- recipe?
 
     ["Base.BakingSoda"]      = { Science = 20, Cooking = 20 },  -- sodium bicarbonate
@@ -354,6 +358,7 @@ ZScienceSkill.Data.add({ specimens = {
     ["Base.Oxygen_Tank"]    = 25,
     ["Base.Propane_Refill"] = 20,
     ["Base.PropaneTank"]    = { Science = 30, MetalWelding = 30 },
+    ["Base.WeldingRods"]    = { Science =  5, MetalWelding = 10 },
 }})
 
 
@@ -417,8 +422,9 @@ ZScienceSkill.Data.add({ specimens = {
     ["Base.WalkieTalkie5"]       = { Science = 20, Electricity = 20, key = "Base.WalkieTalkie" },
 
     -- movables)))
-    ["Base.Mov_DesktopComputer"] = { Science = 25, Electricity = 25 },
-    ["Base.Mov_SatelliteDish"]   = { Science = 25, Electricity = 25 },
+    ["Base.appliances_com_01_47"] = { Science = 25, Electricity = 25 }, -- big camera
+    ["Base.Mov_DesktopComputer"]  = { Science = 25, Electricity = 25 },
+    ["Base.Mov_SatelliteDish"]    = { Science = 25, Electricity = 25 },
 }})
 
 
@@ -499,6 +505,7 @@ ZScienceSkill.Data.add({ specimens = {
 -- Trapping
 ZScienceSkill.Data.add({ specimens = {
     ["Base.RatPoison"]      = { Science =  5, Trapping =  5 }, -- recipes?
+    ["Base.TrapCage"]       = { Science =  5, Trapping = 15 },
     ["Base.TrapMouse"]      = { Science =  5, Trapping = 10 },
 }})
 
@@ -530,9 +537,11 @@ ZScienceSkill.Data.add({ specimens = {
     ["Base.BurlapPiece"]          = { Science =  2, Tailoring = 10 },
     ["Base.CheeseCloth"]          = { Science =  2, Tailoring =  5 },
     ["Base.Dogbane"]              = { Science =  2, Tailoring = 10 },
+    ["Base.MeasuringTape"]        = { Science =  1, Tailoring = 10 },
     ["Base.Tarp"]                 = { Science =  2, Tailoring =  7 },
     ["Base.Thread_Sinew"]         = { Science =  5, Tailoring =  5 },
     ["Base.Twine"]                = { Science =  2, Tailoring =  5 },
+    ["Base.Yarn"]                 = { Science =  2, Tailoring =  5 },
 
     ["Base.DeerLeather_Fur_Tan"]  = { Science = 10, Tailoring = 15 }, -- TODO: convert to scraps / other leather types
 
@@ -543,6 +552,7 @@ ZScienceSkill.Data.add({ specimens = {
 
 -- Animal Care
 ZScienceSkill.Data.add({ specimens = {
+    ["Base.AnimalFeedBag"]    = { Science = 5, Husbandry = 10 }, -- recipe?
     ["Base.AnimalMilkPowder"] = { Science = 5, Husbandry = 10, Cooking = 5 },
 }})
 

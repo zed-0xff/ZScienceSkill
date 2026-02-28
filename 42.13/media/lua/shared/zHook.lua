@@ -5,7 +5,7 @@
 --   wrapper(orig, ...) where orig is the original function and ... are the call arguments.
 --   When the method is called as obj:methodName(...), the wrapper receives (orig, obj, ...).
 --   The wrapper should call orig(...) to invoke the original and may return its return value(s).
-function zsHook(obj, hooks)
+function zHook(obj, hooks)
     if not obj or not hooks then return end
 
     for methodName, wrapper in pairs(hooks) do
@@ -16,10 +16,10 @@ function zsHook(obj, hooks)
                     return wrapper(orig, ...)
                 end
             else
-                print("[!] zsHook: " .. tostring(methodName) .. " has no wrapper, but " .. tostring(type(wrapper)))
+                print("[!] zHook: " .. tostring(methodName) .. " has no wrapper, but " .. tostring(type(wrapper)))
             end
         else
-            print("[?] zsHook: " .. tostring(methodName) .. " is not a function, but " .. tostring(type(orig)))
+            print("[?] zHook: " .. tostring(methodName) .. " is not a function, but " .. tostring(type(orig)))
         end
     end
 end

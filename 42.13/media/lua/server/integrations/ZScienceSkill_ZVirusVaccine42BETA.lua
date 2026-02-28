@@ -1,9 +1,9 @@
 local LabAutopsyLogic = require 'HealthSystem/LabAutopsyLogic_Server'
 if not LabAutopsyLogic then return end
 
-require 'zsHook'
+require 'zHook'
 
-zsHook(LabAutopsyLogic, {
+zHook(LabAutopsyLogic, {
     ProcessAutopsy = function(orig, player, ...)
         local medXpBefore = nil
         if player and player.getXp then
@@ -22,4 +22,4 @@ zsHook(LabAutopsyLogic, {
 
         return result
     end -- ProcessAutopsy
-}) -- zsHook
+}) -- zHook

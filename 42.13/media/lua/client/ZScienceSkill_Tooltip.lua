@@ -2,9 +2,9 @@
 require "ISUI/ISToolTipInv"
 require "ZScienceSkill/Data"
 require "ZScienceSkill_ModOptions"
-require "zsHook"
+require "zHook"
 
-zsHook(ISToolTipInv, {
+zHook(ISToolTipInv, {
     render = function(orig, self, ...)
         orig(self, ...)
 
@@ -38,4 +38,4 @@ zsHook(ISToolTipInv, {
         
         self:drawText(text, x - self:getX(), y - self:getY(), r, g, b, 1.0, UIFont.Small)
     end -- render
-}) -- zsHook
+}) -- zHook

@@ -3,12 +3,12 @@
 -- Green tick: researched specimens (optional)
 require "ZScienceSkill/Data"
 require "ZScienceSkill_ModOptions"
-require 'zsHook'
+require 'zHook'
 
 local TEX_R    = getTexture("media/ui/R_Mark_Gray.png")
 local TEX_TICK = getTexture("media/ui/Tick_Mark-10.png")
 
-zsHook( ISInventoryPane, {
+zHook( ISInventoryPane, {
     renderdetails = function(orig, self, doDragged, ...)
         orig(self, doDragged, ...)
 
@@ -60,4 +60,4 @@ zsHook( ISInventoryPane, {
             y = y + 1
         end -- for
     end -- renderdetails
-}) -- zsHook
+}) -- zHook

@@ -25,9 +25,10 @@ local function applyPreResearchedSpecimens(player)
     player:transmitModData()
 end
 
-local function onNewGame(player)
-    local player = getPlayer()
-    if player then applyPreResearchedSpecimens(player) end
+local function onCreatePlayer(playerNum, playerObj)
+    if not playerObj then return end
+
+    applyPreResearchedSpecimens(playerObj)
 end
 
-Events.OnNewGame.Add(onNewGame)
+Events.OnCreatePlayer.Add(onCreatePlayer)
