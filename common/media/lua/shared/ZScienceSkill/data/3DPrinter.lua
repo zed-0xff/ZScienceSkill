@@ -5,13 +5,17 @@ local filamentXP = 10
 ZScienceSkill.Data.add({
     specimens = {
         -- Filaments (polymer science / materials science)
-        ["Printer3D.Filament3D_Blue"] = filamentXP,
-        ["Printer3D.Filament_Green"]  = filamentXP,
-        ["Printer3D.Filament_Yellow"] = filamentXP,
-        ["Printer3D.Filament_Orange"] = filamentXP,
-        ["Printer3D.Filament_Violet"] = filamentXP,
-        ["Printer3D.Filament_Brown"]  = filamentXP,
+        ["Printer3D.Filament3D_Blue"]   = filamentXP,
+        ["Printer3D.Filament_Green"]    = filamentXP,
+        ["Printer3D.Filament_Yellow"]   = filamentXP,
+        ["Printer3D.Filament_Orange"]   = filamentXP,
+        ["Printer3D.Filament_Violet"]   = filamentXP,
+        ["Printer3D.Filament_Brown"]    = filamentXP,
+
+        -- printers
+        ["Printer3D.Printer3DPortable"] = { Science = 20, Electricity = 20 },
     },
+
     literatureReadOnce = {
         -- Design blueprints (technical documentation)
         ["Printer3D.Design_Basics"]     = 10, -- 14 pages
