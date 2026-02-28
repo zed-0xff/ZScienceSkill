@@ -2,7 +2,7 @@ local LabAutopsyLogic = require 'HealthSystem/LabAutopsyLogic_Server'
 if not LabAutopsyLogic then return end
 
 zbHook({
-    LabAutopsyLogic = {
+    [LabAutopsyLogic] = { -- XXX hook the required object, not declared as global
         ProcessAutopsy = function(orig, player, ...)
             local medXpBefore = nil
             if player and player.getXp then
