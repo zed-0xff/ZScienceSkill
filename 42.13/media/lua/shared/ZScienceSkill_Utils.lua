@@ -133,7 +133,7 @@ end
 
 
 -- add XP to Science perk based on ZScienceSkill.Data tables
-function ZScienceSkill.addXpFromTable(character, tbl, key)
+function ZScienceSkill.addXpFromTable(character, tbl, key, item)
     if type(tbl) ~= "table" then
         print("[?] ZScienceSkill: table expected for XP data, got type=" .. type(tbl) .. ", tbl=" .. tostring(tbl) .. ", key=" .. tostring(key))
         return false
@@ -145,8 +145,16 @@ function ZScienceSkill.addXpFromTable(character, tbl, key)
         return false
     end
 
+    local mult = 1.0
+    if item and ZItemTiers and ZItemTiers.GetItemTierIndex0 then
+        local tierIdx0 = ZItemTiers.GetItemTierIndex0(item)
+        if type(tierIdx0) == "number" then
+            mult = mult + 0.1 * tierIdx0 -- add 10% XP per tier, so tier 0 = no bonus, tier 1 = +10%, tier 2 = +20%, etc.
+        end
+    end
+
     if type(val) == "number" then
-        addXp(character, Perks.Science, val)
+        addXp(character, Perks.Science, val * mult)
         return true
     end
     if type(val) == "table" then
@@ -156,7 +164,7 @@ function ZScienceSkill.addXpFromTable(character, tbl, key)
                     perk = Perks[perk]
                 end
                 if perk and type(xp) == "number" then
-                    addXp(character, perk, xp)
+                    addXp(character, perk, xp * mult)
                 end
             end
         end

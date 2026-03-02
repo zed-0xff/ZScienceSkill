@@ -24,12 +24,12 @@ zbHook({
                 modData.researchedSpecimens = modData.researchedSpecimens or {}
                 if not modData.researchedSpecimens[fullType] then
                     modData.researchedSpecimens[fullType] = true
-                    ZScienceSkill.addXpFromTable(self.character, ZScienceSkill.Data.literatureReadOnce, fullType)
+                    ZScienceSkill.addXpFromTable(self.character, ZScienceSkill.Data.literatureReadOnce, fullType, self.item)
                 end
             elseif isAlreadyRead == false then -- strict comparison, to not grant extra XP when status is unknown
                 -- Check if this is science literature
                 if ZScienceSkill.Data.literature[fullType] then
-                    ZScienceSkill.addXpFromTable(self.character, ZScienceSkill.Data.literature, fullType)
+                    ZScienceSkill.addXpFromTable(self.character, ZScienceSkill.Data.literature, fullType, self.item)
                 -- Check if this was a skill book
                 elseif SkillBook and SkillBook[self.item:getSkillTrained()] and self.item:getSkillTrained() ~= "Science" then
                     local lvl = self.item:getLvlSkillTrained() or 1

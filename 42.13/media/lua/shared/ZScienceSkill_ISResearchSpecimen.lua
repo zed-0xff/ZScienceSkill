@@ -112,14 +112,33 @@ function ISResearchSpecimen:update()
 end
 
 function ISResearchSpecimen:stop()
-    self.character:setReading(false)
     self.item:setJobDelta(0.0)
+    self.character:setReading(false)
     ISBaseTimedAction.stop(self)
+end
+
+if ISResearchRecipe.sendShowText then
+    ISResearchSpecimen.sendShowText = ISResearchRecipe.sendShowText
+else
+    print "[?] ISResearchSpecimen: ISResearchRecipe.sendShowText not found, show text will not be sent to clients"
 end
 
 -- Called by Java networking on server in MP to apply action effects
 -- This is where XP and ModData changes should happen for proper MP sync
 function ISResearchSpecimen:complete()
+    self.item:setJobDelta(0.0)
+
+    -- learn all of the learnable recipes in the item - as in vanilla ISResearchRecipe
+    if self.scriptItem then
+        if isServer() and self.sendShowText then
+            self:sendShowText()
+        end
+
+        self.scriptItem:researchRecipes(self.character);
+        --PF_Recipes
+        sendSyncPlayerFields(self.character, 0x00000001);
+    end
+
     local status = ZScienceSkill.getItemStatus(self.item, self.character)
     if not status then return true end
     if status.researched == status.total then return true end -- already fully researched, nothing to do
@@ -151,11 +170,11 @@ function ISResearchSpecimen:complete()
     if fluidType then
         researchKey = "Fluid:" .. fluidType
         -- Grant XP for each perk defined for this fluid
-        ZScienceSkill.addXpFromTable(self.character, ZScienceSkill.Data.fluids, fluidType)
+        ZScienceSkill.addXpFromTable(self.character, ZScienceSkill.Data.fluids, fluidType, self.item)
     elseif fullType then
         -- Regular specimen
         researchKey = ZScienceSkill.getSpecimenResearchKey(fullType)
-        ZScienceSkill.addXpFromTable(self.character, ZScienceSkill.Data.specimens, fullType)
+        ZScienceSkill.addXpFromTable(self.character, ZScienceSkill.Data.specimens, fullType, self.item)
     else
         print("[?] ISResearchSpecimen: could not determine research key for item " .. ZScienceSkill.getItemFullType(self.item))
         return true
@@ -235,6 +254,7 @@ function ISResearchSpecimen:new(character, item)
     o.character = character
     o.playerNum = character:getPlayerNum()
     o.item = item
+    o.scriptItem = item:getScriptItem() -- for recipe research, is in vanilla ISResearchRecipe
     o.ignoreHandsWounds = true
     o.maxTime = o:getDuration()
     o.caloriesModifier = 0.5
