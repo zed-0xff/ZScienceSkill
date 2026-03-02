@@ -34,38 +34,16 @@ local function findNearbyMicroscope(character)
     return nil
 end
 
--- Get all accessible inventories for a character (main + equipped bags + hand-held bags)
+-- Get all accessible inventories for a character (main + equipped bags + hand-held bags + reachable containers)
+-- can be removed in favor of using ISInventoryPaneContextMenu.getContainers() directly
 local function getAccessibleInventories(character)
-    local inventories = { character:getInventory() }
-    local seen = {}  -- Track seen inventories to avoid duplicates
-    seen[character:getInventory()] = true
-    
-    local function addInventory(item)
-        if item and item.getInventory then
-            local inv = item:getInventory()
-            if inv and not seen[inv] then
-                seen[inv] = true
-                table.insert(inventories, inv)
-            end
-        end
+    local containers = ISInventoryPaneContextMenu.getContainers(character)
+    local tbl = {}
+    for i = 0, containers:size() - 1 do
+        local cont = containers:get(i)
+        table.insert(tbl, cont)
     end
-    
-    -- Check equipped/worn bags (backpack, fanny pack, etc.)
-    local wornItems = character:getWornItems()
-    if wornItems then
-        for i = 0, wornItems:size() - 1 do
-            local wornSlot = wornItems:get(i)
-            if wornSlot then
-                addInventory(wornSlot:getItem())
-            end
-        end
-    end
-    
-    -- Check hand-held items (bags held in hands)
-    addInventory(character:getPrimaryHandItem())
-    addInventory(character:getSecondaryHandItem())
-    
-    return inventories
+    return tbl
 end
 
 -- Check if character has item in any accessible inventory
@@ -142,63 +120,87 @@ end
 -- Called by Java networking on server in MP to apply action effects
 -- This is where XP and ModData changes should happen for proper MP sync
 function ISResearchSpecimen:complete()
-    local fullType = self.item:getFullType()
-    local fluidType = ZScienceSkill.getFluidType(self.item)
+    local status = ZScienceSkill.getItemStatus(self.item, self.character)
+    if not status then return true end
+    if status.researched == status.total then return true end -- already fully researched, nothing to do
+
+    local fullType
+    local fluidType
+
+    for _, entry in ipairs(status.data) do
+        if not entry.researched then
+            if entry.type == "fluid" then
+                fluidType = ZScienceSkill.getFluidType(self.item)
+                if not fluidType then
+                    print("[?] ISResearchSpecimen: could not determine fluid type for item " .. ZScienceSkill.getItemFullType(self.item))
+                    return true
+                end
+                break
+            elseif entry.type == "specimen" then
+                fullType = self.item:getFullType()
+                break
+            else
+                print("[?] ISResearchSpecimen: unknown research type '" .. tostring(entry.type) .. "' for item " .. ZScienceSkill.getItemFullType(self.item))
+                -- continue checking other entries
+            end
+        end
+    end
+
     local researchKey
-    local isFluid = false
-    
-    -- Check if this is a fluid research
-    if fluidType and ZScienceSkill.Data.fluids and ZScienceSkill.Data.fluids[fluidType] then
-        isFluid = true
+
+    if fluidType then
         researchKey = "Fluid:" .. fluidType
         -- Grant XP for each perk defined for this fluid
         ZScienceSkill.addXpFromTable(self.character, ZScienceSkill.Data.fluids, fluidType)
-    end
-    
-    -- Regular specimen
-    if not isFluid then
+    elseif fullType then
+        -- Regular specimen
         researchKey = ZScienceSkill.getSpecimenResearchKey(fullType)
         ZScienceSkill.addXpFromTable(self.character, ZScienceSkill.Data.specimens, fullType)
+    else
+        print("[?] ISResearchSpecimen: could not determine research key for item " .. ZScienceSkill.getItemFullType(self.item))
+        return true
     end
     
     -- Update ModData
     self.character:getModData().researchedSpecimens = self.character:getModData().researchedSpecimens or {}
     self.character:getModData().researchedSpecimens[researchKey] = true
     
-    -- Track plants for Herbalist unlock
-    local plantType = nil
-    if ZScienceSkill.herbalistPlants and ZScienceSkill.herbalistPlants[fullType] then
-        plantType = fullType
-    end
-    
-    if plantType then
-        self.character:getModData().researchedPlants = self.character:getModData().researchedPlants or {}
+    if fullType then
+        -- Track plants for Herbalist unlock
+        local plantType = nil
+        if ZScienceSkill.herbalistPlants and ZScienceSkill.herbalistPlants[fullType] then
+            plantType = fullType
+        end
         
-        if not self.character:getModData().researchedPlants[plantType] then
-            self.character:getModData().researchedPlants[plantType] = true
+        if plantType then
+            self.character:getModData().researchedPlants = self.character:getModData().researchedPlants or {}
             
-            -- Count unique plants researched
-            local count = 0
-            for _ in pairs(self.character:getModData().researchedPlants) do
-                count = count + 1
-            end
-            
-            local required = ZScienceSkill.herbalistPlantsRequired or 10
-            local hasHerbalist = self.character:isRecipeActuallyKnown("Herbalist")
-            
-            -- Grant Herbalist recipe and trait if threshold reached
-            if count >= required and not hasHerbalist then
-                self.character:learnRecipe("Herbalist")
-                if not self.character:hasTrait(CharacterTrait.HERBALIST) then
-                    self.character:getCharacterTraits():add(CharacterTrait.HERBALIST)
+            if not self.character:getModData().researchedPlants[plantType] then
+                self.character:getModData().researchedPlants[plantType] = true
+                
+                -- Count unique plants researched
+                local count = 0
+                for _ in pairs(self.character:getModData().researchedPlants) do
+                    count = count + 1
                 end
-                -- Sync recipes (0x01) and traits (0x02) to client
-                sendSyncPlayerFields(self.character, 0x00000003)
-                -- Notify client to show unlock UI
-                sendServerCommand(self.character, "ZScienceSkill", "herbalistUnlocked", {})
-            elseif not hasHerbalist then
-                -- Notify client to show progress hint
-                sendServerCommand(self.character, "ZScienceSkill", "herbalistProgress", { count = count })
+                
+                local required = ZScienceSkill.herbalistPlantsRequired or 10
+                local hasHerbalist = self.character:isRecipeActuallyKnown("Herbalist")
+                
+                -- Grant Herbalist recipe and trait if threshold reached
+                if count >= required and not hasHerbalist then
+                    self.character:learnRecipe("Herbalist")
+                    if not self.character:hasTrait(CharacterTrait.HERBALIST) then
+                        self.character:getCharacterTraits():add(CharacterTrait.HERBALIST)
+                    end
+                    -- Sync recipes (0x01) and traits (0x02) to client
+                    sendSyncPlayerFields(self.character, 0x00000003)
+                    -- Notify client to show unlock UI
+                    sendServerCommand(self.character, "ZScienceSkill", "herbalistUnlocked", {})
+                elseif not hasHerbalist then
+                    -- Notify client to show progress hint
+                    sendServerCommand(self.character, "ZScienceSkill", "herbalistProgress", { count = count })
+                end
             end
         end
     end
