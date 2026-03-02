@@ -193,6 +193,8 @@ ZScienceSkill.Data.add({ specimens = {
     ["Base.Antibiotics"]          = { Science = sciXP, Doctor = docXP },
     ["Base.Coffee2"]              = { Science = sciXP/2 },
     ["Base.Coldpack"]             = { Science = sciXP, Doctor = docXP/2 }, -- TODO: recipe?
+    ["Base.Hat_HeadMirrorDOWN"]   = { Science = sciXP, Doctor = docXP, key = "Base.Hat_HeadMirror" },
+    ["Base.Hat_HeadMirrorUP"]     = { Science = sciXP, Doctor = docXP, key = "Base.Hat_HeadMirror" },
     ["Base.Pills"]                = { Science = sciXP, Doctor = docXP },
     ["Base.PillsAntiDep"]         = { Science = sciXP, Doctor = docXP },
     ["Base.PillsBeta"]            = { Science = sciXP, Doctor = docXP },
@@ -201,6 +203,12 @@ ZScienceSkill.Data.add({ specimens = {
     ["Base.Stethoscope"]          = { Science = sciXP, Doctor = docXP },
     ["Base.SutureNeedle"]         = { Science = sciXP, Doctor = docXP },
     ["Base.TongueDepressor"]      = { Science = sciXP/2, Doctor = docXP/2 }, -- make it useful for something
+
+    -- movables
+    ["Base.location_community_medical_01_24"] = { Science = sciXP, Doctor = docXP*2, key = "Base.iv_stand" },
+    ["Base.location_community_medical_01_25"] = { Science = sciXP, Doctor = docXP*2, key = "Base.iv_stand" },
+    ["Base.location_community_medical_01_26"] = { Science = sciXP, Doctor = docXP*2, key = "Base.iv_stand" },
+    ["Base.location_community_medical_01_27"] = { Science = sciXP, Doctor = docXP*2, key = "Base.iv_stand" },
 }})
 
 
@@ -429,6 +437,11 @@ ZScienceSkill.Data.add({ specimens = {
     ["Base.appliances_com_01_47"] = { Science = 25, Electricity = 25 }, -- big camera
     ["Base.Mov_DesktopComputer"]  = { Science = 25, Electricity = 25 },
     ["Base.Mov_SatelliteDish"]    = { Science = 25, Electricity = 25 },
+
+    ["Base.location_community_medical_01_136"] = { Science = 25, key = "microscope" },
+    ["Base.location_community_medical_01_137"] = { Science = 25, key = "microscope" },
+    ["Base.location_community_medical_01_138"] = { Science = 25, key = "microscope" },
+    ["Base.location_community_medical_01_139"] = { Science = 25, key = "microscope" },
 }})
 
 
@@ -492,6 +505,7 @@ ZScienceSkill.Data.add({ specimens = {
     ["Base.File"]            = { Mechanics =  5 },
     ["Base.HandDrill"]       = { Mechanics = 10, Woodwork = 10, Science = 5 },
     ["Base.Hinge"]           = { Mechanics =  5, Woodwork = 5 },
+    ["Base.Jack"]            = { Mechanics = 10 },
     ["Base.LargeHook"]       = { Mechanics =  5 },
     ["Base.LugWrench"]       = { Mechanics =  5 },
     ["Base.Padlock"]         = { Mechanics = 10, Science =  5 },
