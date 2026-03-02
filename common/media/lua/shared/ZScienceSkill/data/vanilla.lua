@@ -359,6 +359,7 @@ ZScienceSkill.Data.add({ specimens = {
     ["Base.Oxygen_Tank"]    = 25,
     ["Base.Propane_Refill"] = 20,
     ["Base.PropaneTank"]    = { Science = 30, MetalWelding = 30 },
+    ["Base.WeldingMask"]    = { Science =  5, MetalWelding = 10 },
     ["Base.WeldingRods"]    = { Science =  5, MetalWelding = 10 },
 }})
 
@@ -402,6 +403,7 @@ ZScienceSkill.Data.add({ specimens = {
     ["Base.Amplifier"]           = { Science = 15, Electricity = 20 },
     ["Base.CarBatteryCharger"]   = { Science = 10, Electricity = 20 },
     ["Base.CDplayer"]            = { Science = 10, Electricity = 20 },
+    ["Base.Timer"]               = { Science =  5 },
     ["Base.TimerCrafted"]        = { Science = 15, Electricity = 20 },
     ["Base.TriggerCrafted"]      = { Science = 15, Electricity = 20 }, -- TODO: learn recipe?
     ["Base.HamRadio2"]           = { Science = 20, Electricity = 25 },
