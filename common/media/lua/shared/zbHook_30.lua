@@ -1,4 +1,4 @@
-local version = 2.0
+local version = 3.0
 
 if type(zbHook_VERSION) == "number" and zbHook_VERSION >= version then return end
 
@@ -47,6 +47,36 @@ local function isCallable(obj)
     return type(mt) == "table" and type(mt.__call) == "function"
 end
 
+local function hookTable(tbl, hooks, objName, objDisplayName)
+    local nHooked = 0
+    for methodName, wrapper in pairs(hooks) do
+        local orig = tbl[methodName]
+        if orig ~= wrapper then -- skip duplicate hooks
+            if isCallable(orig) then
+                if isCallable(wrapper) then
+                    tbl[methodName] = named_function( objName, methodName, orig, wrapper )
+                    nHooked = nHooked + 1
+                else
+                    print("[!] zbHook: " .. objDisplayName .. "." .. tostring(methodName) .. " wrapper is not callable, type=" .. type(wrapper))
+                end
+            else
+                print("[?] zbHook: " .. objDisplayName .. "." .. tostring(methodName) .. " is not callable, type=" .. type(orig))
+            end
+        end
+    end
+    return nHooked
+end
+
+local function hookMetaTable(obj, hooks, objName, objDisplayName)
+    local mt = getmetatable(obj)
+    if not mt then return end
+
+    local index = mt.__index
+    if not index then return end
+
+    return hookTable(index, hooks, objName, objDisplayName)
+end
+
 local function hookObj(objName, hooks)
     local obj = nil
     if type(objName) == "string" then
@@ -58,42 +88,27 @@ local function hookObj(objName, hooks)
 
     local objDisplayName = objName or tostring(obj)
 
-    if type(obj) ~= "table" then
-        print("[!] zbHook: expected " .. objDisplayName .. " to be a table, got " .. tostring(type(obj)))
-        return 0
-    end
-
     if type(hooks) ~= "table" then
-        print("[!] zbHook: expected hooks for " .. objDisplayName .. " to be a table, got " .. tostring(type(hooks)))
+        print("[!] zbHook: expected hooks for " .. objDisplayName .. " to be a table, got " .. type(hooks))
         return 0
     end
 
-    nHooked = 0
-    for methodName, wrapper in pairs(hooks) do
-        local orig = obj[methodName]
-        if isCallable(orig) then
-            if isCallable(wrapper) then
-                obj[methodName] = named_function( objName, methodName, orig, wrapper )
-                nHooked = nHooked + 1
-            else
-                print("[!] zbHook: " .. objDisplayName .. "." .. tostring(methodName) .. " wrapper is not callable, type=" .. tostring(type(wrapper)))
-            end
-        else
-            print("[?] zbHook: " .. objDisplayName .. "." .. tostring(methodName) .. " is not callable, type=" .. tostring(type(orig)))
-        end
-    end
-    return nHooked
+    if type(obj) == "table"    then return hookTable(obj, hooks, objName, objDisplayName) end
+    if type(obj) == "userdata" then return hookMetaTable(obj, hooks, objName, objDisplayName) end
+
+    print("[?] zbHook: expected " .. objDisplayName .. " to be a table or userdata, got " .. type(obj))
+    return 0
 end
 
 --- Hooks methods on an object by wrapping them with custom functions.
 -- @param tbl table of the form { obj1 = { methodName1 = wrapper1, methodName2 = wrapper2, ... }, obj2 = { ... }, ... }
 function zbHook(tbl)
     if type(tbl) ~= "table" then
-        print("[!] zbHook: expected a table, got " .. tostring(type(tbl)))
+        print("[!] zbHook: expected a table, got " .. type(tbl))
         return
     end
 
-    nHooked = 0
+    local nHooked = 0
     for objName, methods in pairs(tbl) do
         nHooked = nHooked + hookObj(objName, methods)
     end
