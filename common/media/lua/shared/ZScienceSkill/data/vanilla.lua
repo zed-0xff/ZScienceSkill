@@ -478,6 +478,7 @@ ZScienceSkill.Data.add({ specimens = {
     ["Base.GlassBlowingPipe"]         = { Science = 10, Glassmaking = 20 },
     ["Base.GlassBlowingPipeUnfired"]  = { Science = 10, Glassmaking = 20, key = "Base.GlassBlowingPipe" },
     ["Base.Glasses_3dGlasses"]        = { Science =  5, Glassmaking = 10 },
+    ["Base.Glasses_HalfMoon"]         = { Science =  5, Glassmaking = 10 }, -- Half Moon Prescription Glasses
     ["Base.Glasses_Normal"]           = { Science =  5, Glassmaking = 10 }, -- Prescription Glasses renamed in 42.14 ?
     ["Base.Glasses_Prescription"]     = { Science =  5, Glassmaking = 10 },
     ["Base.Glasses_Prescription_Sun"] = { Science =  5, Glassmaking = 10 },
@@ -555,7 +556,8 @@ ZScienceSkill.Data.add({ specimens = {
 
 -- Firearms
 ZScienceSkill.Data.add({ specimens = {
-    ["Base.ChokeTubeFull"]   = { Science = 5, Aiming = 10 },
+    ["Base.ChokeTubeFull"]   = { Science = 5,  Aiming = 10 },
+    ["Base.x4Scope"]         = { Science = 10, Aiming = 20, Glassmaking = 10 },
 }})
 
 
