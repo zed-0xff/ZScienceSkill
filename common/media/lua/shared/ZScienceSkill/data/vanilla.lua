@@ -577,6 +577,11 @@ ZScienceSkill.Data.add({ specimens = {
 
     ["Base.Leather_Crude_Medium"]         = { Science = 10, Tailoring = 15 },
     ["Base.Leather_Crude_Medium_Tan_Wet"] = { Science = 10, Tailoring = 10 },
+
+    ["Base.crafted_04_36"]        = { Science = 5, Tailoring = 20, key = "spinning_wheel" },
+    ["Base.crafted_04_37"]        = { Science = 5, Tailoring = 20, key = "spinning_wheel" },
+    ["Base.crafted_04_38"]        = { Science = 5, Tailoring = 20, key = "spinning_wheel" },
+    ["Base.crafted_04_39"]        = { Science = 5, Tailoring = 20, key = "spinning_wheel" },
 }})
 
 
@@ -585,6 +590,7 @@ ZScienceSkill.Data.add({ specimens = {
     ["Base.AnimalFeedBag"]    = { Science = 5, Husbandry = 10 }, -- recipe?
     ["Base.AnimalMilkPowder"] = { Science = 5, Husbandry = 10, Cooking = 5 },
     ["Base.HayTuft"]          = { Science = 5, Husbandry = 10 },
+    ["Base.Mov_SaltLick"]     = { Science = 5, Husbandry = 20 }, -- craft salt for preserved food?
 }})
 
 
