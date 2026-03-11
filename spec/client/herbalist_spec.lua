@@ -66,7 +66,7 @@ describe("Herbalist unlock", function()
         end
         
         -- All 5 plants should be tracked
-        local plants = player:getModData().researchedPlants
+        local plants = player:getModData().ZScienceSkill.researchedPlants
         for i = 1, 5 do
             assert.is_true(plants[HERBALIST_PLANTS[i]])
         end

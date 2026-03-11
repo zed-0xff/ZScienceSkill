@@ -37,11 +37,9 @@ end
 -- Perform research on a specimen
 function research_specimen(player, item)
     if isServer() then
-        local modData = get_player():getModData()
-        modData.researchedSpecimens = modData.researchedSpecimens or {}
         local fullType = ZScienceSkill.getItemFullType(item)
         if fullType then
-            modData.researchedSpecimens[ZScienceSkill.getSpecimenResearchKey(fullType)] = true
+            ZScienceSkill.setResearched(player, fullType)
         else
             error("Item does not have a valid full type for research: " .. tostring(item))
         end
@@ -52,8 +50,6 @@ function research_specimen(player, item)
 end
 
 -- Clear player's research data
-function clear_research_data(player)
-    ZBSpec.all_exec("(getPlayer() or getOnlinePlayers():get(0)):getModData().researchedSpecimens = nil")
-    ZBSpec.all_exec("(getPlayer() or getOnlinePlayers():get(0)):getModData().researchedPlants = nil")
-    ZBSpec.all_exec("(getPlayer() or getOnlinePlayers():get(0)):getModData().readLiteratureOnce = nil")
+function clear_research_data()
+    ZBSpec.all_exec("table.wipe( ZScienceSkill.getPlayerZSData( getPlayer() or getOnlinePlayers():get(0) ))")
 end

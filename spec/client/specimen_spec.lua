@@ -1,4 +1,12 @@
 describe(ISResearchSpecimen, function()
+    before_each(function()
+        clear_research_data()
+    end)
+
+    after_each(function()
+        clear_research_data()
+    end)
+
     describe(".isSpecimen", function()
         it("identifies Cricket as a specimen", function()
             local cricket = create_item("Base.Cricket")
@@ -19,9 +27,6 @@ describe(ISResearchSpecimen, function()
         it("returns false for a new specimen", function()
             local specimen = create_item("Base.Specimen_Brain")
             assert.is_not_nil(specimen)
-            -- Clear any existing research data
-            player:getModData().researchedSpecimens = player:getModData().researchedSpecimens or {}
-            player:getModData().researchedSpecimens[specimen:getFullType()] = nil
             
             assert.is_false(described_class.isResearched(player, specimen))
         end)
@@ -30,13 +35,11 @@ describe(ISResearchSpecimen, function()
             local specimen = create_item("Base.Specimen_Brain")
             assert.is_not_nil(specimen)
             
-            player:getModData().researchedSpecimens = player:getModData().researchedSpecimens or {}
-            player:getModData().researchedSpecimens[specimen:getFullType()] = true
+            local pzsData = ZScienceSkill.getPlayerZSData(player)
+            pzsData.researchedSpecimens = pzsData.researchedSpecimens or {}
+            pzsData.researchedSpecimens[specimen:getFullType()] = true
             
             assert.is_true(described_class.isResearched(player, specimen))
-            
-            -- Cleanup
-            player:getModData().researchedSpecimens[specimen:getFullType()] = nil
         end)
     end)
 end)

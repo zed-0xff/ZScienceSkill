@@ -20,10 +20,7 @@ zbHook({
 
             -- Check if this is read-once literature
             if ZScienceSkill.Data.literatureReadOnce[fullType] then
-                local modData = self.character:getModData()
-                modData.researchedSpecimens = modData.researchedSpecimens or {}
-                if not modData.researchedSpecimens[fullType] then
-                    modData.researchedSpecimens[fullType] = true
+                if ZScienceSkill.setResearched(self.character, fullType) then
                     ZScienceSkill.addXpFromTable(self.character, ZScienceSkill.Data.literatureReadOnce, fullType, self.item)
                 end
             elseif isAlreadyRead == false then -- strict comparison, to not grant extra XP when status is unknown

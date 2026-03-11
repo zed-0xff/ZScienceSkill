@@ -181,8 +181,7 @@ function ISResearchSpecimen:complete()
     end
     
     -- Update ModData
-    self.character:getModData().researchedSpecimens = self.character:getModData().researchedSpecimens or {}
-    self.character:getModData().researchedSpecimens[researchKey] = true
+    ZScienceSkill.setResearched(self.character, researchKey)
     
     if fullType then
         -- Track plants for Herbalist unlock
@@ -192,14 +191,15 @@ function ISResearchSpecimen:complete()
         end
         
         if plantType then
-            self.character:getModData().researchedPlants = self.character:getModData().researchedPlants or {}
+            local pzsData = ZScienceSkill.getPlayerZSData(self.character)
+            pzsData.researchedPlants = pzsData.researchedPlants or {}
             
-            if not self.character:getModData().researchedPlants[plantType] then
-                self.character:getModData().researchedPlants[plantType] = true
+            if not pzsData.researchedPlants[plantType] then
+                pzsData.researchedPlants[plantType] = true
                 
                 -- Count unique plants researched
                 local count = 0
-                for _ in pairs(self.character:getModData().researchedPlants) do
+                for _ in pairs(pzsData.researchedPlants) do
                     count = count + 1
                 end
                 
@@ -263,9 +263,6 @@ function ISResearchSpecimen:new(character, item)
 end
 
 function ISResearchSpecimen.isResearched(character, item)
-    local modData = character:getModData().researchedSpecimens
-    if not modData then return false end -- nothing was researched yet
-
     local status = ZScienceSkill.getItemStatus(item, character)
     if not status then return end -- return nil if item has no research status (not a valid specimen)
 

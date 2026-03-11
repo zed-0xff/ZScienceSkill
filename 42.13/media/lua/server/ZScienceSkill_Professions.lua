@@ -10,19 +10,19 @@ local function applyPreResearchedSpecimens(player)
     local profId = getProfessionId(player)
     if not profId then return end
 
-    local modData = player:getModData()
-    modData.ZScienceSkill_ProfPreResearched = modData.ZScienceSkill_ProfPreResearched or {}
-    if modData.ZScienceSkill_ProfPreResearched[profId] then return end
+    local pzsData = ZScienceSkill.getPlayerZSData(player)
+    pzsData.profPreResearched = pzsData.profPreResearched or {}
 
-    local keys = ZScienceSkill.Data.profPreResearchedSpecimens and ZScienceSkill.Data.profPreResearchedSpecimens[profId]
-    if not keys or #keys == 0 then return end
+    if not pzsData.profPreResearched[profId] then
+        local keys = ZScienceSkill.Data.profPreResearchedSpecimens and ZScienceSkill.Data.profPreResearchedSpecimens[profId]
+        if not keys or #keys == 0 then return end
 
-    modData.researchedSpecimens = modData.researchedSpecimens or {}
-    for _, key in ipairs(keys) do
-        modData.researchedSpecimens[key] = true
+        for _, key in ipairs(keys) do
+            ZScienceSkill.setResearched(player, key)
+        end
+        pzsData.profPreResearched[profId] = true
+        player:transmitModData()
     end
-    modData.ZScienceSkill_ProfPreResearched[profId] = true
-    player:transmitModData()
 end
 
 local function onCreatePlayer(playerNum, playerObj)

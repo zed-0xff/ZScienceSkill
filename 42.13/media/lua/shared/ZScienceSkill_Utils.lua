@@ -1,5 +1,39 @@
 ZScienceSkill = ZScienceSkill or {}
 
+function ZScienceSkill.getPlayerZSData(player)
+    local modData = player:getModData()
+    modData.ZScienceSkill = modData.ZScienceSkill or {}
+    local pzsData = modData.ZScienceSkill
+
+    -- migrate old data
+    if modData.researchedSpecimens then
+        pzsData.researchedSpecimens = modData.researchedSpecimens
+        modData.researchedSpecimens = nil
+    end
+
+    if modData.researchedPlants then
+        pzsData.researchedPlants = modData.researchedPlants
+        modData.researchedPlants = nil
+    end
+
+    return pzsData
+end
+
+-- only sets key to true, caller is responsible for client/server sync
+function ZScienceSkill.setResearched(player, key)
+    if not player or not key then return false end
+
+    local pzsData = ZScienceSkill.getPlayerZSData(player)
+    pzsData.researchedSpecimens = pzsData.researchedSpecimens or {}
+
+    if pzsData.researchedSpecimens[key] then
+        return false
+    else
+        pzsData.researchedSpecimens[key] = true
+        return true
+    end
+end
+
 function ZScienceSkill.isCombatPerk(perk)
     local perkObj = PerkFactory.getPerk(perk)
     if not perkObj then return false end
@@ -35,19 +69,16 @@ end
 local function isSpecimenResearched(player, fullType)
     if not player or not fullType then return end
 
-    local modData = player:getModData().researchedSpecimens
-    if not modData then return false end
+    local pzsData = ZScienceSkill.getPlayerZSData(player)
+    if not pzsData.researchedSpecimens then return false end
 
     local researchKey = ZScienceSkill.getSpecimenResearchKey(fullType)
-    return modData[researchKey] or false
+    return pzsData.researchedSpecimens[researchKey] or false
 end
 
 -- returns nil only if any of the input params is nil, otherwise returns strict boolean
 local function isFluidResearched(player, fluidType)
-    if not player or not fluidType then return end
-
-    local modData = player:getModData().researchedSpecimens
-    return modData and modData["Fluid:" .. fluidType] or false
+    return isSpecimenResearched(player, "Fluid:" .. fluidType)
 end
 
 local function isLiteratureReadOnce(player, fullType)

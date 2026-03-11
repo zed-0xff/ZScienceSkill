@@ -20,17 +20,14 @@ describe("Specimen shared key", function()
 end)
 
 describe("Specimen research with shared key", function()
-    local player
+    local player = get_player()
     
     before_each(function()
-        player = get_player()
-        player:getModData().researchedSpecimens = nil
+        clear_research_data()
     end)
     
     it("researching one vinegar marks the shared key as researched", function()
-        local modData = player:getModData()
-        modData.researchedSpecimens = {}
-        modData.researchedSpecimens["Base.Vinegar"] = true
+        ZScienceSkill.setResearched(player, "Base.Vinegar")
         
         -- Both items should now be considered researched
         local vinegar2 = create_item("Base.Vinegar2")
@@ -41,9 +38,7 @@ describe("Specimen research with shared key", function()
     end)
     
     it("items without shared key use fullType as research key", function()
-        local modData = player:getModData()
-        modData.researchedSpecimens = {}
-        modData.researchedSpecimens["Base.BakingSoda"] = true
+        ZScienceSkill.setResearched(player, "Base.BakingSoda")
         
         local bakingSoda = create_item("Base.BakingSoda")
         assert.is_true(ISResearchSpecimen.isResearched(player, bakingSoda))
