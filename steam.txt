@@ -49,7 +49,7 @@ Pretty much anything that looks sciency:
 - And more!
 
 [h1]Requirements[/h1]
-- Game version: 42.13 / 42.14 SP/MP
+- Game version: 42.13 / 42.14 / 42.15 SP/MP
 - No other mods required
 
 [h1]Integrations[/h1]
