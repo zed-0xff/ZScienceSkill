@@ -417,7 +417,7 @@ ZScienceSkill.Data.add({ specimens = {
     ["Base.TimerCrafted"]        = { Science = 15, Electricity = 20 },
     ["Base.TriggerCrafted"]      = { Science = 15, Electricity = 20 }, -- TODO: learn recipe?
     ["Base.HamRadio2"]           = { Science = 20, Electricity = 25 },
-    ["Base.HomeAlarm"]           = { Science = 15, Electricity = 20 },
+    ["Base.HomeAlarm"]           = { Science = 15, Electricity = 20, Hacking = 15 },
     ["Base.MotionSensor"]        = { Science = 20, Electricity = 20 },
     ["Base.RadioRed"]            = { Science = 20, Electricity = 20 },
     ["Base.RadioReceiver"]       = { Science = 20, Electricity = 20 },
@@ -454,11 +454,12 @@ local sciXP = 10
 local blkXP = 20
 local metals = {
     Aluminum = { "Aluminum", "AluminumFragments", "AluminumScrap" },
+    Brass    = { "BrassIngot", "BrassScrap", "Needle_Brass", "BrassNameplate" },
     Bronze   = { "TrophyBronze", "Medal_Bronze" },
     Copper   = { "CopperOre", "CopperIngot", "CopperSheet", "SmallCopperSheet", "CopperScrap" },
     Gold     = { "GoldBar", "SmallGoldBar", "GoldScrap", "GoldSheet", "GoldCoin", "Medal_Gold", "TrophyGold" },
     Iron     = { "IronBar", "IronBarHalf", "IronBarQuarter", "IronBlock", "IronChunk", "IronIngot", "IronOre", "IronPiece", "IronScrap" },
-    Silver   = { "SilverBar", "SmallSilverBar", "SilverScrap", "SilverSheet", "SilverCoin", "TrophySilver", "Medal_Silver" },
+    Silver   = { "SilverBar", "SmallSilverBar", "SilverScrap", "SilverSheet", "SilverCoin", "Spoon_Silver", "TrophySilver", "Medal_Silver" },
     Steel    = { "MetalBar", "SteelBar", "SteelBarHalf", "SteelBarQuarter", "SteelBlock", "SteelChunk", "SteelIngot", "SteelPiece", "SteelScrap", "SteelSlug" },
     Tin      = { "TinCanEmpty" },
 }
@@ -600,6 +601,7 @@ ZScienceSkill.Data.add({ specimens = {
     ["Base.JigLure"]     = { Science = 1, Fishing = 10 },
     ["Base.FishingHook"] = { Science = 1, Fishing = 10 },
     ["Base.FishingLine"] = { Science = 1, Fishing = 10 },
+    ["Base.FishingNet"]  = { Science = 1, Fishing = 20 }, -- recipes?
     ["Base.FishingRod"]  = { Science = 5, Fishing = 20 },
     ["Base.MinnowLure"]  = { Science = 1, Fishing = 10 },
 }})
