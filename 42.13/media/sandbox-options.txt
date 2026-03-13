@@ -1,11 +1,11 @@
 VERSION = 1,
 
-option XPMultiplier.Science
+option MultiplierConfig.Science
 {
     type = double,
     min = 0,
-    max = 1000,
+    max = 1000.0,
     default = 1.0,
-    page = XP,
-    translation = Sandbox_XPMultiplier_Science,
+    page = Character,
+    translation = ZScienceSkill_XPMultiplier,
 }
