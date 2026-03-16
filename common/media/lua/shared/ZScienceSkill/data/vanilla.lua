@@ -388,6 +388,9 @@ ZScienceSkill.Data.add({ literatureReadOnce = {
     ["Base.ElectronicsMag4"] = 20 -- how to use generators
 }})
 ZScienceSkill.Data.add({ specimens = {
+    ["Base.CameraDisposable"]    =  5,
+    ["Base.CameraExpensive"]     = 15,
+    ["Base.CameraFilm"]          =  5,
     ["Base.Disc_Retail"]         = { Science =  5, Electricity =  5 },
     ["Base.Earbuds"]             = { Science =  5, Electricity =  5 },
     ["Base.ElectricWire"]        = { Science =  5, Electricity =  5 },
@@ -500,31 +503,33 @@ ZScienceSkill.Data.add({ specimens = {
     ["Base.RespiratorFilters"] = { Science =  5, Maintenance = 10 },
     ["Base.SteelWool"]         = { Science =  5, Maintenance = 10 },
     ["Base.Whetstone"]         = { Science =  5, Maintenance = 10 },
-    ["Base.WoodGlue"]          = { Science =  5, Maintenance =  5 },
+    ["Base.WoodGlue"]          = { Science =  5, Maintenance =  5, Woodwork =  5 },
 }})
 
 
 -- Mechanics and stuff
 ZScienceSkill.Data.add({ specimens = {
-    ["Base.Bellows"]          = { Mechanics =  5, Blacksmith = 5 },
-    ["Base.CircularSawblade"] = { Woodwork = 10 },
-    ["Base.Doorknob"]         = { Mechanics =  1, Woodwork = 5 },
-    ["Base.EngineParts"]      = { Mechanics = 20, Science = 10, Maintenance = 10 },
-    ["Base.File"]             = { Mechanics =  5 },
-    ["Base.HandDrill"]        = { Mechanics = 10, Woodwork = 10, Science = 5 },
-    ["Base.Hinge"]            = { Mechanics =  5, Woodwork = 5 },
-    ["Base.Jack"]             = { Mechanics = 10 },
-    ["Base.LargeHook"]        = { Mechanics =  5 },
-    ["Base.LugWrench"]        = { Mechanics =  5 },
-    ["Base.Padlock"]          = { Mechanics = 10, Science =  5 },
-    ["Base.PipeWrench"]       = { Mechanics = 10, Maintenance = 10 },
-    ["Base.Pliers"]           = { Mechanics = 10, Science =  5 },
-    ["Base.Ratchet"]          = { Mechanics = 15, Science =  5 },
-    ["Base.TireIron"]         = { Mechanics =  5 },
-    ["Base.TirePump"]         = { Mechanics = 15, Science = 10 },
-    ["Base.SheetMetalSnips"]  = { Mechanics = 10, Science =  5 },
-    ["Base.ViseGrips"]        = { Mechanics =  5, Blacksmith = 5 },
-    ["Base.Wrench"]           = { Mechanics = 10, Science =  5 },
+    ["Base.Bellows"]            = { Mechanics =  5, Blacksmith = 5 },
+    ["Base.CarpentryChisel"]    = { Woodwork = 10 },
+    ["Base.CircularSawblade"]   = { Woodwork = 10 },
+    ["Base.CombinationPadlock"] = { Mechanics = 10, Science =  5 },
+    ["Base.Doorknob"]           = { Mechanics =  1, Woodwork = 5 },
+    ["Base.EngineParts"]        = { Mechanics = 20, Science = 10, Maintenance = 10 },
+    ["Base.File"]               = { Mechanics =  5 },
+    ["Base.HandDrill"]          = { Mechanics = 10, Woodwork = 10, Science = 5 },
+    ["Base.Hinge"]              = { Mechanics =  5, Woodwork = 5 },
+    ["Base.Jack"]               = { Mechanics = 10 },
+    ["Base.LargeHook"]          = { Mechanics =  5 },
+    ["Base.LugWrench"]          = { Mechanics =  5 },
+    ["Base.Padlock"]            = { Mechanics = 10, Science =  5 },
+    ["Base.PipeWrench"]         = { Mechanics = 10, Maintenance = 10 },
+    ["Base.Pliers"]             = { Mechanics = 10, Science =  5 },
+    ["Base.Ratchet"]            = { Mechanics = 15, Science =  5 },
+    ["Base.TireIron"]           = { Mechanics =  5 },
+    ["Base.TirePump"]           = { Mechanics = 15, Science = 10 },
+    ["Base.SheetMetalSnips"]    = { Mechanics = 10, Science =  5 },
+    ["Base.ViseGrips"]          = { Mechanics =  5, Blacksmith = 5 },
+    ["Base.Wrench"]             = { Mechanics = 10, Science =  5 },
 
     ["Base.WristWatch_Left_ClassicBrown"]  = { Mechanics = 5, Science = 5, key = "Base.WristWatch" },
     ["Base.WristWatch_Right_ClassicBrown"] = { Mechanics = 5, Science = 5, key = "Base.WristWatch" },
@@ -557,7 +562,6 @@ ZScienceSkill.Data.add({ specimens = {
 
 -- Firearms
 ZScienceSkill.Data.add({ specimens = {
-    ["Base.ChokeTubeFull"]   = { Science = 5,  Aiming = 10 },
     ["Base.x4Scope"]         = { Science = 10, Aiming = 20, Glassmaking = 10 },
 }})
 
@@ -569,6 +573,7 @@ ZScienceSkill.Data.add({ specimens = {
     ["Base.CheeseCloth"]          = { Science =  2, Tailoring =  5 },
     ["Base.Dogbane"]              = { Science =  2, Tailoring = 10 },
     ["Base.MeasuringTape"]        = { Science =  1, Tailoring = 10 },
+    ["Base.RubberStrips"]         = { Tailoring = 5 },
     ["Base.Tarp"]                 = { Science =  2, Tailoring =  7 },
     ["Base.Thread_Sinew"]         = { Science =  5, Tailoring =  5 },
     ["Base.Twine"]                = { Science =  2, Tailoring =  5 },
@@ -607,17 +612,8 @@ ZScienceSkill.Data.add({ specimens = {
 }})
 
 
--- lulz: random perk)
-pcall(function( )
-    if Perks.fromIndex and Perks.getMaxIndex then
-        local randomPerk = Perks.fromIndex(ZombRand(1, Perks.getMaxIndex()))
-        if randomPerk and randomPerk.getId and randomPerk:getId() then
-            local tbl = { Science = 10 }
-            tbl[randomPerk:getId()] = 200
-
-            ZScienceSkill.Data.add({ specimens = {
-                ["Base.EyeOfCthulhu"] = tbl,
-            }})
-        end
-    end
-end)
+-- lulz
+ZScienceSkill.Data.add({ specimens = {
+    ["Base.EyeOfCthulhu"] = { randomPerk = 200 },
+    ["Base.MoleyMole"]    = { randomPerk =  50 },
+}})

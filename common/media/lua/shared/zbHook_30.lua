@@ -1,5 +1,4 @@
 local version = 3.0
-
 if type(zbHook_VERSION) == "number" and zbHook_VERSION >= version then return end
 
 print("zbHook v" .. tostring(version) .. " init")

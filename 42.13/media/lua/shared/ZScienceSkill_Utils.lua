@@ -162,6 +162,16 @@ function ZScienceSkill.getItemStatus(item, player)
     return result
 end
 
+function ZScienceSkill.getRandomPerk()
+    if not Perks.fromIndex or not Perks.getMaxIndex then return nil end
+
+    for i = 1, 20 do
+        local perk = Perks.fromIndex(ZombRand(1, Perks.getMaxIndex()))
+        if perk and perk:getParent() ~= Perks.None then
+            return perk
+        end
+    end
+end
 
 -- add XP to Science perk based on ZScienceSkill.Data tables
 function ZScienceSkill.addXpFromTable(character, tbl, key, item)
@@ -192,7 +202,11 @@ function ZScienceSkill.addXpFromTable(character, tbl, key, item)
         for perk, xp in pairs(val) do -- 'perk' can be either string (perk name) or the Perk object itself
             if perk ~= "key" then  -- skip the 'key' field, it's not a perk
                 if type(perk) == "string" then
-                    perk = Perks[perk]
+                    if perk == "randomPerk" then
+                        perk = ZScienceSkill.getRandomPerk()
+                    else
+                        perk = Perks[perk]
+                    end
                 end
                 if perk and type(xp) == "number" then
                     addXp(character, perk, xp * mult)
