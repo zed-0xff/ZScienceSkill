@@ -414,11 +414,13 @@ ZScienceSkill.Data.add({ specimens = {
     ["Base.VideoGame"]           = { Science = 10, Electricity = 15 },
 
     ["Base.Amplifier"]           = { Science = 15, Electricity = 20 },
+    ["Base.Camera"]              = { Science = 10, Electricity = 20 },
     ["Base.CarBatteryCharger"]   = { Science = 10, Electricity = 20 },
     ["Base.CDplayer"]            = { Science = 10, Electricity = 20 },
     ["Base.Timer"]               = { Science =  5 },
     ["Base.TimerCrafted"]        = { Science = 15, Electricity = 20 },
     ["Base.TriggerCrafted"]      = { Science = 15, Electricity = 20 }, -- TODO: learn recipe?
+    ["Base.HamRadio1"]           = { Science = 20, Electricity = 25 },
     ["Base.HamRadio2"]           = { Science = 20, Electricity = 25 },
     ["Base.HomeAlarm"]           = { Science = 15, Electricity = 20, Hacking = 15 },
     ["Base.MotionSensor"]        = { Science = 20, Electricity = 20 },
@@ -462,6 +464,7 @@ local metals = {
     Copper   = { "CopperOre", "CopperIngot", "CopperSheet", "SmallCopperSheet", "CopperScrap" },
     Gold     = { "GoldBar", "SmallGoldBar", "GoldScrap", "GoldSheet", "GoldCoin", "Medal_Gold", "TrophyGold" },
     Iron     = { "IronBar", "IronBarHalf", "IronBarQuarter", "IronBlock", "IronChunk", "IronIngot", "IronOre", "IronPiece", "IronScrap" },
+    Lead     = { "LeadPipe" },
     Silver   = { "SilverBar", "SmallSilverBar", "SilverScrap", "SilverSheet", "SilverCoin", "Spoon_Silver", "TrophySilver", "Medal_Silver" },
     Steel    = { "MetalBar", "SteelBar", "SteelBarHalf", "SteelBarQuarter", "SteelBlock", "SteelChunk", "SteelIngot", "SteelPiece", "SteelScrap", "SteelSlug" },
     Tin      = { "TinCanEmpty" },
@@ -510,6 +513,7 @@ ZScienceSkill.Data.add({ specimens = {
 -- Mechanics and stuff
 ZScienceSkill.Data.add({ specimens = {
     ["Base.Bellows"]            = { Mechanics =  5, Blacksmith = 5 },
+    ["Base.BenchAnvil"]         = { Blacksmith = 20 },
     ["Base.CarpentryChisel"]    = { Woodwork = 10 },
     ["Base.CircularSawblade"]   = { Woodwork = 10 },
     ["Base.CombinationPadlock"] = { Mechanics = 10, Science =  5 },
@@ -560,12 +564,6 @@ ZScienceSkill.Data.add({ specimens = {
 }})
 
 
--- Firearms
-ZScienceSkill.Data.add({ specimens = {
-    ["Base.x4Scope"]         = { Science = 10, Aiming = 20, Glassmaking = 10 },
-}})
-
-
 -- Tailoring
 ZScienceSkill.Data.add({ specimens = {
     ["Base.Buckle"]               = { Science =  1, Tailoring =  5 },
@@ -595,6 +593,7 @@ ZScienceSkill.Data.add({ specimens = {
 ZScienceSkill.Data.add({ specimens = {
     ["Base.AnimalFeedBag"]    = { Science = 5, Husbandry = 10 }, -- recipe?
     ["Base.AnimalMilkPowder"] = { Science = 5, Husbandry = 10, Cooking = 5 },
+    ["Base.GrassTuft"]        = { Science = 5, Husbandry = 10 },
     ["Base.HayTuft"]          = { Science = 5, Husbandry = 10 },
     ["Base.Mov_SaltLick"]     = { Science = 5, Husbandry = 20 }, -- craft salt for preserved food?
 }})

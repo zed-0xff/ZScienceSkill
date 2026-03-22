@@ -1,6 +1,7 @@
 require "ZScienceSkill/Data"
 
 ZScienceSkill.Data.add({ specimens = {
+    ["VFX.BakingPowder"]      = { Science =  5, Cooking = 15 },
     ["VFX.CannedSnails"]      = { Science =  5, Fishing = 10 },
     ["VFX.CannedWorms"]       = { Science =  5, Fishing = 10 },
     ["VFX.MilkshakeGlass"]    = { Glassmaking = 5 },
