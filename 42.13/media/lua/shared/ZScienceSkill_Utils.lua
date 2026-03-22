@@ -1,4 +1,5 @@
 ZScienceSkill = ZScienceSkill or {}
+local logger = ZBLogger.new("ZScienceSkill")
 
 function ZScienceSkill.getPlayerZSData(player)
     local modData = player:getModData()
@@ -219,3 +220,84 @@ function ZScienceSkill.addXpFromTable(character, tbl, key, item)
     print("[?] ZScienceSkill: invalid XP data for specimen: type=" .. type(val) .. ", value=" .. tostring(val) .. ", key=" .. tostring(key))
     return false
 end
+
+function ZScienceSkill.cloneItem(newFullId, srcFullId, ...)
+    local a = newFullId:split("\\.")
+    if #a ~= 2 then return logger:error("Invalid newFullId '%s'", newFullId) end
+    local newModId, newItemId = a[1], a[2]
+
+    local existingItem = getItem(newFullId)
+    if existingItem then return logger:error("Item '%s' already exists: %s", newFullId, existingItem) end
+
+    local srcItem = getItem(srcFullId)
+    if not srcItem then return logger:error("Source item '%s' not found", srcFullId) end
+
+    -- cloneItemType creates new item in the same Module, we need our own
+    if not createNewScriptItem           then return logger:error("createNewScriptItem() is not available") end
+    if not srcItem.getLoadedScriptBodies then return logger:error("Source item '%s' does not have getLoadedScriptBodies()", srcFullId) end
+
+    local srcScriptBodies = srcItem:getLoadedScriptBodies()
+    if not srcScriptBodies or srcScriptBodies:size() ~= 2 then return end
+
+    local srcScriptBody = srcScriptBodies:get(1)
+    if type(srcScriptBody) ~= "string" or not srcScriptBody:startsWith("item") then return end
+
+    local replaces = {...}
+    if #replaces % 2 ~= 0 then
+        logger:error("Uneven number of replace arguments, expected pairs of (from, to), got %d", #replaces)
+        return nil
+    end
+    local newBody = srcScriptBody
+    for i = 1, #replaces, 2 do
+        local from, to = replaces[i], replaces[i + 1]
+        newBody = newBody:gsub(from, to)
+    end
+    newBody = "imports { Base }\n" .. newBody
+    logger:debug("Cloning item '%s' from '%s' with body:\n%s", newFullId, srcFullId, newBody)
+
+    local displayName = getItemNameFromFullType(newFullId)
+    local newItem = createNewScriptItem(newModId, newItemId, displayName, newFullId, srcItem:getIcon())
+    if not newItem      then return logger:error("Failed to create new item '%s'", newFullId) end
+    if not newItem.Load then return logger:error("Cloned item type does not have Load() method") end
+
+    newItem:Load(newItem:getName(), newBody)
+    logger:info("Cloned item '%s' from '%s' : %s", newFullId, srcFullId, newItem)
+
+    return newItem
+end
+
+function ZScienceSkill.copyRecipeInputs(dstFullId, srcFullId, ...)
+    local srcRecipe = ScriptManager.instance:getCraftRecipe(srcFullId)
+    if not srcRecipe then return logger:error("Source recipe '%s' not found", srcFullId) end
+
+    local dstRecipe = ScriptManager.instance:getCraftRecipe(dstFullId)
+    if not dstRecipe then return logger:error("Destination recipe '%s' not found", dstFullId) end
+
+    dstRecipe:getInputs():clear()
+    local srcInputs = srcRecipe:getInputs()
+    local newInputs = "{ inputs {\n"
+    for i = 0, srcInputs:size() - 1 do
+        local input = srcInputs:get(i)
+        local line = input:getOriginalLine()
+        if not line then return logger:error("Input %d of recipe '%s' does not have original line", i, dstFullId) end
+
+        newInputs = newInputs .. "\t" .. line .. ",\n"
+    end
+    newInputs = newInputs .. "\n} }"
+
+    local replaces = {...}
+    if #replaces % 2 ~= 0 then
+        logger:error("Uneven number of replace arguments, expected pairs of (from, to), got %d", #replaces)
+        return nil
+    end
+    for i = 1, #replaces, 2 do
+        local from, to = replaces[i], replaces[i + 1]
+        newInputs = newInputs:gsub(from, to)
+    end
+
+    logger:debug("Copied inputs from recipe '%s' to '%s' with new inputs:\n%s", srcFullId, dstFullId, newInputs)
+    dstRecipe:Load(dstRecipe:getName(), newInputs)
+
+    return dstRecipe
+end
+
