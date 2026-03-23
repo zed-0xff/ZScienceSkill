@@ -1,5 +1,5 @@
 ZScienceSkill = ZScienceSkill or {}
-local logger = ZBLogger.new("ZScienceSkill")
+local logger = zdk.Logger.new("ZScienceSkill")
 
 function ZScienceSkill.getPlayerZSData(player)
     local modData = player:getModData()

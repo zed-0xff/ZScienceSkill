@@ -1,5 +1,5 @@
 ZScienceSkill = ZScienceSkill or {}
-local logger = ZBLogger.new("ZScienceSkill")
+local logger = zdk.Logger.new("ZScienceSkill")
 
 -- called from ZScienceSkill_printable_skillbooks.txt
 function ZScienceSkill.OnTestPrintableSkillBooks()

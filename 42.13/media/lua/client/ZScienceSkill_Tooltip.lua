@@ -3,7 +3,7 @@ require "ISUI/ISToolTipInv"
 require "ZScienceSkill/Data"
 require "ZScienceSkill_ModOptions"
 
-zbHook({
+zdk.hook({
     ISToolTipInv = {
         render = function(orig, self, ...)
             orig(self, ...)
@@ -39,4 +39,4 @@ zbHook({
             self:drawText(text, x - self:getX(), y - self:getY(), r, g, b, 1.0, UIFont.Small)
         end -- render
     } -- ISToolTipInv
-}) -- zbHook
+}) -- zdk.hook

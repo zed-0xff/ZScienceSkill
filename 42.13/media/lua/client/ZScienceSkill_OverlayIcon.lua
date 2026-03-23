@@ -7,7 +7,7 @@ require "ZScienceSkill_ModOptions"
 local TEX_R    = getTexture("media/ui/R_Mark_Gray.png")
 local TEX_TICK = getTexture("media/ui/Tick_Mark-10.png")
 
-zbHook({
+zdk.hook({
     ISInventoryPane = {
         renderdetails = function(orig, self, doDragged, ...)
             orig(self, doDragged, ...)
@@ -61,4 +61,4 @@ zbHook({
             end -- for
         end -- renderdetails
     } -- ISInventoryPane
-}) -- zbHook
+}) -- zdk.hook

@@ -1,7 +1,7 @@
 local LabAutopsyLogic = require 'HealthSystem/LabAutopsyLogic_Server'
 if not LabAutopsyLogic then return end
 
-zbHook({
+zdk.hook({
     [LabAutopsyLogic] = { -- XXX hook the required object, not declared as global
         ProcessAutopsy = function(orig, player, ...)
             local medXpBefore = nil
@@ -22,4 +22,4 @@ zbHook({
             return result
         end -- ProcessAutopsy
     } -- LabAutopsyLogic
-}) -- zbHook
+}) -- zdk.hook

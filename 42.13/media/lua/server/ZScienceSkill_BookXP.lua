@@ -7,7 +7,7 @@ require "ZScienceSkill/Data"
 
 -- SP: both are called, perform() -> complete()
 
-zbHook({
+zdk.hook({
     ISReadABook = {
         complete = function(orig, self)
             local isAlreadyRead = self.isLiteratureRead -- may be set by ISReadABook:perform(), but not in all contexts
@@ -43,4 +43,4 @@ zbHook({
             return result
         end -- complete
     } -- ISReadABook
-}) -- zbHook
+}) -- zdk.hook
