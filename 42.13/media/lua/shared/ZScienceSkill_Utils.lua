@@ -221,6 +221,7 @@ function ZScienceSkill.addXpFromTable(character, tbl, key, item)
     return false
 end
 
+--[[
 function ZScienceSkill.cloneItem(newFullId, srcFullId, ...)
     local a = newFullId:split("\\.")
     if #a ~= 2 then return logger:error("Invalid newFullId '%s'", newFullId) end
@@ -300,4 +301,4 @@ function ZScienceSkill.copyRecipeInputs(dstFullId, srcFullId, ...)
 
     return dstRecipe
 end
-
+]]--
