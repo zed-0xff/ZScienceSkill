@@ -465,7 +465,7 @@ local metals = {
     Gold     = { "GoldBar", "SmallGoldBar", "GoldScrap", "GoldSheet", "GoldCoin", "Medal_Gold", "TrophyGold" },
     Iron     = { "IronBar", "IronBarHalf", "IronBarQuarter", "IronBlock", "IronChunk", "IronIngot", "IronOre", "IronPiece", "IronScrap" },
     Lead     = { "LeadPipe" },
-    Silver   = { "SilverBar", "SmallSilverBar", "SilverScrap", "SilverSheet", "SilverCoin", "Spoon_Silver", "TrophySilver", "Medal_Silver" },
+    Silver   = { "SilverBar", "SmallSilverBar", "SilverScrap", "SilverSheet", "SilverCoin", "Spoon_Silver", "TrophySilver", "Medal_Silver", "Hat_HockeyMask_Silver" },
     Steel    = { "MetalBar", "SteelBar", "SteelBarHalf", "SteelBarQuarter", "SteelBlock", "SteelChunk", "SteelIngot", "SteelPiece", "SteelScrap", "SteelSlug" },
     Tin      = { "TinCanEmpty" },
 }
@@ -489,6 +489,7 @@ ZScienceSkill.Data.add({ specimens = {
     ["Base.Glasses_Normal"]           = { Science =  5, Glassmaking = 10 }, -- Prescription Glasses renamed in 42.14 ?
     ["Base.Glasses_Prescription"]     = { Science =  5, Glassmaking = 10 },
     ["Base.Glasses_Prescription_Sun"] = { Science =  5, Glassmaking = 10 },
+    ["Base.GlassPanel"]               = { Science =  5, Glassmaking = 20 },
     ["Base.Loupe"]                    = { Science = 10, Glassmaking = 10 },
     ["Base.MagnifyingGlass"]          = { Science = 15, Glassmaking = 15 },
     ["Base.Glasses_MonocleLeft"]      = { Science =  5, Glassmaking =  5 },
@@ -573,13 +574,15 @@ ZScienceSkill.Data.add({ specimens = {
     ["Base.MeasuringTape"]        = { Science =  1, Tailoring = 10 },
     ["Base.RubberStrips"]         = { Tailoring = 5 },
     ["Base.Tarp"]                 = { Science =  2, Tailoring =  7 },
+    ["Base.Thimble"]              = { Tailoring =  5 },
     ["Base.Thread_Sinew"]         = { Science =  5, Tailoring =  5 },
     ["Base.Twine"]                = { Science =  2, Tailoring =  5 },
     ["Base.Yarn"]                 = { Science =  2, Tailoring =  5 },
 
     ["Base.DeerLeather_Fur_Tan"]  = { Science = 10, Tailoring = 15 }, -- TODO: convert to scraps / other leather types
 
-    ["Base.Leather_Crude_Medium"]         = { Science = 10, Tailoring = 15 },
+    ["Base.Leather_Crude_Medium"]         = { Science = 10, Tailoring = 10 },
+    ["Base.Leather_Crude_Medium_Tan"]     = { Science = 10, Tailoring = 10 },
     ["Base.Leather_Crude_Medium_Tan_Wet"] = { Science = 10, Tailoring = 10 },
 
     ["Base.crafted_04_36"]        = { Science = 5, Tailoring = 20, key = "spinning_wheel" },
@@ -601,13 +604,14 @@ ZScienceSkill.Data.add({ specimens = {
 
 -- Fishing
 ZScienceSkill.Data.add({ specimens = {
-    ["Base.Bobber"]      = { Science = 1, Fishing = 10 },
-    ["Base.JigLure"]     = { Science = 1, Fishing = 10 },
-    ["Base.FishingHook"] = { Science = 1, Fishing = 10 },
-    ["Base.FishingLine"] = { Science = 1, Fishing = 10 },
-    ["Base.FishingNet"]  = { Science = 1, Fishing = 20 }, -- recipes?
-    ["Base.FishingRod"]  = { Science = 5, Fishing = 20 },
-    ["Base.MinnowLure"]  = { Science = 1, Fishing = 10 },
+    ["Base.Bobber"]             = { Science = 1, Fishing = 10 },
+    ["Base.JigLure"]            = { Science = 1, Fishing = 10 },
+    ["Base.FishingHook"]        = { Science = 1, Fishing = 10 },
+    ["Base.FishingLine"]        = { Science = 1, Fishing = 10 },
+    ["Base.FishingNet"]         = { Science = 1, Fishing = 20 }, -- recipes?
+    ["Base.FishingRod"]         = { Science = 5, Fishing = 20 },
+    ["Base.MinnowLure"]         = { Science = 1, Fishing = 10 },
+    ["Base.PremiumFishingLine"] = { Science = 1, Fishing = 15 },
 }})
 
 

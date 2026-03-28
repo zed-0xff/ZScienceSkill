@@ -241,7 +241,7 @@ function ZScienceSkill.cloneItem(newFullId, srcFullId, ...)
     if not srcScriptBodies or srcScriptBodies:size() ~= 2 then return end
 
     local srcScriptBody = srcScriptBodies:get(1)
-    if type(srcScriptBody) ~= "string" or not srcScriptBody:startsWith("item") then return end
+    if type(srcScriptBody) ~= "string" or not luautils.stringStarts(srcScriptBody, "item") then return end
 
     local replaces = {...}
     if #replaces % 2 ~= 0 then
