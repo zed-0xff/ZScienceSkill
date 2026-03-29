@@ -617,6 +617,8 @@ ZScienceSkill.Data.add({ specimens = {
 
 -- lulz
 ZScienceSkill.Data.add({ specimens = {
-    ["Base.EyeOfCthulhu"] = { randomPerk = 200 },
-    ["Base.MoleyMole"]    = { randomPerk =  50 },
+    ["Base.EyeOfCthulhu"]    = { randomPerk = 200 },
+    ["Base.MoleyMole"]       = { randomPerk =  50 },
+    ["Base.PanchoDog"]       = { randomPerk =  50 },
+    ["Base.PancakeHedgehog"] = { randomPerk =  50 },
 }})
