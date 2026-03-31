@@ -1,6 +1,7 @@
 require "ZScienceSkill/Data"
 
 ZScienceSkill.Data.add({ specimens = {
+    -- Electronics
     ["SupportCorps.ABHCDDrive"]         = { Science =  5, Hacking =  5, Electricity =  5 },
     ["SupportCorps.ABHMotherboard"]     = { Science = 15, Hacking = 15, Electricity = 10 },
     ["SupportCorps.ABHPonderPadLaptop"] = { Science = 20, Hacking = 20, Electricity = 10 },
@@ -9,13 +10,20 @@ ZScienceSkill.Data.add({ specimens = {
     ["SupportCorps.FloppyDiskBinder"]   = { Science =  1, Hacking =  5 },
     ["SupportCorps.InkCartridge"]       = { Science =  5, Hacking =  5 },
 
+    -- Doctor
     ["SupportCorps.ColdaFluPills"]      = { Science = 10, Doctor = 20 },
     ["SupportCorps.OrthopedicCast"]     = { Science =  5, Doctor = 25 },
     ["SupportCorps.PillCapsule"]        = { Science =  5, Doctor =  5 },
     ["SupportCorps.PillCapsuleBag"]     = { Science =  5, Doctor =  5 },
     ["SupportCorps.Vicodin"]            = { Science = 10, Doctor = 20 },
 
-    ["SupportCorps.Handwarmer"]         = { Science = 10 },
+    -- Cooking
+    ["SupportCorps.BottleCapper"]       = { Science = 10, Cooking = 10 },
+    ["SupportCorps.GlassFermenter"]     = { Science = 10, Cooking = 15 },
+    ["SupportCorps.PasturMachine"]      = { Science = 10, Cooking = 15 },
     ["SupportCorps.YoghurtMaker"]       = { Science = 20, Cooking = 15 },
+
+    -- misc
+    ["SupportCorps.Handwarmer"]         = { Science = 10 },
     ["SupportCorps.WeedGrinder"]        = { Science =  5, Farming = 5 },
 }})

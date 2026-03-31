@@ -1,4 +1,3 @@
--- ZVirusVaccine42 mod integration
 require "ZScienceSkill/Data"
 
 ZScienceSkill.Data.add({
