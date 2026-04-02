@@ -16,7 +16,5 @@ mods:
   - ZBBetterFPS
 
 game_versions:
-  - 42.13.1
-  - 42.13.2
-  - 42.14.1
+  - 42.15
   - unstable

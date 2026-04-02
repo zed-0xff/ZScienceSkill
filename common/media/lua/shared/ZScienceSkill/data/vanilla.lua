@@ -1,5 +1,15 @@
 require "ZScienceSkill/Data"
 
+local blacksmith = CharacterTrait and CharacterTrait.BLACKSMITH
+local gardener   = CharacterTrait and CharacterTrait.GARDENER
+local herbalist  = CharacterTrait and CharacterTrait.HERBALIST
+
+ZScienceSkill.Data.add({ traits = {
+    [blacksmith] = 10,
+    [herbalist]  = 10,
+    [gardener]   = 20,
+}})
+
 ZScienceSkill.Data.add({ literature = {
     -- Science books (full XP)
     ["Base.Book_Science"]         = 35,
@@ -139,31 +149,31 @@ ZScienceSkill.Data.add({ specimens = {
 local berryXP = 10
 ZScienceSkill.Data.add({ specimens = {
     -- Berries (botany)
-    ["Base.BeautyBerry"]    = berryXP,
-    ["Base.HollyBerry"]     = berryXP,
-    ["Base.WinterBerry"]    = berryXP,
-    ["Base.BerryBlack"]     = berryXP,
-    ["Base.BerryBlue"]      = berryXP,
-    ["Base.BerryGeneric1"]  = berryXP * 2,  -- Unknown berry, more XP for identification
-    ["Base.BerryGeneric2"]  = berryXP * 2,
-    ["Base.BerryGeneric3"]  = berryXP * 2,
-    ["Base.BerryGeneric4"]  = berryXP * 2,
-    ["Base.BerryGeneric5"]  = berryXP * 2,
-    ["Base.BerryPoisonIvy"] = berryXP * 3,  -- Toxic, extra XP for toxicology
+    ["Base.BeautyBerry"]    = { trait = herbalist, Science = berryXP },
+    ["Base.HollyBerry"]     = { trait = herbalist, Science = berryXP },
+    ["Base.WinterBerry"]    = { trait = herbalist, Science = berryXP },
+    ["Base.BerryBlack"]     = { trait = herbalist, Science = berryXP },
+    ["Base.BerryBlue"]      = { trait = herbalist, Science = berryXP },
+    ["Base.BerryGeneric1"]  = { trait = herbalist, Science = berryXP * 2 },  -- Unknown berry, more XP for identification
+    ["Base.BerryGeneric2"]  = { trait = herbalist, Science = berryXP * 2 },
+    ["Base.BerryGeneric3"]  = { trait = herbalist, Science = berryXP * 2 },
+    ["Base.BerryGeneric4"]  = { trait = herbalist, Science = berryXP * 2 },
+    ["Base.BerryGeneric5"]  = { trait = herbalist, Science = berryXP * 2 },
+    ["Base.BerryPoisonIvy"] = { trait = herbalist, Science = berryXP * 3 },  -- Toxic, extra XP for toxicology
 }})
 
 
 -- Mushrooms (mycology)
 local mushroomXP = 15
 ZScienceSkill.Data.add({ specimens = {
-    ["Base.MushroomsButton"]  = mushroomXP,
-    ["Base.MushroomGeneric1"] = mushroomXP * 2,  -- Unknown, more XP
-    ["Base.MushroomGeneric2"] = mushroomXP * 2,
-    ["Base.MushroomGeneric3"] = mushroomXP * 2,
-    ["Base.MushroomGeneric4"] = mushroomXP * 2,
-    ["Base.MushroomGeneric5"] = mushroomXP * 2,
-    ["Base.MushroomGeneric6"] = mushroomXP * 2,
-    ["Base.MushroomGeneric7"] = mushroomXP * 2,
+    ["Base.MushroomsButton"]  = { trait = herbalit, Science = mushroomXP },
+    ["Base.MushroomGeneric1"] = { trait = herbalit, Science = mushroomXP * 2 },  -- Unknown, more XP
+    ["Base.MushroomGeneric2"] = { trait = herbalit, Science = mushroomXP * 2 },
+    ["Base.MushroomGeneric3"] = { trait = herbalit, Science = mushroomXP * 2 },
+    ["Base.MushroomGeneric4"] = { trait = herbalit, Science = mushroomXP * 2 },
+    ["Base.MushroomGeneric5"] = { trait = herbalit, Science = mushroomXP * 2 },
+    ["Base.MushroomGeneric6"] = { trait = herbalit, Science = mushroomXP * 2 },
+    ["Base.MushroomGeneric7"] = { trait = herbalit, Science = mushroomXP * 2 },
 }})
 
 
@@ -171,18 +181,18 @@ ZScienceSkill.Data.add({ specimens = {
 local sciXP = 10
 local docXP = 10
 ZScienceSkill.Data.add({ specimens = {
-    ["Base.BlackSage"]         = { Science = sciXP, Doctor = docXP },
-    ["Base.BlackSageDried"]    = { Science = sciXP, Doctor = docXP },
-    ["Base.CommonMallow"]      = { Science = sciXP, Doctor = docXP },
-    ["Base.CommonMallowDried"] = { Science = sciXP, Doctor = docXP },
-    ["Base.Comfrey"]           = { Science = sciXP, Doctor = docXP },
-    ["Base.ComfreyDried"]      = { Science = sciXP, Doctor = docXP },
-    ["Base.Ginseng"]           = { Science = sciXP, Doctor = docXP },
-    ["Base.LemonGrass"]        = { Science = sciXP, Doctor = docXP },
-    ["Base.Plantain"]          = { Science = sciXP, Doctor = docXP },
-    ["Base.PlantainDried"]     = { Science = sciXP, Doctor = docXP },
-    ["Base.WildGarlic2"]       = { Science = sciXP, Doctor = docXP },
-    ["Base.WildGarlicDried"]   = { Science = sciXP, Doctor = docXP },
+    ["Base.BlackSage"]         = { Science = sciXP, Doctor = docXP, trait = herbalist },
+    ["Base.BlackSageDried"]    = { Science = sciXP, Doctor = docXP, trait = herbalist },
+    ["Base.CommonMallow"]      = { Science = sciXP, Doctor = docXP, trait = herbalist },
+    ["Base.CommonMallowDried"] = { Science = sciXP, Doctor = docXP, trait = herbalist },
+    ["Base.Comfrey"]           = { Science = sciXP, Doctor = docXP, trait = herbalist },
+    ["Base.ComfreyDried"]      = { Science = sciXP, Doctor = docXP, trait = herbalist },
+    ["Base.Ginseng"]           = { Science = sciXP, Doctor = docXP, trait = herbalist },
+    ["Base.LemonGrass"]        = { Science = sciXP, Doctor = docXP, trait = herbalist },
+    ["Base.Plantain"]          = { Science = sciXP, Doctor = docXP, trait = herbalist },
+    ["Base.PlantainDried"]     = { Science = sciXP, Doctor = docXP, trait = herbalist },
+    ["Base.WildGarlic2"]       = { Science = sciXP, Doctor = docXP, trait = herbalist },
+    ["Base.WildGarlicDried"]   = { Science = sciXP, Doctor = docXP, trait = herbalist },
 }})
 
 
@@ -216,78 +226,78 @@ ZScienceSkill.Data.add({ specimens = {
 local sciXP  =  5
 local farmXP = 10
 ZScienceSkill.Data.add({ specimens = {
-    ["Base.Fertilizer"]            = { Science = sciXP, Farming = farmXP*2 }, -- TODO: recipe?
-    ["Base.GardeningSprayEmpty"]   = { Science = sciXP, Farming = farmXP*2 },
+    ["Base.Fertilizer"]            = { Science = sciXP,   Farming = farmXP*2 }, -- TODO: recipe?
+    ["Base.GardeningSprayEmpty"]   = { Science = sciXP,   Farming = farmXP*2 },
     ["Base.HandScythe"]            = { Science = sciXP/2, Farming = farmXP },
     ["Base.HandShovel"]            = { Science = sciXP/2, Farming = farmXP },
-    ["Base.SlugRepellent"]         = { Science = sciXP, Farming = farmXP*2 },
+    ["Base.SlugRepellent"]         = { Science = sciXP,   Farming = farmXP*2 },
 
     -- wild foraged plants
-    ["Base.Acorn"]                 = { Science = sciXP, Farming = farmXP },
-    ["Base.Dandelions"]            = { Science = sciXP, Farming = farmXP },
-    ["Base.GrapeLeaves"]           = { Science = sciXP, Farming = farmXP },
-    ["Base.Nettles"]               = { Science = sciXP, Farming = farmXP },
-    ["Base.Rosehips"]              = { Science = sciXP, Farming = farmXP },
-    ["Base.Thistle"]               = { Science = sciXP, Farming = farmXP },
-    ["Base.Violets"]               = { Science = sciXP, Farming = farmXP },
+    ["Base.Acorn"]                 = { Science = sciXP, Farming = farmXP, trait = herbalist },
+    ["Base.Dandelions"]            = { Science = sciXP, Farming = farmXP, trait = herbalist },
+    ["Base.GrapeLeaves"]           = { Science = sciXP, Farming = farmXP, trait = herbalist },
+    ["Base.Nettles"]               = { Science = sciXP, Farming = farmXP, trait = herbalist },
+    ["Base.Rosehips"]              = { Science = sciXP, Farming = farmXP, trait = herbalist },
+    ["Base.Thistle"]               = { Science = sciXP, Farming = farmXP, trait = herbalist },
+    ["Base.Violets"]               = { Science = sciXP, Farming = farmXP, trait = herbalist },
     ["Base.WheatSheaf"]            = { Science = sciXP, Farming = farmXP },
     ["Base.WheatSheafDried"]       = { Science = sciXP, Farming = farmXP },
 
     -- seeds
-    ["Base.BarleySeed"]            = { Science = sciXP, Farming = farmXP },
-    ["Base.BasilSeed"]             = { Science = sciXP, Farming = farmXP },
-    ["Base.BellPepperSeed"]        = { Science = sciXP, Farming = farmXP },
-    ["Base.BlackSageSeed"]         = { Science = sciXP, Farming = farmXP },
-    ["Base.BroadleafPlantainSeed"] = { Science = sciXP, Farming = farmXP },
-    ["Base.BroccoliSeed"]          = { Science = sciXP, Farming = farmXP },
-    ["Base.CabbageSeed"]           = { Science = sciXP, Farming = farmXP },
-    ["Base.CarrotSeed"]            = { Science = sciXP, Farming = farmXP },
-    ["Base.CauliflowerSeed"]       = { Science = sciXP, Farming = farmXP },
-    ["Base.ChamomileSeed"]         = { Science = sciXP, Farming = farmXP },
-    ["Base.ChivesSeed"]            = { Science = sciXP, Farming = farmXP },
-    ["Base.CilantroSeed"]          = { Science = sciXP, Farming = farmXP },
-    ["Base.ComfreySeed"]           = { Science = sciXP, Farming = farmXP },
-    ["Base.CommonMallowSeed"]      = { Science = sciXP, Farming = farmXP },
-    ["Base.CornSeed"]              = { Science = sciXP, Farming = farmXP },
-    ["Base.CucumberSeed"]          = { Science = sciXP, Farming = farmXP },
-    ["Base.FlaxSeed"]              = { Science = sciXP, Farming = farmXP },
-    ["Base.GarlicSeed"]            = { Science = sciXP, Farming = farmXP },
-    ["Base.GreenpeasSeed"]         = { Science = sciXP, Farming = farmXP },
-    ["Base.HabaneroSeed"]          = { Science = sciXP, Farming = farmXP },
-    ["Base.HempSeed"]              = { Science = sciXP, Farming = farmXP },
-    ["Base.HopsSeed"]              = { Science = sciXP, Farming = farmXP },
-    ["Base.JalapenoSeed"]          = { Science = sciXP, Farming = farmXP },
-    ["Base.KaleSeed"]              = { Science = sciXP, Farming = farmXP },
-    ["Base.LavenderSeed"]          = { Science = sciXP, Farming = farmXP },
-    ["Base.LeekSeed"]              = { Science = sciXP, Farming = farmXP },
-    ["Base.LemonGrassSeed"]        = { Science = sciXP, Farming = farmXP },
-    ["Base.LettuceSeed"]           = { Science = sciXP, Farming = farmXP },
-    ["Base.MarigoldSeed"]          = { Science = sciXP, Farming = farmXP },
-    ["Base.MintSeed"]              = { Science = sciXP, Farming = farmXP },
-    ["Base.OnionSeed"]             = { Science = sciXP, Farming = farmXP },
-    ["Base.OreganoSeed"]           = { Science = sciXP, Farming = farmXP },
-    ["Base.ParsleySeed"]           = { Science = sciXP, Farming = farmXP },
-    ["Base.PoppySeed"]             = { Science = sciXP, Farming = farmXP },
-    ["Base.PotatoSeed"]            = { Science = sciXP, Farming = farmXP },
-    ["Base.PumpkinSeed"]           = { Science = sciXP, Farming = farmXP },
-    ["Base.RedRadishSeed"]         = { Science = sciXP, Farming = farmXP },
-    ["Base.RosemarySeed"]          = { Science = sciXP, Farming = farmXP },
-    ["Base.RoseSeed"]              = { Science = sciXP, Farming = farmXP },
-    ["Base.RyeSeed"]               = { Science = sciXP, Farming = farmXP },
-    ["Base.SageSeed"]              = { Science = sciXP, Farming = farmXP },
-    ["Base.SoybeansSeed"]          = { Science = sciXP, Farming = farmXP },
-    ["Base.SpinachSeed"]           = { Science = sciXP, Farming = farmXP },
-    ["Base.StrewberrieSeed"]       = { Science = sciXP, Farming = farmXP },
-    ["Base.SugarBeetSeed"]         = { Science = sciXP, Farming = farmXP },
-    ["Base.SweetPotatoSeed"]       = { Science = sciXP, Farming = farmXP },
-    ["Base.ThymeSeed"]             = { Science = sciXP, Farming = farmXP },
-    ["Base.TobaccoSeed"]           = { Science = sciXP, Farming = farmXP },
-    ["Base.TomatoSeed"]            = { Science = sciXP, Farming = farmXP },
-    ["Base.TurnipSeed"]            = { Science = sciXP, Farming = farmXP },
-    ["Base.WatermelonSeed"]        = { Science = sciXP, Farming = farmXP },
-    ["Base.WheatSeed"]             = { Science = sciXP, Farming = farmXP },
-    ["Base.WildGarlicSeed"]        = { Science = sciXP, Farming = farmXP },
-    ["Base.ZucchiniSeed"]          = { Science = sciXP, Farming = farmXP },
+    ["Base.BarleySeed"]            = { Science = sciXP, Farming = farmXP, trait = gardener },
+    ["Base.BasilSeed"]             = { Science = sciXP, Farming = farmXP, trait = gardener },
+    ["Base.BellPepperSeed"]        = { Science = sciXP, Farming = farmXP, trait = gardener },
+    ["Base.BlackSageSeed"]         = { Science = sciXP, Farming = farmXP, trait = gardener },
+    ["Base.BroadleafPlantainSeed"] = { Science = sciXP, Farming = farmXP, trait = gardener },
+    ["Base.BroccoliSeed"]          = { Science = sciXP, Farming = farmXP, trait = gardener },
+    ["Base.CabbageSeed"]           = { Science = sciXP, Farming = farmXP, trait = gardener },
+    ["Base.CarrotSeed"]            = { Science = sciXP, Farming = farmXP, trait = gardener },
+    ["Base.CauliflowerSeed"]       = { Science = sciXP, Farming = farmXP, trait = gardener },
+    ["Base.ChamomileSeed"]         = { Science = sciXP, Farming = farmXP, trait = gardener },
+    ["Base.ChivesSeed"]            = { Science = sciXP, Farming = farmXP, trait = gardener },
+    ["Base.CilantroSeed"]          = { Science = sciXP, Farming = farmXP, trait = gardener },
+    ["Base.ComfreySeed"]           = { Science = sciXP, Farming = farmXP, trait = gardener },
+    ["Base.CommonMallowSeed"]      = { Science = sciXP, Farming = farmXP, trait = gardener },
+    ["Base.CornSeed"]              = { Science = sciXP, Farming = farmXP, trait = gardener },
+    ["Base.CucumberSeed"]          = { Science = sciXP, Farming = farmXP, trait = gardener },
+    ["Base.FlaxSeed"]              = { Science = sciXP, Farming = farmXP, trait = gardener },
+    ["Base.GarlicSeed"]            = { Science = sciXP, Farming = farmXP, trait = gardener },
+    ["Base.GreenpeasSeed"]         = { Science = sciXP, Farming = farmXP, trait = gardener },
+    ["Base.HabaneroSeed"]          = { Science = sciXP, Farming = farmXP, trait = gardener },
+    ["Base.HempSeed"]              = { Science = sciXP, Farming = farmXP, trait = gardener },
+    ["Base.HopsSeed"]              = { Science = sciXP, Farming = farmXP, trait = gardener },
+    ["Base.JalapenoSeed"]          = { Science = sciXP, Farming = farmXP, trait = gardener },
+    ["Base.KaleSeed"]              = { Science = sciXP, Farming = farmXP, trait = gardener },
+    ["Base.LavenderSeed"]          = { Science = sciXP, Farming = farmXP, trait = gardener },
+    ["Base.LeekSeed"]              = { Science = sciXP, Farming = farmXP, trait = gardener },
+    ["Base.LemonGrassSeed"]        = { Science = sciXP, Farming = farmXP, trait = gardener },
+    ["Base.LettuceSeed"]           = { Science = sciXP, Farming = farmXP, trait = gardener },
+    ["Base.MarigoldSeed"]          = { Science = sciXP, Farming = farmXP, trait = gardener },
+    ["Base.MintSeed"]              = { Science = sciXP, Farming = farmXP, trait = gardener },
+    ["Base.OnionSeed"]             = { Science = sciXP, Farming = farmXP, trait = gardener },
+    ["Base.OreganoSeed"]           = { Science = sciXP, Farming = farmXP, trait = gardener },
+    ["Base.ParsleySeed"]           = { Science = sciXP, Farming = farmXP, trait = gardener },
+    ["Base.PoppySeed"]             = { Science = sciXP, Farming = farmXP, trait = gardener },
+    ["Base.PotatoSeed"]            = { Science = sciXP, Farming = farmXP, trait = gardener },
+    ["Base.PumpkinSeed"]           = { Science = sciXP, Farming = farmXP, trait = gardener },
+    ["Base.RedRadishSeed"]         = { Science = sciXP, Farming = farmXP, trait = gardener },
+    ["Base.RosemarySeed"]          = { Science = sciXP, Farming = farmXP, trait = gardener },
+    ["Base.RoseSeed"]              = { Science = sciXP, Farming = farmXP, trait = gardener },
+    ["Base.RyeSeed"]               = { Science = sciXP, Farming = farmXP, trait = gardener },
+    ["Base.SageSeed"]              = { Science = sciXP, Farming = farmXP, trait = gardener },
+    ["Base.SoybeansSeed"]          = { Science = sciXP, Farming = farmXP, trait = gardener },
+    ["Base.SpinachSeed"]           = { Science = sciXP, Farming = farmXP, trait = gardener },
+    ["Base.StrewberrieSeed"]       = { Science = sciXP, Farming = farmXP, trait = gardener },
+    ["Base.SugarBeetSeed"]         = { Science = sciXP, Farming = farmXP, trait = gardener },
+    ["Base.SweetPotatoSeed"]       = { Science = sciXP, Farming = farmXP, trait = gardener },
+    ["Base.ThymeSeed"]             = { Science = sciXP, Farming = farmXP, trait = gardener },
+    ["Base.TobaccoSeed"]           = { Science = sciXP, Farming = farmXP, trait = gardener },
+    ["Base.TomatoSeed"]            = { Science = sciXP, Farming = farmXP, trait = gardener },
+    ["Base.TurnipSeed"]            = { Science = sciXP, Farming = farmXP, trait = gardener },
+    ["Base.WatermelonSeed"]        = { Science = sciXP, Farming = farmXP, trait = gardener },
+    ["Base.WheatSeed"]             = { Science = sciXP, Farming = farmXP, trait = gardener },
+    ["Base.WildGarlicSeed"]        = { Science = sciXP, Farming = farmXP, trait = gardener },
+    ["Base.ZucchiniSeed"]          = { Science = sciXP, Farming = farmXP, trait = gardener },
 }})
 
 
@@ -473,7 +483,7 @@ for metal, variants in pairs(metals) do
     local metalKey = "Base." .. metal
     for _, variant in ipairs(variants) do
         ZScienceSkill.Data.add({ specimens = {
-            ["Base." .. variant] = { Science = sciXP, Blacksmith = blkXP, key = metalKey },
+            ["Base." .. variant] = { Science = sciXP, Blacksmith = blkXP, key = metalKey, trait = blacksmith }
         }})
     end
 end
@@ -567,28 +577,28 @@ ZScienceSkill.Data.add({ specimens = {
 
 -- Tailoring
 ZScienceSkill.Data.add({ specimens = {
-    ["Base.Buckle"]               = { Science =  1, Tailoring =  5 },
-    ["Base.BurlapPiece"]          = { Science =  2, Tailoring = 10 },
-    ["Base.CheeseCloth"]          = { Science =  2, Tailoring =  5 },
-    ["Base.Dogbane"]              = { Science =  2, Tailoring = 10 },
-    ["Base.MeasuringTape"]        = { Science =  1, Tailoring = 10 },
-    ["Base.RubberStrips"]         = { Tailoring = 5 },
-    ["Base.Tarp"]                 = { Science =  2, Tailoring =  7 },
-    ["Base.Thimble"]              = { Tailoring =  5 },
-    ["Base.Thread_Sinew"]         = { Science =  5, Tailoring =  5 },
-    ["Base.Twine"]                = { Science =  2, Tailoring =  5 },
-    ["Base.Yarn"]                 = { Science =  2, Tailoring =  5 },
+    ["Base.Buckle"]                       = { Science =  1, Tailoring =  5 },
+    ["Base.BurlapPiece"]                  = { Science =  2, Tailoring = 10 },
+    ["Base.CheeseCloth"]                  = { Science =  2, Tailoring =  5 },
+    ["Base.Dogbane"]                      = { Science =  2, Tailoring = 10 },
+    ["Base.MeasuringTape"]                = { Science =  1, Tailoring = 10 },
+    ["Base.RubberStrips"]                 = { Tailoring = 5 },
+    ["Base.Tarp"]                         = { Science =  2, Tailoring =  7 },
+    ["Base.Thimble"]                      = { Tailoring =  5 },
+    ["Base.Thread_Sinew"]                 = { Science =  5, Tailoring =  5 },
+    ["Base.Twine"]                        = { Science =  2, Tailoring =  5 },
+    ["Base.Yarn"]                         = { Science =  2, Tailoring =  5 },
 
-    ["Base.DeerLeather_Fur_Tan"]  = { Science = 10, Tailoring = 15 }, -- TODO: convert to scraps / other leather types
+    ["Base.DeerLeather_Fur_Tan"]          = { Science = 10, Tailoring = 15 }, -- TODO: convert to scraps / other leather types
 
     ["Base.Leather_Crude_Medium"]         = { Science = 10, Tailoring = 10 },
     ["Base.Leather_Crude_Medium_Tan"]     = { Science = 10, Tailoring = 10 },
     ["Base.Leather_Crude_Medium_Tan_Wet"] = { Science = 10, Tailoring = 10 },
 
-    ["Base.crafted_04_36"]        = { Science = 5, Tailoring = 20, key = "spinning_wheel" },
-    ["Base.crafted_04_37"]        = { Science = 5, Tailoring = 20, key = "spinning_wheel" },
-    ["Base.crafted_04_38"]        = { Science = 5, Tailoring = 20, key = "spinning_wheel" },
-    ["Base.crafted_04_39"]        = { Science = 5, Tailoring = 20, key = "spinning_wheel" },
+    ["Base.crafted_04_36"]                = { Science = 5, Tailoring = 20, key = "spinning_wheel" },
+    ["Base.crafted_04_37"]                = { Science = 5, Tailoring = 20, key = "spinning_wheel" },
+    ["Base.crafted_04_38"]                = { Science = 5, Tailoring = 20, key = "spinning_wheel" },
+    ["Base.crafted_04_39"]                = { Science = 5, Tailoring = 20, key = "spinning_wheel" },
 }})
 
 

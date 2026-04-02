@@ -47,24 +47,26 @@ describe(ZScienceSkill.skillBookXP, function()
     end)
 end)
 
-describe(ZScienceSkill.herbalistPlants, function()
+describe(ZScienceSkill.Data.traits, function()
     it("is a table", function()
         assert.is_table(subject)
     end)
-    
-    it("has all values set to true", function()
-        for plant, value in pairs(subject) do
-            assert.is_true(value, plant .. " should be true")
-        end
+
+    it("has Herbalist required specimens count", function()
+        assert.is_not_nil(subject[CharacterTrait.HERBALIST])
     end)
-    
-    it("has at least required number of plants", function()
+
+    it("has at least required number of Herbalist specimens", function()
+        local required = subject[CharacterTrait.HERBALIST] or 10
         local count = 0
-        for _ in pairs(subject) do
-            count = count + 1
+
+        for _, specimenCfg in pairs(ZScienceSkill.Data.specimens) do
+            if type(specimenCfg) == "table" and specimenCfg.trait == CharacterTrait.HERBALIST then
+                count = count + 1
+            end
         end
-        local required = ZScienceSkill.herbalistPlantsRequired or 10
-        assert.is_true(count >= required, "Expected at least " .. required .. " plants, found " .. count)
+
+        assert.is_true(count >= required, "Expected at least " .. required .. " specimens, found " .. count)
     end)
 end)
 

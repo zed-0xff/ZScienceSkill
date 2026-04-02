@@ -184,42 +184,58 @@ function ISResearchSpecimen:complete()
     ZScienceSkill.setResearched(self.character, researchKey)
     
     if fullType then
-        -- Track plants for Herbalist unlock
-        local plantType = nil
-        if ZScienceSkill.herbalistPlants and ZScienceSkill.herbalistPlants[fullType] then
-            plantType = fullType
-        end
-        
-        if plantType then
+        -- Trait unlock mechanic:
+        -- vanilla.lua declares:
+        --   * ZScienceSkill.Data.traits[CharacterTrait.X] = required unique specimens
+        --   * ZScienceSkill.Data.specimens[fullType].trait = CharacterTrait.X
+        local specimenCfg = ZScienceSkill.Data.specimens and ZScienceSkill.Data.specimens[fullType]
+        local trait       = type(specimenCfg) == "table" and specimenCfg.trait or nil
+        local required    = trait and ZScienceSkill.Data.traits and ZScienceSkill.Data.traits[trait] or nil
+
+        if trait and required and required > 0 then
             local pzsData = ZScienceSkill.getPlayerZSData(self.character)
-            pzsData.researchedPlants = pzsData.researchedPlants or {}
-            
-            if not pzsData.researchedPlants[plantType] then
-                pzsData.researchedPlants[plantType] = true
-                
-                -- Count unique plants researched
-                local count = 0
-                for _ in pairs(pzsData.researchedPlants) do
-                    count = count + 1
-                end
-                
-                local required = ZScienceSkill.herbalistPlantsRequired or 10
-                local hasHerbalist = self.character:isRecipeActuallyKnown("Herbalist")
-                
-                -- Grant Herbalist recipe and trait if threshold reached
-                if count >= required and not hasHerbalist then
-                    self.character:learnRecipe("Herbalist")
-                    if not self.character:hasTrait(CharacterTrait.HERBALIST) then
-                        self.character:getCharacterTraits():add(CharacterTrait.HERBALIST)
+
+            -- Back-compat: old saves tracked herbalist plants in `researchedPlants`.
+            if trait == CharacterTrait.HERBALIST and pzsData.researchedPlants and not pzsData.researchedTraitSpecimens then
+                pzsData.researchedTraitSpecimens = {}
+            end
+
+            local traitKey = tostring(trait) -- "base:herbalist"
+            pzsData.researchedTraitSpecimens = pzsData.researchedTraitSpecimens or {}
+            pzsData.researchedTraitSpecimens[traitKey] = pzsData.researchedTraitSpecimens[traitKey] or {}
+
+            if trait == CharacterTrait.HERBALIST and pzsData.researchedPlants and not table.isempty(pzsData.researchedPlants) then
+                -- If we haven't migrated yet, seed the new structure from old data.
+                if table.isempty(pzsData.researchedTraitSpecimens[traitKey]) then
+                    for fullTypeKey, _ in pairs(pzsData.researchedPlants) do
+                        pzsData.researchedTraitSpecimens[traitKey][fullTypeKey] = true
                     end
-                    -- Sync recipes (0x01) and traits (0x02) to client
-                    sendSyncPlayerFields(self.character, 0x00000003)
-                    -- Notify client to show unlock UI
-                    sendServerCommand(self.character, "ZScienceSkill", "herbalistUnlocked", {})
-                elseif not hasHerbalist then
-                    -- Notify client to show progress hint
-                    sendServerCommand(self.character, "ZScienceSkill", "herbalistProgress", { count = count })
                 end
+            end
+
+            if not pzsData.researchedTraitSpecimens[traitKey][fullType] then
+                pzsData.researchedTraitSpecimens[traitKey][fullType] = true
+            end
+
+            -- Count unique specimens researched for this trait
+            local count = 0
+            for _ in pairs(pzsData.researchedTraitSpecimens[traitKey]) do
+                count = count + 1
+            end
+
+            local hasTrait = self.character:hasTrait(trait)
+
+            if count >= required and not hasTrait then
+                self.character:getCharacterTraits():add(trait)
+                self.character:applyCharacterTraitsRecipes()
+
+                -- Sync recipes (0x01) and traits (0x02) to client
+                local syncMask = 0x00000003
+                sendSyncPlayerFields(self.character, syncMask)
+
+                ZScienceSkill.Notifications.traitUnlocked(self.character, trait)
+            elseif not hasTrait then
+                ZScienceSkill.Notifications.traitProgress(self.character, trait, count, required)
             end
         end
     end

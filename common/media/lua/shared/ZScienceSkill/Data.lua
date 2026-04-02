@@ -1,12 +1,17 @@
 ZScienceSkill = ZScienceSkill or {}
 
 ZScienceSkill.Data = {
-    fluids = {},
-    literature = {},
-    literatureReadOnce = {},
-    specimens = {},
-    -- [profession id] = { research key, ... } pre-filled for profession integrations
-    profPreResearchedSpecimens = {},
+    fluids                     = {},
+    literature                 = {},
+    literatureReadOnce         = {},
+    specimens                  = {},
+    traits                     = {}, -- CharacterTrait => N required specimens to unlock
+    profPreResearchedSpecimens = {}, -- [profession id] = { research key, ... } pre-filled for profession integrations
+}
+
+ZScienceSkill.NON_PERK_KEYWORDS = {
+    key   = true,
+    trait = true,
 }
 
 function ZScienceSkill.Data.add(tables)
@@ -21,7 +26,6 @@ function ZScienceSkill.Data.add(tables)
     end
 end
 
-
 -- Skill book XP by level (any skill book grants small Science XP)
 ZScienceSkill.skillBookXP = {
     [1] = 10,  -- Vol. 1
@@ -30,45 +34,3 @@ ZScienceSkill.skillBookXP = {
     [7] = 40,  -- Vol. 4
     [9] = 50,  -- Vol. 5
 }
-
--- Plants that count toward Herbalist unlock (research 10 unique to learn)
-ZScienceSkill.herbalistPlants = {
-    -- Berries
-    ["Base.BeautyBerry"] = true,
-    ["Base.HollyBerry"] = true,
-    ["Base.WinterBerry"] = true,
-    ["Base.BerryBlack"] = true,
-    ["Base.BerryBlue"] = true,
-    ["Base.BerryGeneric1"] = true,
-    ["Base.BerryGeneric2"] = true,
-    ["Base.BerryGeneric3"] = true,
-    ["Base.BerryGeneric4"] = true,
-    ["Base.BerryGeneric5"] = true,
-    ["Base.BerryPoisonIvy"] = true,
-    -- Mushrooms
-    ["Base.MushroomGeneric1"] = true,
-    ["Base.MushroomGeneric2"] = true,
-    ["Base.MushroomGeneric3"] = true,
-    ["Base.MushroomGeneric4"] = true,
-    ["Base.MushroomGeneric5"] = true,
-    ["Base.MushroomGeneric6"] = true,
-    ["Base.MushroomGeneric7"] = true,
-    ["Base.MushroomsButton"] = true,
-    -- Medicinal plants
-    ["Base.BlackSage"] = true,
-    ["Base.CommonMallow"] = true,
-    ["Base.Comfrey"] = true,
-    ["Base.Ginseng"] = true,
-    ["Base.LemonGrass"] = true,
-    ["Base.Plantain"] = true,
-    ["Base.WildGarlic2"] = true,
-    -- Wild plants
-    ["Base.Acorn"] = true,
-    ["Base.Dandelions"] = true,
-    ["Base.GrapeLeaves"] = true,
-    ["Base.Nettles"] = true,
-    ["Base.Rosehips"] = true,
-    ["Base.Thistle"] = true,
-    ["Base.Violets"] = true,
-}
-ZScienceSkill.herbalistPlantsRequired = 10

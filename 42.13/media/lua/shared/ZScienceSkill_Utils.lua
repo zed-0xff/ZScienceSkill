@@ -21,17 +21,21 @@ function ZScienceSkill.getPlayerZSData(player)
 end
 
 -- only sets key to true, caller is responsible for client/server sync
-function ZScienceSkill.setResearched(player, key)
+function ZScienceSkill.setResearched(player, key, flag)
     if not player or not key then return false end
 
     local pzsData = ZScienceSkill.getPlayerZSData(player)
     pzsData.researchedSpecimens = pzsData.researchedSpecimens or {}
 
-    if pzsData.researchedSpecimens[key] then
-        return false
+    if flag == false then
+        pzsData.researchedSpecimens[key] = nil
     else
-        pzsData.researchedSpecimens[key] = true
-        return true
+        if pzsData.researchedSpecimens[key] then
+            return false
+        else
+            pzsData.researchedSpecimens[key] = true
+            return true
+        end
     end
 end
 
@@ -201,7 +205,7 @@ function ZScienceSkill.addXpFromTable(character, tbl, key, item)
     end
     if type(val) == "table" then
         for perk, xp in pairs(val) do -- 'perk' can be either string (perk name) or the Perk object itself
-            if perk ~= "key" then  -- skip the 'key' field, it's not a perk
+            if not ZScienceSkill.NON_PERK_KEYWORDS[perk] then
                 if type(perk) == "string" then
                     if perk == "randomPerk" then
                         perk = ZScienceSkill.getRandomPerk()
