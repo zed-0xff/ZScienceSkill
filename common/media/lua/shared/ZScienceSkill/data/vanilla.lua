@@ -351,7 +351,7 @@ ZScienceSkill.Data.add({ specimens = {
     ["Base.Flour2"]          = { Science =  5, Cooking = 10 },
     ["Base.SugarCubes"]      = { Science =  5, Cooking = 10 },  -- recipe?
 
-    ["Base.BakingSoda"]      = { Science = 20, Cooking = 20 },  -- sodium bicarbonate
+    ["Base.BakingSoda"]      = { Science = 20, Cooking = 20, AppliedChemistry = 10 },  -- sodium bicarbonate
     ["Base.Hairspray2"]      = 10,                              -- TODO: learn recipe?
     ["Base.InsectRepellent"] = 20,
     ["Base.Vinegar2"]        = { Science = 20, Cooking = 20, key = "Base.Vinegar" },
@@ -365,7 +365,7 @@ ZScienceSkill.Data.add({ specimens = {
     ["Base.BlowTorch"]      = { Science =  5, MetalWelding = 10 },
     ["Base.Extinguisher"]   =  5,
     ["Base.LighterFluid"]   =  5, -- TODO: make bomb?
-    ["Base.Oxygen_Tank"]    = 25,
+    ["Base.Oxygen_Tank"]    = { Science = 25, AppliedChemistry = 10 },
     ["Base.Propane_Refill"] = 20,
     ["Base.PropaneTank"]    = { Science = 30, MetalWelding = 30 },
     ["Base.WeldingMask"]    = { Science =  5, MetalWelding = 10 },
@@ -375,12 +375,12 @@ ZScienceSkill.Data.add({ specimens = {
 
 -- fluids don't have "Base." prefix nor getFullType() method
 ZScienceSkill.Data.add({ fluids = {
-    ["Acid"]            = { Science =  50 },
-    ["Bleach"]          = { Science =  30 },
+    ["Acid"]            = { Science =  50, AppliedChemistry = 25 },
+    ["Bleach"]          = { Science =  30, AppliedChemistry = 10 },
     ["Blood"]           = { Science =  50, Doctor = 50 },
     ["Cologne"]         = { Science =  10 }, -- TODO: learn recipeL disinfect rags with cologne
     ["IndustrialDye"]   = { Science =  10, Maintenance = 10 },
-    ["SecretFlavoring"] = { Science = 200, Cooking = 50 },
+    ["SecretFlavoring"] = { Science = 200, Cooking = 50, AppliedChemistry = 25 },
 }})
 
 -- Electronics / tech components
