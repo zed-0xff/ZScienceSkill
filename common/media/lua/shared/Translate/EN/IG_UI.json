@@ -20,7 +20,7 @@
     "IGUI_TraitResearchRemaining1": "I need to research one more %2!",
 
     "IGUI_TraitResearch_blacksmith_singular": "metal",     "IGUI_TraitResearch_blacksmith_plural":   "metals",
-    "IGUI_TraitResearch_gardener_singular":   "seed type", "IGUI_TraitResearch_gardener_plural":     "seeds types",
+    "IGUI_TraitResearch_gardener_singular":   "seed type", "IGUI_TraitResearch_gardener_plural":     "seed types",
     "IGUI_TraitResearch_herbalist_singular":  "plant",     "IGUI_TraitResearch_herbalist_plural":    "plants",
     "IGUI_TraitResearch_singular":            "specimen",  "IGUI_TraitResearch_plural":              "specimens",
 

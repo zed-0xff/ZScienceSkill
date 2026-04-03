@@ -585,6 +585,7 @@ ZScienceSkill.Data.add({ specimens = {
     ["Base.RubberStrips"]                 = { Tailoring = 5 },
     ["Base.Tarp"]                         = { Science =  2, Tailoring =  7 },
     ["Base.Thimble"]                      = { Tailoring =  5 },
+    ["Base.Thread_Aramid"]                = { Science = 10, Tailoring = 15 },
     ["Base.Thread_Sinew"]                 = { Science =  5, Tailoring =  5 },
     ["Base.Twine"]                        = { Science =  2, Tailoring =  5 },
     ["Base.Yarn"]                         = { Science =  2, Tailoring =  5 },
@@ -627,6 +628,7 @@ ZScienceSkill.Data.add({ specimens = {
 
 -- lulz
 ZScienceSkill.Data.add({ specimens = {
+    ["Base.BorisBadger"]     = { randomPerk =  50 },
     ["Base.EyeOfCthulhu"]    = { randomPerk = 200 },
     ["Base.FreddyFox"]       = { randomPerk =  50 },
     ["Base.MoleyMole"]       = { randomPerk =  50 },
