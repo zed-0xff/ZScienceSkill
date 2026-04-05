@@ -84,6 +84,9 @@ Pretty much anything that looks sciency:
    [*]SpaceShip Z-001 (WIP, coming soon!)
 [/list]
 
+[h1]Support Goods mods and B42.13+[/h1]
+[url=https://steamcommunity.com/sharedfiles/filedetails/?id=3677147974]Zed's Universal Mod Unbork[/url] makes them work on newer game versions.
+
 [h1]Compatibility[/h1]
 Should work with most mods. We hook into vanilla functions cleanly and call originals when possible.
 
