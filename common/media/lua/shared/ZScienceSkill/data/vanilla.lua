@@ -324,17 +324,18 @@ ZScienceSkill.Data.add({ specimens = {
     ["Base.Squid"]    = seafoodXP * 1.5,
 }})
 
-local gemXP = 30
+local sciXP  = 25
+local knapXP = 25
 ZScienceSkill.Data.add({ specimens = {
     -- Gems, minerals & geology
-    ["Base.Diamond"]        = gemXP,
-    ["Base.Emerald"]        = gemXP,
-    ["Base.Ruby"]           = gemXP,
-    ["Base.Sapphire"]       = gemXP,
-    ["Base.Amethyst"]       = gemXP,
-    ["Base.Crystal"]        = gemXP,
-    ["Base.Crystal_Large"]  = gemXP * 1.5,
-    ["Base.LargeMeteorite"] = 200,  -- Rare space rock
+    ["Base.Diamond"]        = { Science = sciXP, FlintKnapping = knapXP },
+    ["Base.Emerald"]        = { Science = sciXP, FlintKnapping = knapXP },
+    ["Base.Ruby"]           = { Science = sciXP, FlintKnapping = knapXP },
+    ["Base.Sapphire"]       = { Science = sciXP, FlintKnapping = knapXP },
+    ["Base.Amethyst"]       = { Science = sciXP, FlintKnapping = knapXP },
+    ["Base.Crystal"]        = { Science = sciXP, FlintKnapping = knapXP },
+    ["Base.Crystal_Large"]  = { Science = sciXP * 2, FlintKnapping = knapXP * 2 },
+    ["Base.LargeMeteorite"] = { Science = sciXP * 8, FlintKnapping = knapXP * 8 },  -- Rare space rock
 }})
 
 
@@ -386,6 +387,7 @@ ZScienceSkill.Data.add({ specimens = {
 -- fluids don't have "Base." prefix nor getFullType() method
 ZScienceSkill.Data.add({ fluids = {
     ["Acid"]            = { Science =  50, AppliedChemistry = 25 },
+    ["AnimalBlood"]     = { Science =  50, Doctor = 25, Husbandry = 25 },
     ["Bleach"]          = { Science =  30, AppliedChemistry = 10 },
     ["Blood"]           = { Science =  50, Doctor = 50 },
     ["Cologne"]         = { Science =  10 }, -- TODO: learn recipeL disinfect rags with cologne
