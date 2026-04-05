@@ -9,7 +9,14 @@ Found a jar with a brain in it? A dead rat? Some weird mushrooms? Now you can ac
 
 Where to find microscopes: schools, medical clinics, hospitals, police stations (forensics), and the occasional fancy house.
 
-Pro tip: Pay extra attention to plants, berries, and mushrooms. Rumor has it that studying enough of them might unlock something... useful. 👀
+[b]Unlockable traits[/b]
+Some specimens are tagged for [i]trait research[/i]: each [b]unique[/b] item type you study at a microscope counts toward that trait. By default you need [b]10 different[/b] tagged specimens per trait (see mod data — [i]vanilla.lua[/i] — if you want the full lists). You still get Science XP every time. If your character already has the trait, you keep the XP but no longer progress that unlock.
+
+[list]
+[*][b]Herbalist[/b] — berries, mushrooms, medicinal plants, and many wild forage plants. Reaching the threshold unlocks Herbalist (including the usual recipe/knowledge you’d expect).
+[*][b]Blacksmith[/b] — metal specimens: ingots, ore, scrap, and related items (the mod often merges variants of the same metal into one research “slot”).
+[*][b]Gardener[/b] — crop and herb [b]seeds[/b] (research the seed items as specimens).
+[/list]
 
 Look for the small gray "R" on item icons - that means you haven't read/researched it yet and it can give you Science XP!
 
@@ -61,6 +68,8 @@ Pretty much anything that looks sciency:
    [*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=3671173479]Glass Cutter[/url]
    [*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=3539339798]Hacking Skill[/url]
    [*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=3693550188]Jeeve's Personal Computer[/url]
+   [*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=3668197831]Phobos' Industrial Pathways: Biomass[/url]
+   [*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=3686101131]Phobos' Industrial Pathways: Pathology[/url]
    [*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=3628922658]Printer3D[/url]
    [*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=3564950449]Project Summer Car[/url]
    [*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=3555588616]Sewing Workbranch[/url]
