@@ -53,13 +53,27 @@ Pretty much anything that looks sciency:
 - No other mods required
 
 [h1]Integrations[/h1]
-- [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3615135168] Zombie Virus Vaccine [/url] (profession included!)
-- [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3671173479] Glass Cutter [/url]
-- [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3628922658] Printer3D [/url]
-- [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3539339798] Hacking Skill [/url]
-- [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3508513470] Support Goods - MyComputer![/url] => printable Science Skillbooks
-- [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3512993822] Support Goods Mega Mod[/url] => printable Science Skillbooks
-- SpaceShip Z-001 (wip, coming soon!)
+[list]
+   [*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=2999183635]Better Electronics[/url]
+   [*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=3665315101]Energy Routing System[/url]
+   [*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=3399263137]Factory Pieces[/url]
+   [*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=3387934550]Functional Computer[/url]
+   [*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=3671173479]Glass Cutter[/url]
+   [*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=3539339798]Hacking Skill[/url]
+   [*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=3693550188]Jeeve's Personal Computer[/url]
+   [*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=3628922658]Printer3D[/url]
+   [*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=3564950449]Project Summer Car[/url]
+   [*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=3555588616]Sewing Workbranch[/url]
+   [*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=3508513470]Support Goods - MyComputer![/url] (printable Science Skillbooks!)
+   [*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=3434920270]Support Goods [B42] My Photo[/url]
+   [*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=3512993822]Support Goods Mega Mod[/url] (printable Science Skillbooks!)
+   [*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=3652517636]Tank Water[/url]
+   [*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=3171167894]that DAMN Library[/url]
+   [*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=3611718925]Vanilla Firearms Expansion[/url]
+   [*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=3577903007]Vanilla Foods Expanded[/url]
+   [*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=3615135168]Zombie Virus Vaccine[/url]
+   [*]SpaceShip Z-001 (WIP, coming soon!)
+[/list]
 
 [h1]Compatibility[/h1]
 Should work with most mods. We hook into vanilla functions cleanly and call originals when possible.
