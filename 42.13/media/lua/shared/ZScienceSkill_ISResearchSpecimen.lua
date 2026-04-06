@@ -364,7 +364,10 @@ local function findUnresearchedSpecimens(playerObj)
             if status and status.researched ~= status.total then
                 for _, entry in ipairs(status.data) do
                     if not entry.researched and not entry.type:contains("literature") then
-                        specimens[ZScienceSkill.getItemFullType(item)] = item
+                        specimens[ZScienceSkill.getItemFullType(item)] = {
+                            item   = item,
+                            status = status,
+                        }
                         break
                     end
                 end
@@ -376,7 +379,7 @@ local function findUnresearchedSpecimens(playerObj)
 end
 
 -- World object context menu hook (for microscope)
-local function onFillWorldObjectContextMenu(player, context, worldobjects, _test)
+local function onMicroscopeContextMenu(player, context, worldobjects, _test)
     -- Note: 'test' parameter is for controller prompts, but PZ automatically handles this
     -- by checking if menu options were added. No need to check ISWorldObjectContextMenu.Test.
     
@@ -393,38 +396,63 @@ local function onFillWorldObjectContextMenu(player, context, worldobjects, _test
     
     if not microscope then return end
     
-    local specimens = findUnresearchedSpecimens(playerObj)
-    local spriteName = microscope:getSprite() and microscope:getSprite():getName()
-    local tex = spriteName and getTexture(spriteName)
+    local specimens      = findUnresearchedSpecimens(playerObj)
+    local spriteName     = microscope:getSprite() and microscope:getSprite():getName()
+    local tex            = spriteName and getTexture(spriteName)
     local microscopeIcon = tex and tex:splitIcon()
-    
-    local option
+    local option         = context:addOption(getText("ContextMenu_ResearchSpecimen"), nil, nil)
+
     if table.isempty(specimens) then
-        option = context:addOption(getText("ContextMenu_ResearchAll"), nil, nil)
         option.notAvailable = true
         local tooltip = ISToolTip:new()
         tooltip:setName(getText("Tooltip_NoSpecimens"))
         option.toolTip = tooltip
     elseif playerObj:tooDarkToRead() then
-        option = context:addOption(getText("ContextMenu_ResearchAll"), nil, nil)
         option.notAvailable = true
         local tooltip = ISToolTip:new()
         tooltip:setName(getText("ContextMenu_TooDark"))
         option.toolTip = tooltip
     else
-        local nspec = 0
-        for _ in pairs(specimens) do
-            nspec = nspec + 1
+        local subMenu = ISContextMenu:getNew(context)
+        context:addSubMenu(option, subMenu)
+
+        local ntotal = 0
+        local itemsPerPerk = {}
+        for _, sp in pairs(specimens) do
+            ntotal = ntotal + 1
+            for _, entry in ipairs(sp.status.data) do
+                if not entry.researched then
+                    for perk, _ in pairs(entry.perks) do
+                        local perkName = perk.getName and perk:getName() or tostring(perk)
+                        itemsPerPerk[perkName] = itemsPerPerk[perkName] or {}
+                        table.insert(itemsPerPerk[perkName], sp.item)
+                    end
+                end
+            end
         end
 
-        option = context:addOption(getText("ContextMenu_ResearchAll") .. " (" .. nspec .. ")", playerObj, function(pl)
-            for _, item in pairs(specimens) do
-                ISTimedActionQueue.add(ISResearchSpecimen:new(pl, item))
+        subMenu:addOption(getText("ContextMenu_ResearchAll") .. " (" .. ntotal .. ")", playerObj, function(pl)
+            for _, sp in pairs(specimens) do
+                ISTimedActionQueue.add(ISResearchSpecimen:new(pl, sp.item))
             end
         end)
-        local tooltip = ISToolTip:new()
-        tooltip:setName(getText("Tooltip_ResearchAllDesc", nspec))
-        option.toolTip = tooltip
+
+        local sortedItemsPerPerk = {}
+        for perkName, items in pairs(itemsPerPerk) do
+            table.insert(sortedItemsPerPerk, {perkName = perkName, items = items})
+        end
+        table.sort(sortedItemsPerPerk, function(a, b) return a.perkName < b.perkName end)
+
+        for _, entry in ipairs(sortedItemsPerPerk) do
+            local perkName = entry.perkName
+            local items    = entry.items
+            local count    = #items
+            subMenu:addOption(getText("ContextMenu_ResearchPerk", perkName) .. " (" .. count .. ")", playerObj, function(pl)
+                for _, item in ipairs(items) do
+                    ISTimedActionQueue.add(ISResearchSpecimen:new(pl, item))
+                end
+            end)
+        end
     end
     
     if option and microscopeIcon then
@@ -432,4 +460,4 @@ local function onFillWorldObjectContextMenu(player, context, worldobjects, _test
     end
 end
 
-Events.OnFillWorldObjectContextMenu.Add(onFillWorldObjectContextMenu)
+Events.OnFillWorldObjectContextMenu.Add(onMicroscopeContextMenu)

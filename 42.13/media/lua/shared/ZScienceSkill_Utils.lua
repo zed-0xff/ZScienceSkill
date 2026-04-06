@@ -126,6 +126,31 @@ function ZScienceSkill.isLiteratureRead(playerObj, item, startPage)
     return false
 end
 
+local function getTblPerks(tbl, bRandomPerk)
+    local result = {}
+    if type(tbl) == "number" then
+        result[Perks.Science] = tbl
+    elseif type(tbl) == "table" then
+        for perk, xp in pairs(tbl) do -- 'perk' can be either string (perk name) or the Perk object itself
+            if not ZScienceSkill.NON_PERK_KEYWORDS[perk] then
+                if type(perk) == "string" then
+                    if perk == "randomPerk" then
+                        perk = bRandomPerk and ZScienceSkill.getRandomPerk()
+                    else
+                        perk = Perks[perk]
+                    end
+                end
+                if perk then
+                    result[perk] = xp
+                end
+            end
+        end
+    else
+        logger:error("Invalid perks data: expected number or table, got type=%s, value=%s", type(tbl), tbl)
+    end
+    return result
+end
+
 -- SSOT
 -- player is optional
 function ZScienceSkill.getItemStatus(item, player)
@@ -134,18 +159,34 @@ function ZScienceSkill.getItemStatus(item, player)
     
     local data = {}
     if ZScienceSkill.Data.literature[fullType] then
-        table.insert(data, { type = "literature", researched = ZScienceSkill.isLiteratureRead(player, item) })
+        table.insert(data, {
+            type       = "literature",
+            researched = ZScienceSkill.isLiteratureRead(player, item),
+            perks      = getTblPerks(ZScienceSkill.Data.literature[fullType], false),
+        })
     end
     if ZScienceSkill.Data.literatureReadOnce[fullType] then
-        table.insert(data, { type = "literatureReadOnce", researched = isLiteratureReadOnce(player, fullType) })
+        table.insert(data, {
+            type       = "literatureReadOnce",
+            researched = isLiteratureReadOnce(player, fullType),
+            perks      = getTblPerks(ZScienceSkill.Data.literatureReadOnce[fullType], false),
+        })
     end
     if ZScienceSkill.Data.specimens[fullType]then
-        table.insert(data, { type = "specimen", researched = isSpecimenResearched(player, fullType) })
+        table.insert(data, {
+            type       = "specimen",
+            researched = isSpecimenResearched(player, fullType),
+            perks      = getTblPerks(ZScienceSkill.Data.specimens[fullType], false),
+        })
     end
                     
     local fluidType = ZScienceSkill.getFluidType(item)
     if fluidType and ZScienceSkill.Data.fluids[fluidType] then
-        table.insert(data, { type = "fluid", researched = isFluidResearched(player, fluidType) })
+        table.insert(data, {
+            type       = "fluid",
+            researched = isFluidResearched(player, fluidType),
+            perks      = getTblPerks(ZScienceSkill.Data.fluids[fluidType], false),
+        })
     end
 
     if #data == 0 then return nil end
