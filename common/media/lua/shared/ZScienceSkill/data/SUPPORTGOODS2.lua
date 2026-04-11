@@ -19,9 +19,11 @@ ZScienceSkill.Data.add({ specimens = {
     ["SupportCorps.Vicodin"]                = { Science = 10, Doctor = 20 },
 
     -- Cooking
+    ["SupportCorps.Airlock"]                = { Science = 10, Cooking = 10 },
     ["SupportCorps.BottleCapper"]           = { Science = 10, Cooking = 10 },
     ["SupportCorps.GlassFermenter"]         = { Science = 10, Cooking = 15 },
     ["SupportCorps.PasturMachine"]          = { Science = 10, Cooking = 15 },
+    ["SupportCorps.PortableCanningMachine"] = { Science = 10, Cooking = 15 },
     ["SupportCorps.YoghurtMaker"]           = { Science = 20, Cooking = 15 },
 
     -- misc

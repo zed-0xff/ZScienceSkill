@@ -124,6 +124,9 @@ ZScienceSkill.Data.add({ specimens = {
     ["Base.DeerStag_Skull"]                 = { Science = 10, Butchering = 10 },
     ["Base.DeerDoe_Skull"]                  = { Science = 10, Butchering = 10 },
     ["Base.DeerFawn_Skull"]                 = { Science = 10, Butchering = 10 },
+
+    -- corpses
+    ["Base.DeadRatSkinned"]                 = { Science = 10, Butchering = 10 },
 }})
 
 
@@ -201,6 +204,7 @@ ZScienceSkill.Data.add({ specimens = {
     ["Base.ComfreyDried"]      = { Science = sciXP, Doctor = docXP, trait = herbalist },
     ["Base.Ginseng"]           = { Science = sciXP, Doctor = docXP, trait = herbalist },
     ["Base.LemonGrass"]        = { Science = sciXP, Doctor = docXP, trait = herbalist },
+    ["Base.Marigold"]          = { Science = sciXP, Doctor = docXP, trait = herbalist },
     ["Base.Plantain"]          = { Science = sciXP, Doctor = docXP, trait = herbalist },
     ["Base.PlantainDried"]     = { Science = sciXP, Doctor = docXP, trait = herbalist },
     ["Base.WildGarlic2"]       = { Science = sciXP, Doctor = docXP, trait = herbalist },
@@ -316,6 +320,7 @@ ZScienceSkill.Data.add({ specimens = {
 local smallCorpseXP = 15
 ZScienceSkill.Data.add({ specimens = {
     -- Small animal corpses (anatomy/dissection)
+    ["Base.CorpseAnimal"]  = smallCorpseXP * 2, -- generic animal corpse, same for sheep/rat/...
     ["Base.DeadRat"]       = smallCorpseXP,
     ["Base.DeadRatBaby"]   = smallCorpseXP * 0.75,
     ["Base.DeadMouse"]     = smallCorpseXP,
@@ -508,17 +513,9 @@ ZScienceSkill.Data.add({ specimens = {
     ["Base.BrokenGlass"]              = { Science = 10, Glassmaking = 20 }, -- TODO: learn recipe
     ["Base.GlassBlowingPipe"]         = { Science = 10, Glassmaking = 20 },
     ["Base.GlassBlowingPipeUnfired"]  = { Science = 10, Glassmaking = 20, key = "Base.GlassBlowingPipe" },
-    ["Base.Glasses_3dGlasses"]        = { Science =  5, Glassmaking = 10 },
-    ["Base.Glasses_HalfMoon"]         = { Science =  5, Glassmaking = 10 }, -- Half Moon Prescription Glasses
-    ["Base.Glasses_Normal"]           = { Science =  5, Glassmaking = 10 }, -- Prescription Glasses renamed in 42.14 ?
-    ["Base.Glasses_Prescription"]     = { Science =  5, Glassmaking = 10 },
-    ["Base.Glasses_Prescription_Sun"] = { Science =  5, Glassmaking = 10 },
     ["Base.GlassPanel"]               = { Science =  5, Glassmaking = 20 },
     ["Base.Loupe"]                    = { Science = 10, Glassmaking = 10 },
     ["Base.MagnifyingGlass"]          = { Science = 15, Glassmaking = 15 },
-    ["Base.Glasses_MonocleLeft"]      = { Science =  5, Glassmaking =  5 },
-    ["Base.Glasses_MonocleRight"]     = { Science =  5, Glassmaking =  5 },
-    ["Base.Glasses_Reading"]          = { Science =  5, Glassmaking =  5 },
 }})
 
 
