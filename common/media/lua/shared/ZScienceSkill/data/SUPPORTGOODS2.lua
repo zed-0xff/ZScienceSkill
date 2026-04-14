@@ -9,6 +9,7 @@ ZScienceSkill.Data.add({ specimens = {
     ["SupportCorps.BatteryCharger"]         = { Science = 10, Electricity = 15 },
     ["SupportCorps.FloppyDiskBinder"]       = { Science =  1, Hacking =  5 },
     ["SupportCorps.InkCartridge"]           = { Science =  5, Hacking =  5 },
+    ["SupportCorps.PortableGenerator"]      = { Science = 10, Electricity = 30 },
 
     -- Doctor
     ["SupportCorps.ActivatedCharcoalPills"] = { Science = 10, Doctor = 20 },

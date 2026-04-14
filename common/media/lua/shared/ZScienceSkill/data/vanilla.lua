@@ -420,11 +420,11 @@ ZScienceSkill.Data.add({ specimens = {
     ["Base.CameraDisposable"]    =  5,
     ["Base.CameraExpensive"]     = 15,
     ["Base.CameraFilm"]          =  5,
-    ["Base.Disc_Retail"]         = { Science =  5, Electricity =  5 },
-    ["Base.Earbuds"]             = { Science =  5, Electricity =  5 },
+    ["Base.Disc_Retail"]         = { Science =  5, Electricity =  5, Music = 5 },
+    ["Base.Earbuds"]             = { Science =  5, Electricity =  5, Music = 5 },
     ["Base.ElectricWire"]        = { Science =  5, Electricity =  5 },
     ["Base.HairDryer"]           = { Science =  5, Electricity =  5 },
-    ["Base.Headphones"]          = { Science =  5, Electricity =  5 },
+    ["Base.Headphones"]          = { Science =  5, Electricity =  5, Music = 5 },
     ["Base.LightBulb"]           = { Science =  5, Electricity =  5 },
     ["Base.PowerBar"]            = { Science =  5, Electricity =  5 },
 
@@ -436,16 +436,16 @@ ZScienceSkill.Data.add({ specimens = {
     ["Base.CarBattery3"]         = { Science = 10, Electricity = 10 },
     ["Base.CordlessPhone"]       = { Science = 10, Electricity = 10 },
     ["Base.ElectronicsScrap"]    = { Science = 10, Electricity = 10 },
-    ["Base.Microphone"]          = { Science = 10, Electricity = 10 },
+    ["Base.Microphone"]          = { Science = 10, Electricity = 10, Music = 5 },
     ["Base.Remote"]              = { Science = 10, Electricity = 10 },
-    ["Base.Speaker"]             = { Science = 10, Electricity = 10 },
+    ["Base.Speaker"]             = { Science = 10, Electricity = 10, Music = 5 },
 
     ["Base.VideoGame"]           = { Science = 10, Electricity = 15 },
 
     ["Base.Amplifier"]           = { Science = 15, Electricity = 20 },
     ["Base.Camera"]              = { Science = 10, Electricity = 20 },
     ["Base.CarBatteryCharger"]   = { Science = 10, Electricity = 20 },
-    ["Base.CDplayer"]            = { Science = 10, Electricity = 20 },
+    ["Base.CDplayer"]            = { Science = 10, Electricity = 20, Music = 5 },
     ["Base.Timer"]               = { Science =  5 },
     ["Base.TimerCrafted"]        = { Science = 15, Electricity = 20 },
     ["Base.TriggerCrafted"]      = { Science = 15, Electricity = 20 }, -- TODO: learn recipe?
@@ -557,6 +557,7 @@ ZScienceSkill.Data.add({ specimens = {
     ["Base.ViseGrips"]          = { Mechanics =  5, Blacksmith = 5 },
     ["Base.Wrench"]             = { Mechanics = 10, Science =  5 },
 
+    ["Base.Pocketwatch"]                   = { Mechanics = 5, Science = 5 },
     ["Base.WristWatch_Left_ClassicBrown"]  = { Mechanics = 5, Science = 5, key = "Base.WristWatch" },
     ["Base.WristWatch_Right_ClassicBrown"] = { Mechanics = 5, Science = 5, key = "Base.WristWatch" },
 }})
@@ -601,6 +602,8 @@ ZScienceSkill.Data.add({ specimens = {
     ["Base.Twine"]                        = { Science =  2, Tailoring =  5 },
     ["Base.Yarn"]                         = { Science =  2, Tailoring =  5 },
 
+    ["Base.Fleshing_Tool"]                = { Tailoring = 10 },
+
     ["Base.DeerLeather_Fur_Tan"]          = { Science = 10, Tailoring = 15 }, -- TODO: convert to scraps / other leather types
 
     ["Base.Leather_Crude_Medium"]         = { Science = 10, Tailoring = 10 },
@@ -634,6 +637,25 @@ ZScienceSkill.Data.add({ specimens = {
     ["Base.FishingRod"]         = { Science = 5, Fishing = 20 },
     ["Base.MinnowLure"]         = { Science = 1, Fishing = 10 },
     ["Base.PremiumFishingLine"] = { Science = 1, Fishing = 15 },
+}})
+
+
+-- Music
+ZScienceSkill.Data.add({ specimens = {
+    ["Base.Banjo"]              = { Science =  5, Music = 10 },
+    ["Base.Flute"]              = { Science =  5, Music = 10 },
+    ["Base.GuitarAcoustic"]     = { Science =  5, Music = 10 },
+    ["Base.GuitarElectric"]     = { Science =  5, Music = 10, Electricity = 10 },
+    ["Base.GuitarElectricBass"] = { Science =  5, Music = 10, Electricity = 10 },
+    ["Base.Keytar"]             = { Science =  5, Music = 10 },
+    ["Base.Saxophone"]          = { Science =  5, Music = 10 },
+    ["Base.Trumpet"]            = { Science =  5, Music = 10 },
+    ["Base.TuningFork"]         = { Science = 15, Music = 20 },
+    ["Base.Violin"]             = { Science = 10, Music = 15 },
+
+    ["Base.Drumstick"]          = { Science =  1, Music = 10 }, -- recipe?
+    ["Base.GuitarPick"]         = { Science =  1, Music = 10 },
+    ["Base.Harmonica"]          = { Science =  1, Music = 10 },
 }})
 
 

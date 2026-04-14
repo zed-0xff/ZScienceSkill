@@ -7,5 +7,8 @@ ZScienceSkill.Data.add({ specimens = {
 
     ["JeevesPC.BrokenPC"]         = { Science = 20, Hacking = 20, Electricity = 20 },
     ["JeevesPC.PersonalComputer"] = { Science = 30, Hacking = 30, Electricity = 30 },
+}})
 
+ZScienceSkill.Data.add({ literatureReadOnce = {
+    ["JeevesPC.PCWorldPDA"]       = { Science = 20, Hacking = 20, Electricity = 20 },
 }})
