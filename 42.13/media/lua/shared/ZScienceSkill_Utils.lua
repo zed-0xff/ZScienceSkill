@@ -39,13 +39,26 @@ function ZScienceSkill.setResearched(player, key, flag)
     end
 end
 
+local combatPerkCache = {}
+
 function ZScienceSkill.isCombatPerk(perk)
+    if combatPerkCache[perk] ~= nil then
+        return combatPerkCache[perk]
+    end
+
     local perkObj = PerkFactory.getPerk(perk)
-    if not perkObj then return false end
-    
+    if not perkObj then
+        combatPerkCache[perk] = false
+        return false
+    end
+
     local parent = perkObj:getParent()
-    return parent == Perks.Combat or parent == Perks.Firearm
-          or perk == Perks.Combat or   perk == Perks.Firearm
+    local isCombatPerk = (parent == Perks.Combat or parent == Perks.Firearm
+        or perk == Perks.Combat or perk == Perks.Firearm)
+
+    combatPerkCache[perk] = isCombatPerk
+
+    return isCombatPerk
 end
 
 -- Get fluid type string from item if it has a fluid container
@@ -109,8 +122,8 @@ function ZScienceSkill.isLiteratureRead(playerObj, item, startPage)
     -- next is a copy of ISInventoryPane:isLiteratureRead(playerObj, item)
     local modData = item:hasModData() and item:getModData() or nil
     if modData ~= nil then
-        if (modData.literatureTitle)      and playerObj:isLiteratureRead(modData.literatureTitle)         then return true end
-        if (modData.printMedia ~= nil)    and playerObj:isPrintMediaRead(modData.printMedia.title)        then return true end
+        if (modData.literatureTitle) and playerObj:isLiteratureRead(modData.literatureTitle) then return true end
+        if (modData.printMedia ~= nil) and playerObj:isPrintMediaRead(modData.printMedia.title) then return true end
         if (modData.learnedRecipe ~= nil) and playerObj:getKnownRecipes():contains(modData.learnedRecipe) then return true end
     end
 
@@ -156,7 +169,7 @@ end
 function ZScienceSkill.getItemStatus(item, player)
     local fullType = ZScienceSkill.getItemFullType(item)
     if not fullType then return end
-    
+
     local data = {}
     if ZScienceSkill.Data.literature[fullType] then
         table.insert(data, {
@@ -172,14 +185,14 @@ function ZScienceSkill.getItemStatus(item, player)
             perks      = getTblPerks(ZScienceSkill.Data.literatureReadOnce[fullType], false),
         })
     end
-    if ZScienceSkill.Data.specimens[fullType]then
+    if ZScienceSkill.Data.specimens[fullType] then
         table.insert(data, {
             type       = "specimen",
             researched = isSpecimenResearched(player, fullType),
             perks      = getTblPerks(ZScienceSkill.Data.specimens[fullType], false),
         })
     end
-                    
+
     local fluidType = ZScienceSkill.getFluidType(item)
     if fluidType and ZScienceSkill.Data.fluids[fluidType] then
         table.insert(data, {
@@ -222,7 +235,8 @@ end
 -- add XP to Science perk based on ZScienceSkill.Data tables
 function ZScienceSkill.addXpFromTable(character, tbl, key, item)
     if type(tbl) ~= "table" then
-        print("[?] ZScienceSkill: table expected for XP data, got type=" .. type(tbl) .. ", tbl=" .. tostring(tbl) .. ", key=" .. tostring(key))
+        print("[?] ZScienceSkill: table expected for XP data, got type=" ..
+            type(tbl) .. ", tbl=" .. tostring(tbl) .. ", key=" .. tostring(key))
         return false
     end
 
@@ -262,7 +276,8 @@ function ZScienceSkill.addXpFromTable(character, tbl, key, item)
         return true
     end
 
-    print("[?] ZScienceSkill: invalid XP data for specimen: type=" .. type(val) .. ", value=" .. tostring(val) .. ", key=" .. tostring(key))
+    print("[?] ZScienceSkill: invalid XP data for specimen: type=" ..
+        type(val) .. ", value=" .. tostring(val) .. ", key=" .. tostring(key))
     return false
 end
 
@@ -346,4 +361,4 @@ function ZScienceSkill.copyRecipeInputs(dstFullId, srcFullId, ...)
 
     return dstRecipe
 end
-]]--
+]] --

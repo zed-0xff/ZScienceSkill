@@ -3,29 +3,34 @@ require 'ZSS_Fix_Events'
 
 if isClient() then return end
 
-local updating = false
+local updatingCharacters = {}
+local sciencePerk = Perks.Science
+local multiplier = 0.02 -- multiplier for the bonusXP per scienceLevel. 0.02 = 2%
 
 local function onAddXP(character, perk, amount)
     -- prevent recursion
-    if updating then return end
-    
+    if updatingCharacters[character] then return end
+
     -- Skip combat perks, Science itself, and negative XP
-    if ZScienceSkill.isCombatPerk(perk) or perk == Perks.Science or amount <= 0 then
+    if ZScienceSkill.isCombatPerk(perk) or perk == sciencePerk or amount <= 0 then
         return
     end
-    
-    updating = true
+
+    local scienceLevel = character:getPerkLevel(sciencePerk)
+    if scienceLevel < 1 then return end
+
+    updatingCharacters[character] = true
+
     pcall(function()
-        local scienceLevel = character:getPerkLevel(Perks.Science)
-        if scienceLevel > 0 then
-            local bonusPercent = scienceLevel * 0.02  -- 2% per level
-            local bonusXP = amount * bonusPercent
-            if bonusXP >= ZScienceSkill.minGain then
-                addXp(character, perk, bonusXP)
-            end
+        local bonusXP = amount * (scienceLevel * multiplier)
+
+
+        if bonusXP >= ZScienceSkill.minGain then
+            addXpNoMultiplier(character, perk, bonusXP)
         end
     end)
-    updating = false
+
+    updatingCharacters[character] = nil
 end
 
 ZSS_Fix_Events.AddXP.Add(onAddXP)
