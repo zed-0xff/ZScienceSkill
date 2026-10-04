@@ -198,6 +198,7 @@ local docXP = 10
 ZScienceSkill.Data.add({ specimens = {
     ["Base.BlackSage"]         = { Science = sciXP, Doctor = docXP, trait = herbalist },
     ["Base.BlackSageDried"]    = { Science = sciXP, Doctor = docXP, trait = herbalist },
+    ["Base.Chamomile"]         = { Science = sciXP, Doctor = docXP, trait = herbalist },
     ["Base.CommonMallow"]      = { Science = sciXP, Doctor = docXP, trait = herbalist },
     ["Base.CommonMallowDried"] = { Science = sciXP, Doctor = docXP, trait = herbalist },
     ["Base.Comfrey"]           = { Science = sciXP, Doctor = docXP, trait = herbalist },
@@ -207,6 +208,8 @@ ZScienceSkill.Data.add({ specimens = {
     ["Base.Marigold"]          = { Science = sciXP, Doctor = docXP, trait = herbalist },
     ["Base.Plantain"]          = { Science = sciXP, Doctor = docXP, trait = herbalist },
     ["Base.PlantainDried"]     = { Science = sciXP, Doctor = docXP, trait = herbalist },
+    ["Base.Poppies"]           = { Science = sciXP, Doctor = docXP, trait = herbalist },
+    ["Base.SunflowerHead"]     = { Science = sciXP,                 trait = herbalist },
     ["Base.WildGarlic2"]       = { Science = sciXP, Doctor = docXP, trait = herbalist },
     ["Base.WildGarlicDried"]   = { Science = sciXP, Doctor = docXP, trait = herbalist },
 }})
@@ -664,6 +667,7 @@ ZScienceSkill.Data.add({ specimens = {
     ["Base.BorisBadger"]     = { randomPerk =  50 },
     ["Base.EyeOfCthulhu"]    = { randomPerk = 200 },
     ["Base.FreddyFox"]       = { randomPerk =  50 },
+    ["Base.FurbertSquirrel"] = { randomPerk =  50 },
     ["Base.MoleyMole"]       = { randomPerk =  50 },
     ["Base.PanchoDog"]       = { randomPerk =  50 },
     ["Base.PancakeHedgehog"] = { randomPerk =  50 },
