@@ -73,6 +73,7 @@ Pretty much anything that looks sciency:
    [*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=3628922658]Printer3D[/url]
    [*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=3564950449]Project Summer Car[/url]
    [*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=3555588616]Sewing Workbranch[/url]
+   [*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=3708812976]SpaceShip Z-001[/url]
    [*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=3508513470]Support Goods - MyComputer![/url] (printable Science Skillbooks!)
    [*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=3434920270]Support Goods [B42] My Photo[/url]
    [*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=3512993822]Support Goods Mega Mod[/url] (printable Science Skillbooks!)
@@ -81,7 +82,6 @@ Pretty much anything that looks sciency:
    [*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=3611718925]Vanilla Firearms Expansion[/url]
    [*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=3577903007]Vanilla Foods Expanded[/url]
    [*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=3615135168]Zombie Virus Vaccine[/url]
-   [*]SpaceShip Z-001 (WIP, coming soon!)
 [/list]
 
 [h1]Support Goods mods and B42.13+[/h1]
@@ -98,4 +98,4 @@ Should work with most mods. We hook into vanilla functions cleanly and call orig
 
 Now go forth and science the apocalypse! 🔬🧪
 
-[url=https://ko-fi.com/zed_0xff][img]https://i.imgur.com/Utx6OIH.png[/img][/url]
+[url=https://patreon.com/zed_0xff][img]https://cdn.jsdelivr.net/gh/zed-0xff/ZombieBuddy@master/patreon.png[/img][/url]

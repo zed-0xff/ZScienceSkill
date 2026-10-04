@@ -4,4 +4,8 @@ description=Adds a Science skill. Research specimens at microscopes, read scienc
 icon=modIcon.png
 poster=poster.png
 
+author=Zed
+url=https://github.com/zed-0xff/ZScienceSkill
+patreon=https://patreon.com/zed_0xff
+
 require=\zdk
